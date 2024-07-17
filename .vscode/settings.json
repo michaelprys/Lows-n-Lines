@@ -6,6 +6,7 @@
     "pnpm-lock.yaml": true,
     "README.md": true,
     "tsconfig.json": true,
-    ".vscode": true
+    ".vscode": true,
+    ".prettierrc.json": true
   }
 }
