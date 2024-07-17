@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    ".gitignore": true,
+    ".nuxt": true,
+    "node_modules": true,
+    "pnpm-lock.yaml": true,
+    "README.md": true,
+    "tsconfig.json": true,
+    ".vscode": true
+  }
+}
