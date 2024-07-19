@@ -11,13 +11,22 @@
     },
     "dependencies": {
         "@nuxt/image": "^1.7.0",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.1",
         "flowbite": "^2.4.1",
+        "lucide-vue-next": "^0.408.0",
         "nuxt": "^3.12.3",
+        "radix-vue": "^1.9.1",
+        "shadcn-nuxt": "^0.10.4",
+        "tailwind-merge": "^2.4.0",
+        "tailwindcss-animate": "^1.0.7",
+        "vaul-vue": "^0.2.0",
         "vue": "latest"
     },
     "devDependencies": {
         "@nuxtjs/tailwindcss": "^6.12.1",
         "prettier": "^3.3.3",
-        "prettier-plugin-tailwindcss": "^0.6.5"
+        "prettier-plugin-tailwindcss": "^0.6.5",
+        "typescript": "^5.5.3"
     }
 }

@@ -1,23 +1,18 @@
 <template>
   <header class="bg-[#F4F6F8]">
     <nav
-      class="relative flex min-h-[10.875rem] items-center px-14 extra-max:grid extra-max:grid-rows-3 extra-max:px-5"
+      class="relative flex min-h-[10.875rem] items-center px-14 font-['Inter-Medium'] extra-max:grid extra-max:grid-rows-3 extra-max:px-5"
     >
-      <NuxtLink
+      <button
+        @click="toggleDrawer"
         class="row-start-2 hidden md-max:block"
-        to="/"
-        @click="isOpen === !isOpen"
+        type="button"
       >
-        <img
-          class="image"
-          src="/images/icons/hamburger.svg"
-          loading="lazy"
-          alt="menu icon"
-        />
-      </NuxtLink>
+        <img src="/images/icons/hamburger.svg" loading="lazy" alt="menu icon" />
+      </button>
 
       <ul
-        class="text-md row-start-3 flex flex-1 items-center gap-10 font-['Inter-Medium'] extra-max:justify-self-center md-max:hidden"
+        class="text-md row-start-3 flex flex-1 items-center gap-10 extra-max:justify-self-center md-max:hidden"
       >
         <li v-for="link in linksPrimary" :key="link.name">
           <NuxtLink
@@ -45,7 +40,7 @@
       </ul>
       <NuxtLink to="/">
         <NuxtImg
-          class="extra-min:pb-0 md-mx absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 extra-max:pb-7 md-max:w-48 md-max:pb-0"
+          class="md-mx absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 extra-max:pb-7 md-max:w-48 md-max:pb-0 extra-min:pb-0"
           to="/"
           src="images/logo.png"
           width="240"
@@ -54,7 +49,7 @@
     </nav>
   </header>
 
-  <!-- <ItemDrawer /> -->
+  <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
 
   <div>
     <slot />
@@ -64,16 +59,28 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+const router = useRouter();
+
 const linksPrimary = ref([
   { name: "Home", route: "/" },
-  { name: "Showroom", route: "showroom" },
-  { name: "Service Center", route: "service" },
-  { name: "Events", route: "events" },
-  { name: "About Us", route: "about" },
-  { name: "Gallery", route: "gallery" },
+  { name: "Showroom", route: "/showroom" },
+  { name: "Service Center", route: "/service" },
+  { name: "Events", route: "/events" },
+  { name: "About Us", route: "/about" },
+  { name: "Gallery", route: "/gallery" },
 ]);
 
 const isOpen = ref(false);
+
+const toggleDrawer = () => {
+  isOpen.value = !isOpen.value;
+};
+
+router.afterEach(() => {
+  if (isOpen.value) {
+    toggleDrawer();
+  }
+});
 </script>
 
 <style scoped></style>
