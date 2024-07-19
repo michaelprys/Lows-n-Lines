@@ -8,6 +8,6 @@
     "tsconfig.json": true,
     ".vscode": true,
     ".prettierrc.json": true,
-    "tailwind.config.js": true
+    "components.json": true
   }
 }

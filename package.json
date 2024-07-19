@@ -13,7 +13,6 @@
         "@nuxt/image": "^1.7.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
-        "flowbite": "^2.4.1",
         "lucide-vue-next": "^0.408.0",
         "nuxt": "^3.12.3",
         "radix-vue": "^1.9.1",
