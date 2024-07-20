@@ -7,7 +7,7 @@
         loading="lazy"
         alt="left arrow button"
       />
-      <h2 class="font-[Gin-Test] text-xl uppercase">Featured cars</h2>
+      <h1 class="font-[Gin-Test] text-xl uppercase">Featured cars</h1>
       <img
         class="image"
         src="/images/icons/arrow-right.svg"

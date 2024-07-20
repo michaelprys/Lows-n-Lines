@@ -4,7 +4,7 @@
     <SectionExplore />
     <SectionFeaturedCars />
     <SectionTires />
+    <SectionOwner />
+    <SectionEssentials />
   </div>
 </template>
-
-<script setup></script>
