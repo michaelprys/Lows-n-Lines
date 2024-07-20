@@ -15,7 +15,9 @@
         alt="right arrow button"
       />
     </div>
-    <NuxtLink to="/" class="mt-3 uppercase underline">View all</NuxtLink>
+    <NuxtLink to="/" class="mt-3 uppercase underline underline-offset-4"
+      >View all</NuxtLink
+    >
 
     <Carousel
       class="mt-10"

@@ -6,5 +6,6 @@
     <SectionTires />
     <SectionOwner />
     <SectionEssentials />
+    <SectionJoinUs />
   </div>
 </template>

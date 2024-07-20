@@ -1,6 +1,8 @@
 <template>
   <section class="container mt-28 flex justify-center md-max:mt-14">
-    <div class="flex max-w-[92.5rem] flex-col items-center gap-8">
+    <div
+      class="flex max-w-[92.5rem] flex-col items-center gap-8 lg-max:max-w-[640px]"
+    >
       <ul class="flex gap-8 lg-max:flex-col">
         <li class="relative h-[28.75rem] max-w-[50.4169rem] lg-max:max-w-full">
           <NuxtLink to="/">
