@@ -40,9 +40,9 @@
       </ul>
       <NuxtLink to="/">
         <NuxtImg
-          class="md-mx absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 extra-max:pb-7 md-max:w-48 md-max:pb-0 extra-min:pb-0"
+          class="md-mx absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-cover extra-max:pb-7 md-max:w-48 md-max:pb-0 extra-min:pb-0"
           to="/"
-          src="images/logo.png"
+          src="/images/logo.png"
           width="240"
         />
       </NuxtLink>
@@ -82,5 +82,3 @@ router.afterEach(() => {
   }
 });
 </script>
-
-<style scoped></style>

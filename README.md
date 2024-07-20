@@ -1,6 +1,12 @@
-# Nuxt 3 Minimal Starter
+★ Lows 'n' Lines ★ - 'Ride Low, Live High'
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Welcome to Lows 'n' Lines, Where Classics Meets Luxury
+
+Our store isn’t just a place to shop, it’s a haven for those who appreciate classics and exceptional quality. Whether you’re an enthusiast or a newcomer to the world of lowriders, Lows 'n' Lines is dedicated to offering only the finest in high-end car engineering.
+
+# Nuxt 4 Minimal Starter
+
+Look at the [Nuxt 4 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
 

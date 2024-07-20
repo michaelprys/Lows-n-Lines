@@ -25,5 +25,3 @@ defineProps(["linksPrimary"]);
 
 const model = defineModel();
 </script>
-
-<style scoped></style>

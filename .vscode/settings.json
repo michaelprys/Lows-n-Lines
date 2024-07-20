@@ -4,10 +4,11 @@
     ".nuxt": true,
     "node_modules": true,
     "pnpm-lock.yaml": true,
-    "README.md": true,
     "tsconfig.json": true,
     ".vscode": true,
     ".prettierrc.json": true,
-    "components.json": true
+    "components.json": true,
+    "app\\lib": true,
+    "README.md": true
   }
 }
