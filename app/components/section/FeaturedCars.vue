@@ -25,8 +25,8 @@
           <NuxtLink to="/">
             <NuxtImg
               class="object-cover"
-              width="411px"
-              height="411px"
+              width="411"
+              height="411"
               src="/images/home/featured-cars/car-5.jpg"
               alt="featured car 1"
             />

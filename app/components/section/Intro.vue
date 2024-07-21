@@ -4,8 +4,8 @@
       <div class="absolute h-full w-full bg-black opacity-10"></div>
       <NuxtImg
         class="min-h-[41.5rem] object-cover"
-        width="1922px"
-        height="664px"
+        width="1922"
+        height="664"
         src="/images/home/intro/intro.jpg"
       />
     </div>

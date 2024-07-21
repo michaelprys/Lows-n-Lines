@@ -10,8 +10,8 @@
               class="object-cover mix-blend-screen"
               :src="`/images/home/partners/partner-${item}.png`"
               :alt="`partner image ${item}`"
-              width="148px"
-              height="118px"
+              width="148"
+              height="118"
             />
           </li>
         </ul>

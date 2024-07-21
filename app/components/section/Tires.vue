@@ -22,8 +22,8 @@
             class="h-full w-full object-cover"
             src="/images/home/tires/tire-1.jpg"
             alt="tire image 1"
-            width="327.5px"
-            height="238.52px"
+            width="328"
+            height="239"
           />
           <p class="mt-3 text-left">20 inch Standard Wire Wheels Orange</p>
         </li>
@@ -32,8 +32,8 @@
             class="h-full w-full object-cover"
             src="/images/home/tires/tire-2.jpg"
             alt="tire image 2"
-            width="327.5px"
-            height="238.52px"
+            width="328"
+            height="239"
           />
           <p class="mt-3 text-left">20 inch Standard Wire Wheels Yellow</p>
         </li>
@@ -42,8 +42,8 @@
             class="h-full w-full object-cover"
             src="/images/home/tires/tire-3.jpg"
             alt="tire image 3"
-            width="327.5px"
-            height="238.52px"
+            width="328"
+            height="239"
           />
           <p class="mt-3 text-left">20 inch Standard Wire Wheels Red</p>
         </li>
@@ -52,8 +52,8 @@
             class="h-full w-full object-cover"
             src="/images/home/tires/tire-4.jpg"
             alt="tire image 4"
-            width="327.5px"
-            height="238.52px"
+            width="328"
+            height="239"
           />
           <p class="mt-3 text-left">20 inch Standard Wire Wheels Chrome</p>
         </li>

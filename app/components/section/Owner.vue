@@ -7,8 +7,8 @@
         <NuxtImg
           class="relative z-10 mt-10 object-cover lg-max:ml-0"
           src="/images/home/owner/owner-car.jpg"
-          width="365px"
-          height="308.58px"
+          width="365"
+          height="309"
           alt="owner car photo"
         />
       </div>
@@ -16,8 +16,8 @@
         <NuxtImg
           class="z-10 -ml-7 object-cover lg-max:pl-0"
           src="/images/home/owner/owner.jpg"
-          width="365px"
-          height="308.58px"
+          width="365"
+          height="309"
           alt="LA TORTUGA photo"
         />
       </div>
