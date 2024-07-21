@@ -10,8 +10,8 @@
             <NuxtImg
               class="h-full w-full"
               fit="cover"
-              :src="`images/home/explore/explore-1.jpg`"
-              :alt="`explore image 1`"
+              src="images/home/explore/explore-1.jpg"
+              alt="explore image 1"
               width="806.67px"
               height="460px"
             />
@@ -27,8 +27,8 @@
             <div class="absolute h-full w-full bg-black opacity-10"></div>
             <NuxtImg
               class="h-full w-full object-cover"
-              :src="`images/home/explore/explore-2.jpg`"
-              :alt="`explore image 2`"
+              src="images/home/explore/explore-2.jpg"
+              alt="explore image 2"
               width="563.33px"
               height="460px"
             />
@@ -46,8 +46,8 @@
             ><div class="absolute h-full w-full bg-black opacity-10"></div>
             <NuxtImg
               class="h-full w-full object-cover"
-              :src="`images/home/explore/explore-3.jpg`"
-              :alt="`explore image 3`"
+              src="images/home/explore/explore-3.jpg"
+              alt="explore image 3"
               width="806.67px"
               height="460px"
             />
@@ -63,8 +63,8 @@
             <div class="absolute h-full w-full bg-black opacity-10"></div>
             <NuxtImg
               class="h-full w-full object-cover"
-              :src="`images/home/explore/explore-4.jpg`"
-              :alt="`explore image 4`"
+              src="images/home/explore/explore-4.jpg"
+              alt="explore image 4"
               width="563.33px"
               height="460px"
             />

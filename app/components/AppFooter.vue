@@ -1,13 +1,30 @@
 <template>
-  <footer class="bg-[#F4F6F8] py-[3.75rem]">
+  <footer class="bg-[#F4F6F8]">
+    <div class="bg-[#151515] py-10">
+      <div class="container">
+        <ul
+          class="mx-auto grid grid-cols-4 place-items-center gap-y-10 md-max:max-w-96 md-max:grid-cols-2"
+        >
+          <li v-for="item in 4" :key="item">
+            <NuxtImg
+              class="object-cover mix-blend-screen"
+              :src="`/images/home/partners/partner-${item}.png`"
+              :alt="`partner image ${item}`"
+              width="148px"
+              height="118px"
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
     <div
-      class="grid grid-cols-4 place-items-center items-start px-[3.75rem] xl-max:grid-cols-2 xl-max:place-items-start xl-max:gap-14"
+      class="mt-16 grid grid-cols-4 place-items-center items-start gap-x-10 px-[3.75rem] xl-max:grid-cols-2 xl-max:place-items-start xl-max:gap-y-10 md-max:grid-cols-1"
     >
-      <div class="max-w-[26.25rem]">
+      <div class="max-w-[26.25rem] md-max:max-w-full">
         <h2 class="font-[Gin-Test] text-xl uppercase">
           Lows 'n' lines - Luxury lowrider shop
         </h2>
-        <p class="mt-5">
+        <p class="mt-5 md-max:text-justify">
           Everywhere you look, you see the distinctive lines and low profiles of
           classic lowriders. Parked on streets, cruising through neighborhoods,
           and showcased at car shows. And then, of course, there are the custom
@@ -69,8 +86,10 @@
       </div>
     </div>
     <div>
-      <hr class="my-14 border-[#EEEEEE]" />
-      <div class="flex items-center justify-between px-[3.75rem]">
+      <hr class="mt-14 border-[#EEEEEE]" />
+      <div
+        class="mt-10 flex items-center justify-between px-[3.75rem] pb-[3.75rem] md-max:flex-col-reverse md-max:items-start md-max:gap-10"
+      >
         <div class="w-full max-w-[13.125rem]">
           <Select>
             <SelectTrigger>
@@ -103,7 +122,9 @@
           <span class="mt-5 block text-xs">@ 2024 LOWS 'N' LINES</span>
         </div>
 
-        <div class="grid grid-cols-4 items-center gap-8 sm-max:grid-cols-2">
+        <div
+          class="xs-max:w-full xs-max:justify-between flex items-center gap-8"
+        >
           <NuxtLink to="/">
             <img
               class="image"

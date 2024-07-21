@@ -1,7 +1,7 @@
 <template>
-  <section class="mt-40 flex flex-col items-center justify-center">
+  <section class="mt-28 flex flex-col items-center justify-center">
     <Carousel
-      class="mt-10"
+      class="mt-10 overflow-hidden"
       :opts="{
         loop: true,
       }"

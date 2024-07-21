@@ -1,5 +1,7 @@
 <template>
-  <section class="container mt-36 flex max-w-[44.6875rem] flex-col text-center">
+  <section
+    class="container mt-32 flex max-w-[44.6875rem] flex-col text-center lg-max:mt-24"
+  >
     <div>
       <h2 class="font-[Gin-Test] text-xl">
         LOWS 'N' LINES LUXURY LOWRIDER SHOP

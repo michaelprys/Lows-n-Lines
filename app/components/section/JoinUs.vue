@@ -1,8 +1,8 @@
 <template>
   <section
-    class="mt-44 flex min-h-[35.0625rem] flex-col justify-center bg-[#151515]"
+    class="mt-32 flex bg-[#151515] pb-28 pt-28 md-max:pb-10 md-max:pt-16"
   >
-    <div class="container mt-[7.3125rem] max-w-[30rem]">
+    <div class="container max-w-[30rem]">
       <h2 class="text-center uppercase text-white">Lows 'n' lines family</h2>
       <span class="mt-7 block text-center text-white">Join us</span>
       <div class="mt-5 flex items-center gap-3">
@@ -18,20 +18,6 @@
           Sign up
         </NuxtLink>
       </div>
-    </div>
-
-    <div class="container mb-7 mt-36">
-      <ul class="flex max-w-[87.5rem]">
-        <li v-for="item in 4" :key="item">
-          <NuxtImg
-            class="object-cover mix-blend-screen"
-            :src="`/images/home/partners/partner-${item}.png`"
-            :alt="`partner image ${item}`"
-            width="358px"
-            height="118px"
-          />
-        </li>
-      </ul>
     </div>
   </section>
 </template>

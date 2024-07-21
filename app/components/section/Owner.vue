@@ -1,22 +1,28 @@
 <template>
-  <section class="container mt-40 flex max-w-[87.5rem] justify-center">
-    <div class="relative w-[42.8125rem]">
-      <NuxtImg
-        class="absolute bottom-0 left-0 z-10 object-cover"
-        src="/images/home/owner/owner-car.jpg"
-        width="365px"
-        height="308.58px"
-        alt="owner car photo"
-      />
-      <NuxtImg
-        class="absolute right-0 top-0 object-cover"
-        src="/images/home/owner/owner.jpg"
-        width="365px"
-        height="308.58px"
-        alt="LA TORTUGA photo"
-      />
+  <section
+    class="container mt-40 flex lg-max:mt-36 lg-max:flex-col lg-max:items-center"
+  >
+    <div class="flex w-full max-w-[715px]">
+      <div class="m-w-[365px] lg-max:pl-7">
+        <NuxtImg
+          class="relative z-10 mt-10 object-cover lg-max:ml-0"
+          src="/images/home/owner/owner-car.jpg"
+          width="365px"
+          height="308.58px"
+          alt="owner car photo"
+        />
+      </div>
+      <div class="m-w-[365px]">
+        <NuxtImg
+          class="z-10 -ml-7 object-cover lg-max:pl-0"
+          src="/images/home/owner/owner.jpg"
+          width="365px"
+          height="308.58px"
+          alt="LA TORTUGA photo"
+        />
+      </div>
     </div>
-    <div class="w-[42.8125rem] px-[7.375em]">
+    <div class="w-full max-w-[715px] pl-[30px] lg-max:mt-10 lg-max:pl-0">
       <h1 class="font-[Gin-Test] text-xl uppercase">Michael 'LA TORTUGA'</h1>
       <p class="mt-5">
         Meet Michael, the guy behind Lows 'n' Lines, where he's been living and

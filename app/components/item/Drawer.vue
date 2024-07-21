@@ -1,7 +1,7 @@
 <template>
   <Sheet v-model:open="model">
     <SheetContent
-      class="max-w-80 border-none bg-[#dcdcdc] px-0"
+      class="max-w-80 border-none bg-[#e3e3e3] px-0"
       aria-describedby="undefined"
     >
       <SheetTitle class="sr-only">Menu</SheetTitle>
