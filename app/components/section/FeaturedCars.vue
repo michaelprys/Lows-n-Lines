@@ -1,32 +1,25 @@
 <template>
   <section class="mt-40 flex flex-col items-center justify-center">
-    <div class="flex items-center gap-4">
-      <img
-        class="image"
-        src="/images/icons/arrow-left.svg"
-        loading="lazy"
-        alt="left arrow button"
-      />
-      <h1 class="font-[Gin-Test] text-xl uppercase">Featured cars</h1>
-      <img
-        class="image"
-        src="/images/icons/arrow-right.svg"
-        loading="lazy"
-        alt="right arrow button"
-      />
-    </div>
-    <NuxtLink to="/" class="mt-3 uppercase underline underline-offset-4"
-      >View all</NuxtLink
-    >
-
     <Carousel
       class="mt-10"
       :opts="{
         loop: true,
       }"
     >
+      <div class="flex flex-col items-center">
+        <div class="relative items-center gap-4">
+          <CarouselPrevious class="absolute"> </CarouselPrevious>
+          <h1 class="font-[Gin-Test] text-2xl uppercase">Featured cars</h1>
+          <CarouselNext class="absolute"> </CarouselNext>
+        </div>
+        <NuxtLink
+          to="/"
+          class="mt-3 uppercase text-[#1B1B1B] underline underline-offset-4"
+          >View all</NuxtLink
+        >
+      </div>
       <CarouselContent
-        class="flex items-center *:basis-1/5 *:pl-5 *:text-sm xl-max:*:basis-1/3 lg-max:*:basis-1/2 md-max:*:text-xs"
+        class="mt-14 flex items-center *:basis-1/5 *:pl-5 *:text-sm xl-max:*:basis-1/3 lg-max:*:basis-1/2 md-max:*:text-xs"
       >
         <CarouselItem v-for="item in 8" :key="item">
           <NuxtLink to="/">

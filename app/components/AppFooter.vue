@@ -25,7 +25,9 @@
         <h2 class="max-w-[12.0625rem] font-[Gin-Test] text-xl uppercase">
           Contact & information
         </h2>
-        <ul class="mt-5 flex flex-col gap-2">
+        <ul
+          class="mt-5 flex flex-col gap-2 *:transition-colors hover:*:text-zinc-500"
+        >
           <li><NuxtLink to="/">Contact Us</NuxtLink></li>
           <li><NuxtLink to="/">FAQ</NuxtLink></li>
           <li><NuxtLink to="/">Help Center</NuxtLink></li>
@@ -37,13 +39,14 @@
         <h2 class="max-w-[10.3125rem] font-[Gin-Test] text-xl uppercase">
           Legal information
         </h2>
-        <ul class="mt-5 flex flex-col gap-2">
+        <ul
+          class="mt-5 flex flex-col gap-2 *:transition-colors hover:*:text-zinc-500"
+        >
           <li><NuxtLink to="/">Privacy Policy</NuxtLink></li>
           <li><NuxtLink to="/">Read The Journal</NuxtLink></li>
           <li><NuxtLink to="/">Terms & Conditions</NuxtLink></li>
           <li><NuxtLink to="/">Awards & Achievements</NuxtLink></li>
         </ul>
-        <NuxtLink>Sign up</NuxtLink>
       </div>
 
       <div class="max-w-[20.25rem]">
@@ -101,38 +104,45 @@
         </div>
 
         <div class="grid grid-cols-4 items-center gap-8 sm-max:grid-cols-2">
-          <img
-            class="image"
-            src="/images/icons/youtube.svg"
-            loading="lazy"
-            alt="youtube icon"
-            width="32px"
-            height="32px"
-          />
-          <img
-            class="image"
-            src="/images/icons/facebook.svg"
-            loading="lazy"
-            alt="facebook icon"
-            width="27px"
-            height="27px"
-          />
-          <img
-            class="image"
-            src="/images/icons/x.svg"
-            loading="lazy"
-            alt="x icon"
-            width="27px"
-            height="27px"
-          />
-          <img
-            class="image"
-            src="/images/icons/insta.svg"
-            loading="lazy"
-            alt="insta icon"
-            width="27px"
-            height="27px"
-          />
+          <NuxtLink to="/">
+            <img
+              class="image"
+              src="/images/icons/youtube.svg"
+              loading="lazy"
+              alt="youtube icon"
+              width="32px"
+              height="32px"
+            />
+          </NuxtLink>
+          <NuxtLink to="/">
+            <img
+              class="image"
+              src="/images/icons/facebook.svg"
+              loading="lazy"
+              alt="facebook icon"
+              width="27px"
+              height="27px"
+            />
+          </NuxtLink>
+          <NuxtLink to="/">
+            <img
+              class="image"
+              src="/images/icons/x.svg"
+              loading="lazy"
+              alt="x icon"
+              width="27px"
+              height="27px"
+          /></NuxtLink>
+          <NuxtLink to="/">
+            <img
+              class="image"
+              src="/images/icons/insta.svg"
+              loading="lazy"
+              alt="insta icon"
+              width="27px"
+              height="27px"
+            />
+          </NuxtLink>
         </div>
       </div>
     </div>

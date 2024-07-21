@@ -3,7 +3,7 @@
     class="container mt-32 flex flex-col items-center justify-center text-center"
   >
     <div class="max-w-[50rem]">
-      <h1 class="font-[Gin-Test] text-xl uppercase">Drive with us!</h1>
+      <h1 class="font-[Gin-Test] text-2xl uppercase">Drive with us!</h1>
       <p class="mt-5">
         Get ready to hit the streets with style. Lows 'n' Lines is more than
         just a shop, we're a community. Customize your car, embrace the lowrider
