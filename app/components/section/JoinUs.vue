@@ -2,12 +2,12 @@
   <section
     class="mt-44 flex min-h-[35.0625rem] flex-col justify-center bg-[#151515]"
   >
-    <div class="container mt-[7.3125rem] max-w-[25.9375rem]">
+    <div class="container mt-[7.3125rem] max-w-[30rem]">
       <h2 class="text-center uppercase text-white">Lows 'n' lines family</h2>
       <span class="mt-7 block text-center text-white">Join us</span>
-      <div class="mt-4 flex items-center gap-3">
+      <div class="mt-5 flex items-center gap-3">
         <input
-          class="min-h-[3.2em] rounded-[3px] pl-5 placeholder-[#1B1B1B]"
+          class="min-h-[3.2em] w-full rounded-[3px] pl-5 placeholder-[#1B1B1B]"
           type="text"
           placeholder="Enter email"
         />
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="container mt-36">
+    <div class="container mb-7 mt-36">
       <ul class="flex max-w-[87.5rem]">
         <li v-for="item in 4" :key="item">
           <NuxtImg
