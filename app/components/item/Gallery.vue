@@ -70,12 +70,24 @@ const images = [
 
 const selectedIdx = ref(0);
 const [mainRef, mainApi] = emblaCarouselVue({ loop: true });
-const [thumbRef] = emblaCarouselVue({ containScroll: "keepSnaps" });
+const [thumbRef, thumbApi] = emblaCarouselVue({ containScroll: "keepSnaps" });
 
 const scrollTo = (idx) => {
-  mainApi.value.scrollTo(idx);
+  mainApi?.value.scrollTo(idx);
   selectedIdx.value = idx;
+  thumbApi?.value.scrollTo(selectedIdx.value);
 };
+const onSelect = () => {
+  const index = mainApi.value.selectedScrollSnap();
+  selectedIdx.value = index;
+  thumbApi.value.scrollTo(index);
+};
+onMounted(() => {
+  if (mainApi.value && thumbApi.value) {
+    mainApi.value.on("select", onSelect);
+  }
+  onSelect();
+});
 </script>
 
 <style>
@@ -109,6 +121,7 @@ const scrollTo = (idx) => {
   justify-content: center;
   user-select: none;
   border-radius: 0.5rem;
+  width: 100%;
 }
 .embla__btn-left,
 .embla__btn-right {

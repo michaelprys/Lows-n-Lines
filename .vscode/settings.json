@@ -6,8 +6,9 @@
     ".prettierrc.json": true,
     "components.json": true,
     "app\\lib": true,
-    "README.md": true,
     "pnpm-lock.yaml": true,
-    "node_modules": true
+    "node_modules": true,
+    "README.md": true,
+    ".nuxt": true
   }
 }

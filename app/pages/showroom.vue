@@ -1,6 +1,8 @@
 <template>
   <div class="flex lg-max:flex-col">
-    <nav class="nav-bg text-black lg-max:max-w-full">
+    <nav
+      class="nav-bg w-full max-w-72 bg-zinc-200 pl-5 text-black lg-max:max-w-full lg-max:pl-0"
+    >
       <div class="container *:py-2">
         <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">
           Vehicle types
@@ -25,12 +27,6 @@
     </nav>
 
     <section class="container">
-      <!-- <h1
-        class="text-center font-['Gin-Test'] text-3xl text-[#808080] lg-max:text-left"
-      >
-        Our cars
-      </h1> -->
-
       <ul
         class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-10 xl-max:grid-cols-2 sm-max:grid-cols-1"
       >
@@ -143,10 +139,3 @@ const specs = [
   },
 ];
 </script>
-
-<style>
-/* .nav-bg {
-  background-image: url("/images/showroom/nav-bg.jpg");
-  filter: brightness(120%);
-} */
-</style>

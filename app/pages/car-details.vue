@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-10 w-full">
+  <div class="container mt-10">
     <div class="flex items-center justify-between md-max:flex-col md-max:gap-5">
       <h1 class="text-center text-2xl uppercase text-[#808080]">
         Chevrolet Impala - 1964
@@ -16,7 +16,7 @@
 
     <ItemGallery />
 
-    <div class="mb-20 rounded-[2px] pb-10">
+    <div class="mb-24 rounded-[2px] pb-10">
       <div>
         <h2 class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase">
           Description
@@ -189,7 +189,6 @@
           <div class="mt-5 flex flex-col">
             <div>
               <label class="font-semibold" for="">Subject</label>
-
               <Select>
                 <SelectTrigger
                   class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2"

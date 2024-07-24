@@ -1,6 +1,6 @@
-# ★ Lows 'n' Lines ★ _'Ride Low, Live High'_
+# Lows 'n' Lines - _'Ride Low, Live High'_
 
-Welcome to Lows 'n' Lines, Where Classics Meets Luxury
+Welcome to Lows 'n' Lines, Where Classics Meets Elegance
 
 Our store isn’t just a place to shop, it’s a haven for those who appreciate classics and exceptional quality. Whether you’re an enthusiast or a newcomer to the world of lowriders, Lows 'n' Lines is dedicated to offering only the finest in high-end car engineering.
 
