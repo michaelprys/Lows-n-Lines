@@ -10,7 +10,7 @@
       />
     </div>
     <NuxtLink
-      class="border-1 mt-14 rounded-[3px] border-[#DDD499] bg-[#F1E798] px-12 py-4 text-sm uppercase lg-max:px-6 lg-max:text-xs md-min:absolute md-min:bottom-36 md-min:left-20"
+      class="mt-14 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-12 py-4 text-sm uppercase lg-max:px-6 lg-max:text-xs md-min:absolute md-min:bottom-36 md-min:left-20"
       to="/showroom"
     >
       Visit our showroom

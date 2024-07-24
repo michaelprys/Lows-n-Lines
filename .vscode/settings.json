@@ -1,14 +1,13 @@
 {
   "files.exclude": {
     ".gitignore": true,
-    ".nuxt": true,
-    "node_modules": true,
-    "pnpm-lock.yaml": true,
     "tsconfig.json": true,
     ".vscode": true,
     ".prettierrc.json": true,
     "components.json": true,
     "app\\lib": true,
-    "README.md": true
+    "README.md": true,
+    "pnpm-lock.yaml": true,
+    "node_modules": true
   }
 }

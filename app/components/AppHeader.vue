@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-[#F4F6F8]">
+  <header class="border-b bg-[#F4F6F8]">
     <nav
       class="relative flex min-h-[10.875rem] items-center px-14 font-['Inter-Medium'] extra-max:grid extra-max:grid-rows-3 extra-max:px-5"
     >

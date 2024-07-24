@@ -1,34 +1,21 @@
 <template>
   <div class="flex lg-max:flex-col">
-    <nav
-      class="w-full max-w-[17.5625rem] bg-[#487385] text-white lg-max:max-w-full"
-    >
-      <div class="container">
-        <div class="mt-6 flex items-center gap-2">
-          <NuxtLink class="" to="/">Home</NuxtLink>
-          <img
-            class="image"
-            src="/images/icons/arrow-right.svg"
-            loading="lazy"
-            alt="arrow icon"
-          />
-          <NuxtLink class="" to="/">Showroom</NuxtLink>
-        </div>
-
-        <h2 class="pt-12 text-2xl font-semibold lg-max:text-center">
+    <nav class="nav-bg text-black lg-max:max-w-full">
+      <div class="container *:py-2">
+        <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">
           Vehicle types
         </h2>
 
-        <ul class="mt-5 flex flex-col justify-center gap-3 lg-max:flex-row">
+        <ul class="flex flex-col justify-center gap-3 lg-max:flex-row">
           <li v-for="(type, i) in types" :key="i">
             {{ type }}
           </li>
         </ul>
 
-        <h2 class="pt-12 text-2xl font-semibold lg-max:text-center">Eras</h2>
+        <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">Eras</h2>
 
         <ul
-          class="mt-5 flex flex-col justify-center gap-3 lg-max:flex-row lg-max:pb-12"
+          class="flex flex-col justify-center gap-3 lg-max:flex-row lg-max:pb-12"
         >
           <li v-for="(era, i) in eras" :key="i">
             {{ era }}
@@ -37,20 +24,20 @@
       </div>
     </nav>
 
-    <section class="container mt-10">
-      <h1
+    <section class="container">
+      <!-- <h1
         class="text-center font-['Gin-Test'] text-3xl text-[#808080] lg-max:text-left"
       >
         Our cars
-      </h1>
+      </h1> -->
 
       <ul
-        class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-9 xl-max:grid-cols-2 sm-max:grid-cols-1"
+        class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-10 xl-max:grid-cols-2 sm-max:grid-cols-1"
       >
         <li
           v-for="car in 6"
           :key="car"
-          class="w-full max-w-[447px] shadow-md transition-shadow hover:shadow-lg"
+          class="w-full max-w-[447px] shadow-lg transition-shadow hover:shadow-xl"
         >
           <NuxtLink to="/">
             <NuxtImg
@@ -119,7 +106,7 @@
               <Button
                 class="h-10 w-10 bg-transparent p-0 text-black transition-colors hover:bg-zinc-100"
                 :class="{
-                  'bg-[#487385] text-white hover:bg-[#487385]':
+                  'bg-[#8B8B8B] text-white hover:bg-[#8B8B8B]':
                     item.value === page,
                 }"
                 :variant="item.value === page ? 'default' : 'outline'"
@@ -156,3 +143,10 @@ const specs = [
   },
 ];
 </script>
+
+<style>
+/* .nav-bg {
+  background-image: url("/images/showroom/nav-bg.jpg");
+  filter: brightness(120%);
+} */
+</style>

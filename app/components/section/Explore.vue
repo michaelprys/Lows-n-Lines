@@ -4,7 +4,9 @@
       class="flex max-w-[92.5rem] flex-col items-center gap-8 lg-max:max-w-[640px]"
     >
       <ul class="flex gap-8 lg-max:flex-col">
-        <li class="relative h-[28.75rem] max-w-[50.4169rem] lg-max:max-w-full">
+        <li
+          class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full"
+        >
           <NuxtLink to="/">
             <div class="absolute h-full w-full bg-black opacity-10"></div>
             <NuxtImg
@@ -15,14 +17,17 @@
               width="807"
               height="460"
             />
-            <NuxtLink
+            <div
               to="/"
               class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
-              >About our cars</NuxtLink
             >
+              About our cars
+            </div>
           </NuxtLink>
         </li>
-        <li class="relative h-[28.75rem] max-w-[35.2081rem] lg-max:max-w-full">
+        <li
+          class="relative h-[28.75rem] w-full max-w-[35.2081rem] lg-max:max-w-full"
+        >
           <NuxtLink to="/">
             <div class="absolute h-full w-full bg-black opacity-10"></div>
             <NuxtImg
@@ -32,16 +37,19 @@
               width="563"
               height="460"
             />
-            <NuxtLink
+            <div
               to="/"
               class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
-              >Events</NuxtLink
             >
+              Events
+            </div>
           </NuxtLink>
         </li>
       </ul>
       <ul class="flex gap-8 lg-max:flex-col">
-        <li class="relative h-[28.75rem] max-w-[35.2081rem] lg-max:max-w-full">
+        <li
+          class="relative h-[28.75rem] w-full max-w-[50.4375rem] lg-max:max-w-full"
+        >
           <NuxtLink to="/"
             ><div class="absolute h-full w-full bg-black opacity-10"></div>
             <NuxtImg
@@ -51,14 +59,17 @@
               width="807"
               height="460"
             />
-            <NuxtLink
+            <div
               to="/"
               class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
-              >Services</NuxtLink
-            ></NuxtLink
+            >
+              Services
+            </div></NuxtLink
           >
         </li>
-        <li class="relative h-[28.75rem] max-w-[50.4169rem] lg-max:max-w-full">
+        <li
+          class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full"
+        >
           <NuxtLink to="/">
             <div class="absolute h-full w-full bg-black opacity-10"></div>
             <NuxtImg
@@ -68,11 +79,12 @@
               width="563"
               height="460"
             />
-            <NuxtLink
+            <div
               to="/"
               class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
-              >Shop gear</NuxtLink
             >
+              Shop gear
+            </div>
           </NuxtLink>
         </li>
       </ul>

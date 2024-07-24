@@ -78,7 +78,7 @@
           placeholder="Enter email"
         />
         <NuxtLink
-          class="border-1 mt-6 block w-full max-w-[6.9375rem] rounded-[3px] border-[#DDD499] bg-[#F1E798] py-4 text-center text-sm uppercase"
+          class="mt-6 block w-full max-w-[6.9375rem] rounded-[3px] border border-[#e5ddac] bg-[#F1E798] py-4 text-center text-sm uppercase"
           to="/"
         >
           Sign up

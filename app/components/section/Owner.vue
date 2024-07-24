@@ -37,7 +37,7 @@
         street in his silver 'Tata'.
       </p>
       <NuxtLink
-        class="border-1 mt-9 block max-w-48 rounded-[3px] border-[#DDD499] bg-[#F1E798] px-12 py-4 text-center text-sm uppercase"
+        class="mt-9 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-12 py-4 text-center text-sm uppercase"
         to="/"
       >
         Read more

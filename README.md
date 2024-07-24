@@ -1,4 +1,4 @@
-★ Lows 'n' Lines ★ - 'Ride Low, Live High'
+# ★ Lows 'n' Lines ★ _'Ride Low, Live High'_
 
 Welcome to Lows 'n' Lines, Where Classics Meets Luxury
 
