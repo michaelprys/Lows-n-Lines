@@ -19,13 +19,13 @@
           know every detail under the hood.
         </p>
         <p class="mt-4">
-          Our rates are competitive–in many cases, they are less than your
+          Our rates are competitive in many cases, they are less than your
           neighborhood general garage and less than other classic car specialty
           shops. Our in-house team includes experienced specialists in
           automotive repair, detailing, transport, and storage. Our Service Team
-          has a combined 150  years experience in automotive excellence. Great
-          value, with great client service too. We’re also a licensed Maine
-          State Inspection Station too.  No job too big or small.
+          has a combined 150 years experience in automotive excellence. Great
+          value, with great client service too. We're also a licensed Maine
+          State Inspection Station too. No job too big or small.
         </p>
         <p class="mt-4">
           <strong
@@ -103,7 +103,7 @@
           id="message"
           cols="30"
           rows="10"
-          placeholder="I have a question about the 1964 Chevrolet Impala for $53,000."
+          placeholder="I'd like to detail the issues with my vehicle or the services I'm requesting."
         ></textarea>
 
         <NuxtLink
