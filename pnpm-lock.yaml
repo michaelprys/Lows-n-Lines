@@ -32,6 +32,9 @@ importers:
       nuxt:
         specifier: ^3.12.3
         version: 3.12.4(@parcel/watcher@2.4.1)(@types/node@20.14.11)(ioredis@5.4.1)(magicast@0.3.4)(rollup@4.19.0)(terser@5.31.3)(typescript@5.5.4)(vite@5.3.4(@types/node@20.14.11)(terser@5.31.3))
+      nuxt-easy-lightbox:
+        specifier: ^1.0.2
+        version: 1.0.2(magicast@0.3.4)(rollup@4.19.0)(vue@3.4.33(typescript@5.5.4))
       radix-vue:
         specifier: ^1.9.1
         version: 1.9.2(vue@3.4.33(typescript@5.5.4))
@@ -2632,6 +2635,9 @@ packages:
     engines: {node: ^16.10.0 || >=18.0.0}
     hasBin: true
 
+  nuxt-easy-lightbox@1.0.2:
+    resolution: {integrity: sha512-zx71H6RpHHhUux/h596u6d/vMhqlN/IwqNBMuU5lY28lfuqhKRcv/AeWzE6pPz65qhJ3Dv4Bo1LQmAJfQIzHPg==}
+
   nuxt@3.12.4:
     resolution: {integrity: sha512-/ddvyc2kgYYIN2UEjP8QIz48O/W3L0lZm7wChIDbOCj0vF/yLLeZHBaTb3aNvS9Hwp269nfjrm8j/mVxQK4RhA==}
     engines: {node: ^14.18.0 || >=16.10.0}
@@ -3744,6 +3750,12 @@ packages:
 
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
+
+  vue-easy-lightbox@1.19.0:
+    resolution: {integrity: sha512-YxLXgjEn91UF3DuK1y8u3Pyx2sJ7a/MnBpkyrBSQkvU1glzEJASyAZ7N+5yDpmxBQDVMwCsL2VmxWGIiFrWCgA==}
+    engines: {node: '>=14.18.3'}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue-router@4.4.0:
     resolution: {integrity: sha512-HB+t2p611aIZraV2aPSRNXf0Z/oLZFrlygJm+sZbdJaW6lcFqEDQwnzUBXn+DApw+/QzDU/I9TeWx9izEjTmsA==}
@@ -6660,6 +6672,16 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
+  nuxt-easy-lightbox@1.0.2(magicast@0.3.4)(rollup@4.19.0)(vue@3.4.33(typescript@5.5.4)):
+    dependencies:
+      '@nuxt/kit': 3.12.4(magicast@0.3.4)(rollup@4.19.0)
+      vue-easy-lightbox: 1.19.0(vue@3.4.33(typescript@5.5.4))
+    transitivePeerDependencies:
+      - magicast
+      - rollup
+      - supports-color
+      - vue
+
   nuxt@3.12.4(@parcel/watcher@2.4.1)(@types/node@20.14.11)(ioredis@5.4.1)(magicast@0.3.4)(rollup@4.19.0)(terser@5.31.3)(typescript@5.5.4)(vite@5.3.4(@types/node@20.14.11)(terser@5.31.3)):
     dependencies:
       '@nuxt/devalue': 2.0.2
@@ -7918,6 +7940,10 @@ snapshots:
       vue: 3.4.33(typescript@5.5.4)
 
   vue-devtools-stub@0.1.0: {}
+
+  vue-easy-lightbox@1.19.0(vue@3.4.33(typescript@5.5.4)):
+    dependencies:
+      vue: 3.4.33(typescript@5.5.4)
 
   vue-router@4.4.0(vue@3.4.33(typescript@5.5.4)):
     dependencies:
