@@ -3,7 +3,12 @@ export default defineNuxtConfig({
   components: true,
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/image", "shadcn-nuxt", "nuxt-easy-lightbox"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image",
+    "shadcn-nuxt",
+    "nuxt-easy-lightbox",
+  ],
   future: {
     compatibilityVersion: 4,
   },

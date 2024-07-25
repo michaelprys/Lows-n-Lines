@@ -28,7 +28,7 @@
         <!-- <li><NuxtLink to="/">Profile</NuxtLink></li> -->
         <!-- <li><NuxtLink to="/">Log Out</NuxtLink></li> -->
         <li>
-          <NuxtLink class="flex items-center gap-2" to="/"
+          <NuxtLink class="flex items-center gap-2" to="/login"
             ><span class="lg-max:hidden">Log In</span>
             <img
               class="image"
