@@ -85,7 +85,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .intro {
   background-image: url("/images/events/header.jpg");
 }

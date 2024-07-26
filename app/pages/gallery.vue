@@ -39,6 +39,15 @@ const imgs = [
   "/images/gallery/gallery-1.jpg",
   "/images/gallery/gallery-1.jpg",
   "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-1.jpg",
 ];
 
 const showImg = (index) => {

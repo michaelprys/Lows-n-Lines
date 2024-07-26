@@ -8,7 +8,7 @@
         class="row-start-2 hidden md-max:block"
         type="button"
       >
-        <img src="/images/icons/hamburger.svg" loading="lazy" alt="menu icon" />
+        <img src="/icons/hamburger.svg" loading="lazy" alt="menu icon" />
       </button>
 
       <ul
@@ -32,7 +32,7 @@
             ><span class="lg-max:hidden">Log In</span>
             <img
               class="image"
-              src="/images/icons/sign-in.svg"
+              src="/icons/sign-in.svg"
               loading="lazy"
               alt="sign-in icon"
           /></NuxtLink>

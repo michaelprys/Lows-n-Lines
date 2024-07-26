@@ -15,11 +15,11 @@
 
         <ul class="mt-8 *:flex *:items-center *:gap-x-1">
           <li>
-            <img src="/images/icons/user.svg" alt="user icon" />
+            <img src="/icons/user.svg" alt="user icon" />
             <NuxtLink to="/">Settings</NuxtLink>
           </li>
           <li class="mt-3.5">
-            <img src="/images/icons/favorite.svg" alt="favorite icon" />
+            <img src="/icons/favorite.svg" alt="favorite icon" />
             <NuxtLink to="/">Saved cars</NuxtLink>
           </li>
         </ul>

@@ -158,7 +158,7 @@
           <NuxtLink to="/">
             <img
               class="image"
-              src="/images/icons/youtube.svg"
+              src="/icons/youtube.svg"
               loading="lazy"
               alt="youtube icon"
               width="32px"
@@ -168,7 +168,7 @@
           <NuxtLink to="/">
             <img
               class="image"
-              src="/images/icons/facebook.svg"
+              src="/icons/facebook.svg"
               loading="lazy"
               alt="facebook icon"
               width="27px"
@@ -178,7 +178,7 @@
           <NuxtLink to="/">
             <img
               class="image"
-              src="/images/icons/x.svg"
+              src="/icons/x.svg"
               loading="lazy"
               alt="x icon"
               width="27px"
@@ -187,7 +187,7 @@
           <NuxtLink to="/">
             <img
               class="image"
-              src="/images/icons/insta.svg"
+              src="/icons/insta.svg"
               loading="lazy"
               alt="insta icon"
               width="27px"

@@ -1,12 +1,14 @@
 <template>
-  <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
-  <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
-
   <div>
-    <slot />
-  </div>
+    <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
+    <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
 
-  <AppFooter />
+    <div>
+      <slot />
+    </div>
+
+    <AppFooter />
+  </div>
 </template>
 
 <script setup lang="ts">

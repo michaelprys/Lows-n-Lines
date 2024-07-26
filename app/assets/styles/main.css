@@ -8,19 +8,15 @@ body {
 }
 
 .page-enter-active,
-.page-leave-active {
-  transition: all 0.4s;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-}
-
+.page-leave-active,
 .layout-enter-active,
 .layout-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 300ms ease-in-out;
 }
-.layout-enter,
+
+.page-enter-from,
+.page-leave-to,
+.layout-enter-from,
 .layout-leave-to {
   opacity: 0;
 }

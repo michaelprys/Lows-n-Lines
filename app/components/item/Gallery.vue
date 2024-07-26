@@ -90,7 +90,7 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
 .embla {
   max-width: 64rem;
   margin: auto;
