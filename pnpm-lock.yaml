@@ -11,9 +11,6 @@ importers:
       '@nuxt/image':
         specifier: ^1.7.0
         version: 1.7.0(ioredis@5.4.1)(magicast@0.3.4)(rollup@4.19.0)
-      '@splidejs/vue-splide':
-        specifier: ^0.6.12
-        version: 0.6.12
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.33(typescript@5.5.4))
@@ -1070,12 +1067,6 @@ packages:
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
-
-  '@splidejs/splide@4.1.4':
-    resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
-
-  '@splidejs/vue-splide@0.6.12':
-    resolution: {integrity: sha512-eQb8pnGMN8Tr0FVaQo1PUMZlMHl8fSqHNXPTx79eeE2dkZqbsvq6jRzXoT9ZF7hFkxdOEmB6qYNp93SUwV684g==}
 
   '@swc/helpers@0.5.12':
     resolution: {integrity: sha512-KMZNXiGibsW9kvZAO1Pam2JPTDBm+KSHMMHWdsyI/1DbIZjT2A6Gy3hblVXUMEDvUAKq+e0vL0X0o54owWji7g==}
@@ -4884,12 +4875,6 @@ snapshots:
     optional: true
 
   '@sindresorhus/merge-streams@2.3.0': {}
-
-  '@splidejs/splide@4.1.4': {}
-
-  '@splidejs/vue-splide@0.6.12':
-    dependencies:
-      '@splidejs/splide': 4.1.4
 
   '@swc/helpers@0.5.12':
     dependencies:

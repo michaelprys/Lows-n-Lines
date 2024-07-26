@@ -3,10 +3,12 @@
     <h1 class="text-center font-['Gin-Test'] text-4xl text-[#808080]">
       Gallery
     </h1>
-    <ul class="mt-10 grid grid-cols-3 justify-center gap-2">
+    <ul
+      class="mt-10 grid grid-cols-3 justify-center gap-2.5 lg-max:grid-cols-2 md-max:grid-cols-1"
+    >
       <li v-for="(item, idx) in imgs" :key="item">
         <NuxtImg
-          class="cursor-pointer rounded-lg object-cover"
+          class="w-full cursor-pointer rounded-lg object-cover"
           :src="`${item}`"
           width="562"
           height="375"

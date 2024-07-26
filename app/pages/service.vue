@@ -1,12 +1,12 @@
 <template>
   <section class="container mb-24 mt-10">
-    <h1 class="font-['Gin-Test'] text-5xl">Old or new, we fix it for you</h1>
-    <div class="mt-14 flex items-start gap-16">
+    <h1 class="font-['Gin-Test'] text-5xl xl-max:text-4xl md-max:text-3xl">
+      Old or new, we fix it for you
+    </h1>
+    <div
+      class="mt-14 flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8"
+    >
       <div>
-        <p>
-          Call our Service center at
-          <span class="font-bold text-[#3C718A]">207-602-6620</span>
-        </p>
         <p class="mt-4">
           <strong
             >At Lows 'n' Lines, we specialize in the sale, service, and
@@ -47,7 +47,7 @@
         </p>
       </div>
       <NuxtImg
-        class="rounded-md object-cover"
+        class="w-full max-w-[615] rounded-md object-cover xl-max:mx-auto"
         src="/images/service/service.jpg"
         width="615"
         height="277"
@@ -55,9 +55,9 @@
       />
     </div>
 
-    <form class="mt-24" action="">
+    <form class="mt-24 xl-max:mt-16">
       <h2 class="text-center font-['Gin-Test'] text-3xl">Contact us</h2>
-      <ul class="mt-6 grid grid-cols-2 gap-x-7 gap-y-5 *:flex *:flex-col">
+      <ul class="mt-7 grid grid-cols-2 gap-x-7 gap-y-5 *:flex *:flex-col">
         <li>
           <label class="font-semibold" for="first-name">First Name</label>
           <input

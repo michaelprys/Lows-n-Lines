@@ -42,13 +42,27 @@
         <h2 class="max-w-[12.0625rem] font-[Gin-Test] text-xl uppercase">
           Contact & information
         </h2>
-        <ul
-          class="mt-5 flex flex-col gap-2 *:transition-colors hover:*:text-zinc-500"
-        >
-          <li><NuxtLink to="/">Contact Us</NuxtLink></li>
-          <li><NuxtLink to="/">FAQ</NuxtLink></li>
-          <li><NuxtLink to="/">Help Center</NuxtLink></li>
-          <li><NuxtLink to="/">About Us</NuxtLink></li>
+        <ul class="mt-5 flex flex-col gap-2">
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >Contact Us</NuxtLink
+            >
+          </li>
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >FAQ</NuxtLink
+            >
+          </li>
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >Help Center</NuxtLink
+            >
+          </li>
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >About Us</NuxtLink
+            >
+          </li>
         </ul>
       </div>
 
@@ -56,13 +70,27 @@
         <h2 class="max-w-[10.3125rem] font-[Gin-Test] text-xl uppercase">
           Legal information
         </h2>
-        <ul
-          class="mt-5 flex flex-col gap-2 *:transition-colors hover:*:text-zinc-500"
-        >
-          <li><NuxtLink to="/">Privacy Policy</NuxtLink></li>
-          <li><NuxtLink to="/">Read The Journal</NuxtLink></li>
-          <li><NuxtLink to="/">Terms & Conditions</NuxtLink></li>
-          <li><NuxtLink to="/">Awards & Achievements</NuxtLink></li>
+        <ul class="mt-5 flex flex-col gap-2">
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >Privacy Policy</NuxtLink
+            >
+          </li>
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >Read The Journal</NuxtLink
+            >
+          </li>
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >Terms & Conditions</NuxtLink
+            >
+          </li>
+          <li>
+            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+              >Awards & Achievements</NuxtLink
+            >
+          </li>
         </ul>
       </div>
 
@@ -78,7 +106,7 @@
           placeholder="Enter email"
         />
         <NuxtLink
-          class="mt-6 block w-full max-w-[6.9375rem] rounded-[3px] border border-[#e5ddac] bg-[#F1E798] py-4 text-center text-sm uppercase"
+          class="mt-6 block w-full max-w-[6.9375rem] rounded-[3px] border border-[#e5ddac] bg-[#F1E798] py-3 text-center text-sm uppercase"
           to="/"
         >
           Sign up
@@ -119,7 +147,9 @@
               </SelectGroup>
             </SelectContent>
           </Select>
-          <span class="mt-5 block text-xs">@ 2024 LOWS 'N' LINES</span>
+          <span class="mt-5 block text-xs uppercase"
+            >@ 2024 Lows 'n' Lines</span
+          >
         </div>
 
         <div

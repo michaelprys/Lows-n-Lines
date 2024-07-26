@@ -6,7 +6,7 @@ Our store isn’t just a place to shop, it’s a haven for those who appreciate 
 
 # Nuxt 4 Minimal Starter
 
-Look at the [Nuxt 4 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Look at the [Nuxt 4 documentation](https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4) to learn more.
 
 ## Setup
 

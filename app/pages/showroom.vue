@@ -1,16 +1,16 @@
 <template>
   <div class="flex lg-max:flex-col">
     <nav
-      class="nav-bg w-full max-w-72 bg-zinc-200 pl-5 text-black lg-max:max-w-full lg-max:pl-0"
+      class="nav-bg w-full max-w-72 bg-[#bddede] pl-5 text-black lg-max:max-w-full lg-max:pl-0"
     >
-      <div class="container *:py-2">
+      <nav class="container *:py-2">
         <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">
           Vehicle types
         </h2>
 
         <ul class="flex flex-col justify-center gap-3 lg-max:flex-row">
           <li v-for="(type, i) in types" :key="i">
-            {{ type }}
+            <NuxtLink to="/">{{ type }}</NuxtLink>
           </li>
         </ul>
 
@@ -20,10 +20,10 @@
           class="flex flex-col justify-center gap-3 lg-max:flex-row lg-max:pb-12"
         >
           <li v-for="(era, i) in eras" :key="i">
-            {{ era }}
+            <NuxtLink to="/">{{ era }}</NuxtLink>
           </li>
         </ul>
-      </div>
+      </nav>
     </nav>
 
     <section class="container">
