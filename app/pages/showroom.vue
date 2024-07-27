@@ -1,7 +1,7 @@
 <template>
   <div class="flex lg-max:flex-col">
     <nav
-      class="nav-bg w-full max-w-72 bg-[#bddede] pl-5 text-black lg-max:max-w-full lg-max:pl-0"
+      class="nav-bg w-full max-w-72 bg-[#c4ddd3] pl-5 text-black lg-max:max-w-full lg-max:pl-0"
     >
       <nav class="container *:py-2">
         <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">

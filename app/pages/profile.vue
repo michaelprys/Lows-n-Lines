@@ -132,7 +132,6 @@
                       id="member-since"
                       placeholder="November 22, 2024"
                     />
-                    <button class="text-[#666666]" type="button">Edit</button>
                   </div>
                 </div>
               </li>

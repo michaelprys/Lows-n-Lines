@@ -14,10 +14,10 @@
       <div class="flex justify-center gap-6">
         <NuxtImg
           class="object-cover"
-          src="/images/events/img-1.jpg"
+          src="/images/events/img-2.jpg"
           width="397"
           height="280"
-          alt="event image 1"
+          alt="event image 2"
         />
         <NuxtImg
           class="object-cover"
@@ -28,10 +28,10 @@
         />
         <NuxtImg
           class="object-cover"
-          src="/images/events/img-3.jpg"
+          src="/images/events/img-2.jpg"
           width="397"
           height="280"
-          alt="event image 3"
+          alt="event image 2"
         />
       </div>
 
@@ -52,15 +52,31 @@
       </p>
 
       <h3 class="mt-20 font-['Gin-Test'] text-2xl uppercase">Location</h3>
-      <NuxtImg
+      <!-- <NuxtImg
         class="mx-auto mt-9 object-cover shadow-2xl"
         src="/images/events/map.jpg"
         width="1044"
         height="402"
         alt="festival location on map"
-      />
+      /> -->
 
-      <p class="mt-24">
+      <div class="mx-auto mt-10 h-[402px] w-full max-w-[1044px]">
+        <LMap
+          ref="map"
+          :zoom="17"
+          :center="[34.299074, -118.45949]"
+          :use-global-leaflet="false"
+        >
+          <LTileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&amp;copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+            layer-type="base"
+            name="OpenStreetMap"
+          /><LMarker :lat-lng="[34.299074, -118.45949]" draggable />
+        </LMap>
+      </div>
+
+      <p class="mt-14">
         Operating days and hours may change without notice. Management may deny
         entry for any reason. By entering Sunset Boulevard, you assume all risk
         of personal injury and loss or damage to property and hereby grant
@@ -84,6 +100,8 @@
     </section>
   </div>
 </template>
+
+<script setup></script>
 
 <style scoped>
 .intro {

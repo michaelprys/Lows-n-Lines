@@ -11,7 +11,7 @@
       </p>
     </div>
 
-    <div class="max-w-[87.5rem]">
+    <!-- <div class="max-w-[87.5rem]">
       <h2 class="mt-32 font-semibold uppercase">Choose preferred tires</h2>
 
       <ul
@@ -58,6 +58,6 @@
           <p class="mt-3 text-left">20 inch Standard Wire Wheels Chrome</p>
         </li>
       </ul>
-    </div>
+    </div> -->
   </section>
 </template>
