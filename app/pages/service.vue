@@ -7,7 +7,7 @@
       class="mt-14 flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8"
     >
       <div>
-        <p class="mt-4">
+        <p>
           <strong
             >At Lows 'n' Lines, we specialize in the sale, service, and
             customization of lowriders of all years, makes, and models.</strong
@@ -30,8 +30,8 @@
         <p class="mt-4">
           <strong
             >To schedule service or get an estimate, email us at
-            <span class="text-[#3C718A]">service@lowsnlines.com</span> or call
-            at <span class="text-[#3C718A]">207-602-6620</span></strong
+            <span class="text-[#d61616]">service@lowsnlines.com</span> or call
+            at <span class="text-[#d61616]">207-602-6620</span></strong
           >.
         </p>
         <p class="mt-4">

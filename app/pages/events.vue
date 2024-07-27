@@ -1,47 +1,36 @@
 <template>
   <div class="mb-24">
-    <section class="relative min-h-[624px] w-full">
-      <div class="absolute h-full w-full bg-[#526672] bg-opacity-25"></div>
-      <div class="intro min-h-[624px] w-full"></div>
-      <h1
-        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-['Gin-Test'] text-5xl uppercase text-white"
+    <section class="relative w-full">
+      <div
+        class="w- absolute flex h-full w-full items-center justify-center bg-[#526672] bg-opacity-25"
       >
-        Lowrider Fest In San Fernando Valley
-      </h1>
+        <h1
+          class="xs-max:text-xl px-20 text-center font-['Gin-Test'] text-5xl uppercase text-white xl-max:text-4xl lg-max:text-3xl"
+        >
+          Lowrider Fest In San Fernando Valley
+        </h1>
+      </div>
+      <video
+        class="h-[500px] object-cover"
+        width="1920"
+        height="1080"
+        autoplay
+        loop
+        muted
+      >
+        <source src="/videos/Event.mp4" type="video/mp4" />
+      </video>
     </section>
 
-    <section class="container mt-24 w-full max-w-[1240px] text-center">
-      <div class="flex justify-center gap-6">
-        <NuxtImg
-          class="object-cover"
-          src="/images/events/img-2.jpg"
-          width="397"
-          height="280"
-          alt="event image 2"
-        />
-        <NuxtImg
-          class="object-cover"
-          src="/images/events/img-2.jpg"
-          width="397"
-          height="280"
-          alt="event image 2"
-        />
-        <NuxtImg
-          class="object-cover"
-          src="/images/events/img-2.jpg"
-          width="397"
-          height="280"
-          alt="event image 2"
-        />
-      </div>
-
-      <h2 class="mt-24 font-['Gin-Test'] text-3xl uppercase">
+    <section class="container mt-16 w-full max-w-[1240px]">
+      <!-- <h2 class="font-['Gin-Test'] text-3xl uppercase">
         Lows 'n' Lines: San Fernando Valley Lowrider Festival
-      </h2>
-      <h3 class="mt-9 font-['Gin-Test'] text-2xl uppercase">
+      </h2> -->
+      <div class="mx-auto mt-12 w-full max-w-[640px]"></div>
+      <h3 class="mt-12 font-['Gin-Test'] text-xl uppercase">
         Friday, Novemeber 27, 2024 | 11AM - 11PM
       </h3>
-      <p class="mt-9">
+      <p class="mt-3">
         Established in 2011, the
         <strong>Lows 'n' Lines Lowrider Festival</strong> is back at the
         <strong>Sunset Boulevard</strong>. This event celebrates the rich
@@ -51,16 +40,11 @@
         lowriders.
       </p>
 
-      <h3 class="mt-20 font-['Gin-Test'] text-2xl uppercase">Location</h3>
-      <!-- <NuxtImg
-        class="mx-auto mt-9 object-cover shadow-2xl"
-        src="/images/events/map.jpg"
-        width="1044"
-        height="402"
-        alt="festival location on map"
-      /> -->
+      <h3 class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase">
+        Location
+      </h3>
 
-      <div class="mx-auto mt-10 h-[402px] w-full max-w-[1044px]">
+      <div class="mx-auto mt-10 h-[402px] w-full max-w-[1176px] shadow-xl">
         <LMap
           ref="map"
           :zoom="17"
@@ -86,15 +70,15 @@
         claims relating to personal injury, damage to property, or use of your
         name and likeness.
       </p>
-      <h3 class="mt-20 font-['Gin-Test'] text-2xl uppercase">
+      <h3 class="mt-14 text-center font-['Gin-Test'] text-2xl uppercase">
         Lows 'n' Lines is supported by
       </h3>
 
       <NuxtImg
-        class="mx-auto mt-11 object-cover"
+        class="mx-auto mt-11 w-full max-w-[242px] object-cover"
         src="/images/events/sponsor.png"
-        width="242"
-        height="113"
+        width="673"
+        height="589"
         alt="sponsor image"
       />
     </section>

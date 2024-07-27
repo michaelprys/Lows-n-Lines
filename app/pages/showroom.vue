@@ -1,32 +1,30 @@
 <template>
-  <div class="flex lg-max:flex-col">
+  <div class="flex px-8 lg-max:flex-col">
     <nav
-      class="nav-bg w-full max-w-72 bg-[#c4ddd3] pl-5 text-black lg-max:max-w-full lg-max:pl-0"
+      class="nav-bg w-full max-w-60 text-black *:py-2 lg-max:max-w-full lg-max:pl-0 extra-min:max-w-80"
     >
-      <nav class="container *:py-2">
-        <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">
-          Vehicle types
-        </h2>
+      <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">
+        Vehicle types
+      </h2>
 
-        <ul class="flex flex-col justify-center gap-3 lg-max:flex-row">
-          <li v-for="(type, i) in types" :key="i">
-            <NuxtLink to="/">{{ type }}</NuxtLink>
-          </li>
-        </ul>
+      <ul class="flex flex-col justify-center gap-3 lg-max:flex-row">
+        <li v-for="(type, i) in types" :key="i">
+          <NuxtLink to="/">{{ type }}</NuxtLink>
+        </li>
+      </ul>
 
-        <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">Eras</h2>
+      <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">Eras</h2>
 
-        <ul
-          class="flex flex-col justify-center gap-3 lg-max:flex-row lg-max:pb-12"
-        >
-          <li v-for="(era, i) in eras" :key="i">
-            <NuxtLink to="/">{{ era }}</NuxtLink>
-          </li>
-        </ul>
-      </nav>
+      <ul
+        class="flex flex-col justify-center gap-3 lg-max:flex-row lg-max:pb-5"
+      >
+        <li v-for="(era, i) in eras" :key="i">
+          <NuxtLink to="/">{{ era }}</NuxtLink>
+        </li>
+      </ul>
     </nav>
 
-    <section class="container">
+    <section>
       <ul
         class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-10 xl-max:grid-cols-2 sm-max:grid-cols-1"
       >
@@ -35,13 +33,13 @@
           :key="car"
           class="w-full max-w-[447px] shadow-lg transition-shadow hover:shadow-xl"
         >
-          <NuxtLink to="/">
+          <NuxtLink to="/car-details">
             <NuxtImg
               class="object-cover"
               src="/images/showroom/car-1.jpg"
               width="447"
               height="252"
-              alt=""
+              alt="car image"
             />
             <div class="px-4">
               <span class="mt-4 block text-sm font-semibold text-zinc-600"
@@ -77,7 +75,7 @@
       </ul>
 
       <Pagination
-        class="just flex justify-center py-20"
+        class="flex justify-center py-20"
         v-slot="{ page }"
         :total="100"
         :sibling-count="1"

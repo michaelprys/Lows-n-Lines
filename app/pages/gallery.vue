@@ -1,16 +1,17 @@
 <template>
-  <div
-    class="bg-cover"
-    style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
-  >
+  <div class="relative">
+    <!-- <div
+      class="absolute left-0 top-0 -z-10 h-full w-full bg-cover bg-center opacity-50"
+      style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
+    ></div> -->
     <section class="container pb-24 pt-8">
-      <h1 class="text-left font-['Gin-Test'] text-4xl text-[#808080a8]">
+      <!-- <h1 class="text-left font-['Gin-Test'] text-4xl text-[#ffffff40]">
         Our cars
-      </h1>
+      </h1> -->
       <ul
-        class="mt-8 grid grid-cols-3 justify-center gap-2.5 lg-max:grid-cols-2 md-max:grid-cols-1"
+        class="grid grid-cols-3 justify-center gap-2.5 lg-max:grid-cols-2 md-max:grid-cols-1"
       >
-        <li v-for="(item, idx) in imgs" :key="item">
+        <li class="shadow" v-for="(item, idx) in imgs" :key="item">
           <NuxtImg
             class="w-full cursor-pointer rounded-lg object-cover"
             :src="`${item}`"
@@ -29,7 +30,7 @@
         @hide="onHide"
       />
 
-      <button class="mx-auto mt-10 block text-xl text-white" type="button">
+      <button class="mx-auto mt-10 block text-xl" type="button">
         <span class="text-2xl">+</span> Show More
       </button>
     </section>
