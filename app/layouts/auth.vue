@@ -8,12 +8,12 @@
         class="absolute left-[25.5px] top-10 max-w-28 opacity-50 transition-opacity hover:opacity-100"
       >
         <a
-          class="flex items-center gap-1 text-2xl text-white"
+          class="flex items-center gap-1 text-xl text-white"
           to="/"
           href=""
           @click.prevent="$router.back()"
         >
-          <IconArrow class="h-[1.6875rem] w-[1.6875rem] rotate-180" />
+          <IconArrow class="h-[1.5rem] w-[1.5rem] rotate-180" />
           Back
         </a>
       </div>

@@ -1,61 +1,59 @@
 <template>
-  <div>
-    <div class="embla">
-      <div class="embla__viewport" ref="mainRef">
-        <div class="embla__container">
-          <div class="embla__slide" v-for="(item, idx) in images" :key="item">
-            <NuxtImg
-              class="embla__image"
-              :src="`/images/car-details/${item}.jpg`"
-              :alt="`car ${idx} image`"
-            />
-          </div>
-        </div>
+  <div class="mx-auto mt-7">
+    <Carousel @init-api="(val) => (emblaMainApi = val)">
+      <CarouselContent>
+        <CarouselItem v-for="(item, idx) in images" :key="item">
+          <NuxtImg
+            class="embla__image h-[525px] object-cover"
+            :src="`/images/car-details/${item}.jpg`"
+            :alt="`car ${idx} image`"
+            width="1920"
+            heigh="1280"
+          />
+        </CarouselItem>
+      </CarouselContent>
 
-        <button
-          class="embla__btn-left"
-          type="button"
-          @click="mainApi.scrollPrev"
-        >
-          <IconArrow class="rotate-180" />
-        </button>
-        <button
-          class="embla__btn-right"
-          type="button"
-          @click="mainApi.scrollNext"
-        >
-          <IconArrow />
-        </button>
-      </div>
+      <button class="embla__btn-left" @click="emblaMainApi?.scrollPrev()">
+        <IconArrow class="mx-auto rotate-180" />
+      </button>
+      <button class="embla__btn-right" @click="emblaMainApi?.scrollNext()">
+        <IconArrow class="mx-auto" />
+      </button>
+    </Carousel>
 
-      <div class="embla-thumbs">
-        <div class="embla-thumbs__viewport" ref="thumbRef">
-          <div class="embla-thumbs__container">
-            <div
-              class="embla-thumbs__slide"
-              v-for="(item, idx) in images"
-              :key="item"
-            >
-              <button class="embla-thumbs__button" @click="scrollTo(idx)">
-                <NuxtImg
-                  :class="[
-                    'embla-thumbs__image',
-                    { 'embla-thumbs__image--active': idx === selectedIdx },
-                  ]"
-                  :src="`/images/car-details/${item}.jpg`"
-                  :alt="`car ${idx} thumbnail`"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Carousel class="mt-2" @init-api="(val) => (emblaThumbnailApi = val)">
+      <CarouselContent class="m-0 flex gap-1">
+        <CarouselItem
+          class="embla-thumbs__slide"
+          v-for="(item, idx) in images"
+          :key="item"
+          @click="onThumbClick(idx)"
+        >
+          <NuxtImg
+            class="h-24 object-cover"
+            :class="[
+              'embla-thumbs__image',
+              { 'embla-thumbs__image--active': idx === selectedIdx },
+            ]"
+            :src="`/images/car-details/${item}.jpg`"
+            :alt="`car ${idx} thumbnail`"
+            width="300"
+            height="200"
+          />
+        </CarouselItem>
+      </CarouselContent>
+    </Carousel>
   </div>
 </template>
 
 <script setup lang="ts">
-import emblaCarouselVue from "embla-carousel-vue";
+import { watchOnce } from "@vueuse/core";
+import {
+  Carousel,
+  type CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 const images = [
   "car-1",
@@ -68,53 +66,31 @@ const images = [
   "car-8",
 ];
 
+const emblaMainApi = ref<CarouselApi>();
+const emblaThumbnailApi = ref<CarouselApi>();
 const selectedIdx = ref(0);
-const [mainRef, mainApi] = emblaCarouselVue({ loop: true });
-const [thumbRef, thumbApi] = emblaCarouselVue({ containScroll: "keepSnaps" });
 
-const scrollTo = (idx) => {
-  mainApi?.value.scrollTo(idx);
-  selectedIdx.value = idx;
-  thumbApi?.value.scrollTo(selectedIdx.value);
-};
-const onSelect = () => {
-  const index = mainApi.value.selectedScrollSnap();
-  selectedIdx.value = index;
-  thumbApi.value.scrollTo(index);
-};
-onMounted(() => {
-  if (mainApi.value && thumbApi.value) {
-    mainApi.value.on("select", onSelect);
-  }
+function onSelect() {
+  if (!emblaMainApi.value || !emblaThumbnailApi.value) return;
+  selectedIdx.value = emblaMainApi.value.selectedScrollSnap();
+  emblaThumbnailApi.value.scrollTo(emblaMainApi.value.selectedScrollSnap());
+}
+
+function onThumbClick(index: number) {
+  if (!emblaMainApi.value || !emblaThumbnailApi.value) return;
+  emblaMainApi.value.scrollTo(index);
+}
+
+watchOnce(emblaMainApi, (emblaMainApi) => {
+  if (!emblaMainApi) return;
+
   onSelect();
+  emblaMainApi.on("select", onSelect);
+  emblaMainApi.on("reInit", onSelect);
 });
 </script>
 
 <style scoped>
-.embla {
-  max-width: 64rem;
-  margin: auto;
-  --slide-height: 19rem;
-  --slide-spacing: 1rem;
-  --slide-size: 100%;
-  margin-top: 2rem;
-}
-.embla__viewport {
-  overflow: hidden;
-  position: relative;
-}
-.embla__container {
-  backface-visibility: hidden;
-  display: flex;
-  touch-action: pan-y pinch-zoom;
-  margin-left: calc(var(--slide-spacing) * -1);
-}
-.embla__slide {
-  cursor: pointer;
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  padding-left: var(--slide-spacing);
-}
 .embla__image {
   display: flex;
   align-items: center;
@@ -127,10 +103,24 @@ onMounted(() => {
 .embla__btn-right {
   position: absolute;
   top: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 0.5rem;
+}
+@media (width <= 39.9375rem) {
+  .embla__btn-left,
+  .embla__btn-right {
+    width: 2.425rem;
+    height: 2.425rem;
+  }
+}
+.embla__btn-left :deep(svg),
+.embla__btn-right :deep(svg) {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 .embla__btn-left {
   left: 10px;
@@ -138,34 +128,10 @@ onMounted(() => {
 .embla__btn-right {
   right: 10px;
 }
-
-/* thumbs */
-.embla-thumbs {
-  --thumbs-slide-spacing: 0.8rem;
-  --thumbs-slide-height: 6rem;
-  margin-top: var(--thumbs-slide-spacing);
-}
-.embla-thumbs__viewport {
-  overflow: hidden;
-}
-.embla-thumbs__container {
-  display: flex;
-  flex-direction: row;
-  margin-left: calc(var(--thumbs-slide-spacing) * -1);
-}
 .embla-thumbs__slide {
   flex: 0 0 22%;
   min-width: 0;
   padding-left: var(--thumbs-slide-spacing);
-}
-.embla-thumbs__slide--active {
-  filter: grayscale(0);
-  filter: brightness(1);
-}
-@media (min-width: 576px) {
-  .embla-thumbs__slide {
-    flex: 0 0 15%;
-  }
 }
 .embla-thumbs__image {
   border: 2px solid transparent;
@@ -177,29 +143,6 @@ onMounted(() => {
   border-radius: 0.5rem;
   filter: grayscale(0);
   filter: brightness(1);
-  border-color: rgba(0, 0, 0, 0.531);
-}
-.embla-thumbs__button {
-  border-radius: 1.8rem;
-  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  touch-action: manipulation;
-  display: inline-flex;
-  text-decoration: none;
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--detail-high-contrast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--thumbs-slide-height);
-  width: 100%;
+  border-color: rgba(0, 0, 0, 0.37);
 }
 </style>

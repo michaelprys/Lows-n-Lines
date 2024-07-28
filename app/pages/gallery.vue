@@ -1,19 +1,20 @@
 <template>
   <div class="relative">
-    <!-- <div
-      class="absolute left-0 top-0 -z-10 h-full w-full bg-cover bg-center opacity-50"
+    <div
+      class="absolute -z-10 h-full w-full bg-cover bg-center"
       style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
-    ></div> -->
-    <section class="container pb-24 pt-8">
-      <!-- <h1 class="text-left font-['Gin-Test'] text-4xl text-[#ffffff40]">
-        Our cars
-      </h1> -->
+    ></div>
+
+    <section class="container pb-24 pt-14">
+      <h1 class="text-center font-['Gin-Test'] text-5xl text-[#D4D4D4]">
+        Gallery
+      </h1>
       <ul
-        class="grid grid-cols-3 justify-center gap-2.5 lg-max:grid-cols-2 md-max:grid-cols-1"
+        class="car-list mt-14 grid grid-cols-3 justify-center gap-3 bg-[#000000ca] lg-max:grid-cols-2 md-max:grid-cols-1"
       >
-        <li class="shadow" v-for="(item, idx) in imgs" :key="item">
+        <li v-for="(item, idx) in imgs" :key="item">
           <NuxtImg
-            class="w-full cursor-pointer rounded-lg object-cover"
+            class="w-full cursor-pointer rounded-lg object-cover shadow"
             :src="`${item}`"
             width="562"
             height="375"
@@ -24,14 +25,16 @@
       </ul>
 
       <VueEasyLightbox
+        class="lightbox"
         :visible="visibleRef"
+        :moveDisabled="true"
         :imgs="imgs"
         :index="indexRef"
         @hide="onHide"
       />
 
-      <button class="mx-auto mt-10 block text-xl" type="button">
-        <span class="text-2xl">+</span> Show More
+      <button class="mx-auto mt-10 block text-lg text-white" type="button">
+        <span class="text-[22px]">+</span> Show More
       </button>
     </section>
   </div>
@@ -62,3 +65,19 @@ const showImg = (index) => {
 };
 const onHide = () => (visibleRef.value = false);
 </script>
+
+<style scoped>
+.lightbox :deep(img) {
+  width: 62.5rem;
+  height: 41.6875rem;
+  object-fit: cover;
+}
+
+.vel-modal {
+  background-color: rgb(0, 0, 0, 0.8);
+}
+
+.car-list {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 1);
+}
+</style>

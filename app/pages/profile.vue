@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <nav class="container w-full max-w-[17.5625rem] bg-[#E0E0E0]">
+    <nav class="container max-w-[17.5625rem] bg-[#E0E0E0]">
       <div class="mt-14 items-center justify-center">
         <div>
           <NuxtImg
@@ -16,7 +16,7 @@
         <ul class="mt-8 *:flex *:items-center *:gap-x-1">
           <li>
             <img src="/icons/user.svg" alt="user icon" />
-            <NuxtLink to="/">Settings</NuxtLink>
+            <NuxtLink to="/">Profile</NuxtLink>
           </li>
           <li class="mt-3.5">
             <img src="/icons/favorite.svg" alt="favorite icon" />
@@ -34,10 +34,9 @@
         height="196"
         alt="profile head image"
       />
-
-      <div>
-        <slot />
-      </div>
+      <NuxtLayout name="empty">
+        <NuxtPage />
+      </NuxtLayout>
     </div>
   </div>
 </template>

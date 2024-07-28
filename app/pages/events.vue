@@ -11,12 +11,13 @@
         </h1>
       </div>
       <video
-        class="h-[500px] object-cover"
+        class="h-[31.25rem] object-cover"
         width="1920"
         height="1080"
         autoplay
         loop
         muted
+        ref="videoRef"
       >
         <source src="/videos/Event.mp4" type="video/mp4" />
       </video>
@@ -41,7 +42,7 @@
       </p>
 
       <h3 class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase">
-        Location
+        location
       </h3>
 
       <div class="mx-auto mt-10 h-[402px] w-full max-w-[1176px] shadow-xl">
@@ -56,7 +57,7 @@
             attribution='&amp;copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             layer-type="base"
             name="OpenStreetMap"
-          /><LMarker :lat-lng="[34.299074, -118.45949]" draggable />
+          /><LMarker :lat-lng="[34.299074, -118.45949]" />
         </LMap>
       </div>
 
@@ -84,8 +85,6 @@
     </section>
   </div>
 </template>
-
-<script setup></script>
 
 <style scoped>
 .intro {

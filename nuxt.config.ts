@@ -7,8 +7,8 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxt/image",
     "shadcn-nuxt",
-    "nuxt-easy-lightbox",
-    "@nuxtjs/leaflet"
+    "@nuxtjs/leaflet",
+    "nuxt-easy-lightbox"
   ],
   future: {
     compatibilityVersion: 4,

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-10">
+  <div class="container mt-7">
     <div class="flex items-center justify-between md-max:flex-col md-max:gap-5">
       <h1 class="text-center text-2xl uppercase text-[#808080]">
         Chevrolet Impala - 1964
