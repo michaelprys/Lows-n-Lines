@@ -1,42 +1,46 @@
 <template>
-  <div class="flex">
-    <nav class="container max-w-[17.5625rem] bg-[#E0E0E0]">
-      <div class="mt-14 items-center justify-center">
-        <div>
+  <div>
+    <nav>
+      <div
+        class="relative min-h-[12.25rem] w-full bg-cover bg-center"
+        style="background-image: url(&quot;/images/profile/head.jpg&quot;)"
+      >
+        <div class="min-h-[230px] w-full pt-8">
           <NuxtImg
-            class="mx-auto rounded-full object-cover"
+            class="mx-auto rounded-full border-2 object-cover"
             src="/images/profile/avatar.jpg"
             width="134"
             height="134"
             alt="avatar image"
           />
-          <span class="mt-4 block text-center uppercase">Lance Wilson</span>
+          <span class="mt-3 block text-center uppercase text-white"
+            >Lance Wilson</span
+          >
         </div>
 
-        <ul class="mt-8 *:flex *:items-center *:gap-x-1">
-          <li>
+        <div
+          class="flex justify-center gap-2 pb-8 text-white *:flex *:items-center *:gap-x-1 *:bg-[#ffffff1f] *:px-5 *:py-2"
+        >
+          <NuxtLink
+            class="transition-colors hover:bg-[#ffffff2c]"
+            to="/profile"
+          >
             <img src="/icons/user.svg" alt="user icon" />
-            <NuxtLink to="/">Profile</NuxtLink>
-          </li>
-          <li class="mt-3.5">
+            Profile
+          </NuxtLink>
+          <NuxtLink
+            class="transition-colors hover:bg-[#ffffff37]"
+            to="/profile/saved-cars"
+          >
             <img src="/icons/favorite.svg" alt="favorite icon" />
-            <NuxtLink to="/">Saved cars</NuxtLink>
-          </li>
-        </ul>
+            Saved cars
+          </NuxtLink>
+        </div>
       </div>
     </nav>
 
     <div>
-      <NuxtImg
-        class="min-h-[12.25rem] object-cover"
-        src="/images/profile/head.jpg"
-        width="1639"
-        height="196"
-        alt="profile head image"
-      />
-      <NuxtLayout name="empty">
-        <NuxtPage />
-      </NuxtLayout>
+      <NuxtPage />
     </div>
   </div>
 </template>

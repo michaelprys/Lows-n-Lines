@@ -36,16 +36,16 @@
       <footer
         class="my-10 mt-auto flex gap-2 text-center text-white md-max:text-xs"
       >
-        <span class="text-[#999999]">@ 2024 Lows 'n' Lines</span>
+        <span class="text-white">@ 2024 Lows 'n' Lines</span>
         <div>
-          <span class="text-[#999999]">|</span>
+          <span class="text-[#d2d2d2]">|</span>
           <NuxtLink to="/">
             <span class="ml-2">Privacy policy</span>
           </NuxtLink>
         </div>
 
         <div>
-          <span class="text-[#999999]">|</span>
+          <span class="text-[#d2d2d2]">|</span>
           <NuxtLink to="/">
             <span class="ml-2">Terms & Conditions</span></NuxtLink
           >

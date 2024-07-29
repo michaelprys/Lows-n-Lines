@@ -1,37 +1,26 @@
 <template>
   <div class="relative">
     <div
-      class="absolute -z-10 h-full w-full bg-cover bg-center"
+      class="absolute -z-10 h-full w-full bg-cover bg-center opacity-80"
       style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
     ></div>
 
-    <section class="container pb-24 pt-14">
-      <h1 class="text-center font-['Gin-Test'] text-5xl text-[#D4D4D4]">
+    <ItemModal :indexRef="indexRef" />
+
+    <section class="container pb-24 pt-11">
+      <h1 class="text-center font-['Gin-Test'] text-4xl text-[#D4D4D4]">
         Gallery
       </h1>
-      <ul
-        class="car-list mt-14 grid grid-cols-3 justify-center gap-3 bg-[#000000ca] lg-max:grid-cols-2 md-max:grid-cols-1"
-      >
-        <li v-for="(item, idx) in imgs" :key="item">
+      <ul class="car-list mx-auto mt-11 columns-3 gap-3 space-y-3">
+        <li class="break-inside-avoid" v-for="(item, idx) in imgs" :key="item">
           <NuxtImg
-            class="w-full cursor-pointer rounded-lg object-cover shadow"
+            class="w-full cursor-pointer rounded-lg object-cover shadow-lg"
             :src="`${item}`"
-            width="562"
-            height="375"
             :alt="`gallery image ${idx}`"
-            @click="() => showImg(idx)"
+            @click="showModal(idx)"
           />
         </li>
       </ul>
-
-      <VueEasyLightbox
-        class="lightbox"
-        :visible="visibleRef"
-        :moveDisabled="true"
-        :imgs="imgs"
-        :index="indexRef"
-        @hide="onHide"
-      />
 
       <button class="mx-auto mt-10 block text-lg text-white" type="button">
         <span class="text-[22px]">+</span> Show More
@@ -41,29 +30,22 @@
 </template>
 
 <script setup>
-const visibleRef = ref(false);
 const indexRef = ref(0);
 
 const imgs = [
   "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-1.jpg",
+  "/images/gallery/gallery-2.jpg",
+  "/images/gallery/gallery-3.jpg",
+  "/images/gallery/gallery-4.jpg",
+  "/images/gallery/gallery-5.jpg",
+  "/images/gallery/gallery-6.jpg",
+  "/images/gallery/gallery-7.jpg",
+  "/images/gallery/gallery-8.jpg",
+  "/images/gallery/gallery-9.jpg",
+  "/images/gallery/gallery-10.jpg",
+  "/images/gallery/gallery-11.jpg",
+  "/images/gallery/gallery-12.jpg",
 ];
-
-const showImg = (index) => {
-  indexRef.value = index;
-  visibleRef.value = true;
-};
-const onHide = () => (visibleRef.value = false);
 </script>
 
 <style scoped>
@@ -78,6 +60,6 @@ const onHide = () => (visibleRef.value = false);
 }
 
 .car-list {
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 1);
+  /* box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5); */
 }
 </style>

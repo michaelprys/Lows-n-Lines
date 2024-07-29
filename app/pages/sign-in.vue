@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="mt-10 rounded-[2px] bg-white p-5">
+    <form class="mt-10 rounded-[2px] bg-white p-5" ref="container">
       <span class="block text-2xl font-semibold">Sign in</span>
       <div class="mt-5 flex flex-col gap-5">
         <input

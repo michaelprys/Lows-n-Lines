@@ -1,10 +1,10 @@
 <template>
   <section class="container mb-24 mt-10">
     <h1 class="font-['Gin-Test'] text-5xl xl-max:text-4xl md-max:text-3xl">
-      Old or new, we fix it for you
+      Rev up your ride
     </h1>
     <div
-      class="mt-14 flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8"
+      class="mt-12 flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8"
     >
       <div>
         <p>

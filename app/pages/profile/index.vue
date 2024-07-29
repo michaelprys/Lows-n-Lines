@@ -1,18 +1,18 @@
 <template>
   <div>
-    <section class="container mb-44 mt-16">
-      <div class="flex justify-between gap-24">
+    <section class="container mb-36 mt-16 lg-max:mb-20">
+      <div class="flex justify-between gap-24 lg-max:flex-col lg-max:gap-10">
         <div class="w-full">
           <h1 class="text-2xl">My account</h1>
           <ul class="mt-2 *:border-t *:border-[#E0E0E0]">
             <li class="my-1">
-              <div class="flex py-2 pl-3">
-                <label class="w-full max-w-[201px]" for="first-name"
+              <div class="flex w-full justify-between gap-7 py-2 pl-3">
+                <label class="w-full max-w-[6.6875rem]" for="first-name"
                   >First name</label
                 >
-                <div class="flex w-full max-w-[41.4375rem] justify-between">
+                <div class="flex w-full max-w-[37.9375rem]">
                   <input
-                    class="placeholder-[#666666]"
+                    class="w-full placeholder-[#666666]"
                     type="text"
                     id="first-name"
                     placeholder="First name"
@@ -22,13 +22,13 @@
               </div>
             </li>
             <li class="my-1">
-              <div class="flex py-2 pl-3">
-                <label class="w-full max-w-[201px]" for="last-name"
+              <div class="flex w-full justify-between gap-7 py-2 pl-3">
+                <label class="w-full max-w-[6.6875rem]" for="last-name"
                   >Last name</label
                 >
-                <div class="flex w-full max-w-[41.4375rem] justify-between">
+                <div class="flex w-full max-w-[37.9375rem]">
                   <input
-                    class="placeholder-[#666666]"
+                    class="w-full placeholder-[#666666]"
                     type="text"
                     id="last-name"
                     placeholder="Last name"
@@ -38,11 +38,13 @@
               </div>
             </li>
             <li class="my-1">
-              <div class="flex py-2 pl-3">
-                <label class="w-full max-w-[201px]" for="email">Email</label>
-                <div class="flex w-full max-w-[41.4375rem] justify-between">
+              <div class="flex w-full justify-between gap-7 py-2 pl-3">
+                <label class="w-full max-w-[6.6875rem]" for="email"
+                  >Email</label
+                >
+                <div class="flex w-full max-w-[37.9375rem]">
                   <input
-                    class="placeholder-[#666666]"
+                    class="w-full placeholder-[#666666]"
                     type="email"
                     id="email"
                     placeholder="Email"
@@ -52,11 +54,13 @@
               </div>
             </li>
             <li class="my-1">
-              <div class="flex py-2 pl-3">
-                <label class="w-full max-w-[201px]" for="email">Password</label>
-                <div class="flex w-full max-w-[41.4375rem] justify-between">
+              <div class="flex justify-between gap-7 py-2 pl-3">
+                <label class="w-full max-w-[6.6875rem]" for="email"
+                  >Password</label
+                >
+                <div class="flex w-full max-w-[37.9375rem]">
                   <input
-                    class="placeholder-[#666666]"
+                    class="w-full placeholder-[#666666]"
                     type="password"
                     id="password"
                     placeholder="******"
@@ -66,18 +70,16 @@
               </div>
             </li>
             <li class="my-1 border-b border-[#E0E0E0]">
-              <div class="flex py-2 pl-3">
-                <label class="w-full max-w-[201px]" for="email"
+              <div class="flex justify-between gap-7 py-2 pl-3">
+                <label class="w-full max-w-[6.6875rem]" for="email"
                   >Member since</label
                 >
-                <div class="flex w-full max-w-[41.4375rem] justify-between">
-                  <input
-                    class="placeholder-[#666666]"
-                    type="text"
-                    id="member-since"
-                    placeholder="November 22, 2024"
-                  />
-                </div>
+                <input
+                  class="w-full max-w-[37.9375rem] placeholder-[#666666]"
+                  type="text"
+                  id="member-since"
+                  placeholder="November 22, 2024"
+                />
               </div>
             </li>
           </ul>
@@ -88,7 +90,7 @@
             Update
           </NuxtLink>
         </div>
-        <div class="w-full max-w-[26.25rem]">
+        <div class="w-full max-w-[26.25rem] lg-max:max-w-full">
           <div>
             <h2 class="text-xl">Account settings</h2>
             <p class="mt-4">
