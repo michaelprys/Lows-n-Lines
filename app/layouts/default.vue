@@ -21,7 +21,6 @@ const linksPrimary = ref([
   { name: "Showroom", route: "/showroom" },
   { name: "Service Center", route: "/service" },
   { name: "Events", route: "/events" },
-  { name: "About Us", route: "/about" },
   { name: "Gallery", route: "/gallery" },
 ]);
 

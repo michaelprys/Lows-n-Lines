@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "shadcn-nuxt",
     "@nuxtjs/leaflet",
-    "nuxt-easy-lightbox"
+    "nuxt-easy-lightbox",
   ],
   future: {
     compatibilityVersion: 4,

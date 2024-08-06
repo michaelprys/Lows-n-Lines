@@ -5,87 +5,107 @@
     >
       <ul class="flex gap-8 lg-max:flex-col">
         <li
-          class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full"
+          class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
-          <NuxtLink to="/">
-            <div class="absolute h-full w-full bg-black opacity-10"></div>
-            <NuxtImg
-              class="h-full w-full"
-              fit="cover"
-              src="images/home/explore/explore-1.jpg"
-              alt="explore image 1"
-              width="807"
-              height="460"
-            />
-            <div
+          <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
+            <NuxtLink
+              class="opacity-0"
               to="/"
-              class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
+              :class="{ 'fade-in': isVisible }"
             >
-              About our cars
-            </div>
-          </NuxtLink>
+              <div class="absolute h-full w-full bg-black opacity-10"></div>
+              <NuxtImg
+                class="h-full w-full object-cover"
+                src="images/home/explore/explore-1.jpg"
+                alt="explore image 1"
+                width="807"
+                height="460"
+              />
+              <div
+                to="/"
+                class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
+              >
+                About our cars
+              </div>
+            </NuxtLink>
+          </ItemObserver>
         </li>
         <li
-          class="relative h-[28.75rem] w-full max-w-[35.2081rem] lg-max:max-w-full"
+          class="relative h-[28.75rem] w-full max-w-[35.2081rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
-          <NuxtLink to="/">
-            <div class="absolute h-full w-full bg-black opacity-10"></div>
-            <NuxtImg
-              class="h-full w-full object-cover"
-              src="images/home/explore/explore-2.jpg"
-              alt="explore image 2"
-              width="563"
-              height="460"
-            />
-            <div
+          <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
+            <NuxtLink
+              class="opacity-0"
               to="/"
-              class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
+              :class="{ 'fade-in': isVisible }"
             >
-              Events
-            </div>
-          </NuxtLink>
+              <div class="absolute h-full w-full bg-black opacity-10"></div>
+              <NuxtImg
+                class="h-full w-full object-cover"
+                src="images/home/explore/explore-2.jpg"
+                alt="explore image 2"
+                width="563"
+                height="460"
+              />
+              <div
+                to="/"
+                class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
+              >
+                Events
+              </div>
+            </NuxtLink>
+          </ItemObserver>
         </li>
       </ul>
+
       <ul class="flex gap-8 lg-max:flex-col">
         <li
-          class="relative h-[28.75rem] w-full max-w-[50.4375rem] lg-max:max-w-full"
+          class="relative h-[28.75rem] w-full max-w-[50.4375rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
-          <NuxtLink to="/"
-            ><div class="absolute h-full w-full bg-black opacity-10"></div>
-            <NuxtImg
-              class="h-full w-full object-cover"
-              src="images/home/explore/explore-3.jpg"
-              alt="explore image 3"
-              width="807"
-              height="460"
-            />
-            <div
-              to="/"
-              class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
-            >
-              Services
-            </div></NuxtLink
-          >
+          <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
+            <NuxtLink class="opacity-0" to="/" :class="{ 'fade-in': isVisible }"
+              ><div class="absolute h-full w-full bg-black opacity-10"></div>
+              <NuxtImg
+                class="h-full w-full object-cover"
+                src="images/home/explore/explore-3.jpg"
+                alt="explore image 3"
+                width="807"
+                height="460"
+              />
+              <div
+                to="/"
+                class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
+              >
+                Services
+              </div>
+            </NuxtLink>
+          </ItemObserver>
         </li>
         <li
-          class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full"
+          class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
-          <NuxtLink to="/">
-            <div class="absolute h-full w-full bg-black opacity-10"></div>
-            <NuxtImg
-              class="h-full w-full object-cover"
-              src="images/home/explore/explore-4.jpg"
-              alt="explore image 4"
-              width="563"
-              height="460"
-            />
-            <div
+          <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
+            <NuxtLink
+              class="opacity-0"
               to="/"
-              class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
+              :class="{ 'fade-in': isVisible }"
             >
-              Shop gear
-            </div>
-          </NuxtLink>
+              <div class="absolute h-full w-full bg-black opacity-10"></div>
+              <NuxtImg
+                class="h-full w-full object-cover"
+                src="images/home/explore/explore-4.jpg"
+                alt="explore image 4"
+                width="563"
+                height="460"
+              />
+              <div
+                to="/"
+                class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
+              >
+                Shop gear
+              </div>
+            </NuxtLink>
+          </ItemObserver>
         </li>
       </ul>
     </div>

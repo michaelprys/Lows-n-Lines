@@ -1,51 +1,99 @@
 <template>
   <div class="relative">
     <div
-      class="absolute -z-10 h-full w-full bg-cover bg-center opacity-80"
+      class="absolute -z-10 h-full w-full bg-cover bg-center"
       style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
     ></div>
 
-    <ItemModal :indexRef="indexRef" />
-
     <section class="container pb-24 pt-11">
-      <h1 class="text-center font-['Gin-Test'] text-4xl text-[#D4D4D4]">
-        Gallery
-      </h1>
-      <ul class="car-list mx-auto mt-11 columns-3 gap-3 space-y-3">
+      <ItemObserver v-slot="{ isVisible }">
+        <h1
+          class="text-center font-['Gin-Test'] text-4xl text-[#ffffff] opacity-0 md-max:text-3xl"
+          :class="{ 'fade-in': isVisible }"
+        >
+          Gallery
+        </h1>
+      </ItemObserver>
+      <ul
+        class="xs-max:columns-1 mx-auto mt-11 columns-3 gap-3 space-y-3 md-max:columns-2"
+      >
         <li class="break-inside-avoid" v-for="(item, idx) in imgs" :key="item">
-          <NuxtImg
-            class="w-full cursor-pointer rounded-lg object-cover shadow-lg"
-            :src="`${item}`"
-            :alt="`gallery image ${idx}`"
-            @click="showModal(idx)"
-          />
+          <ItemObserver v-slot="{ isVisible }">
+            <NuxtImg
+              class="w-full cursor-pointer rounded-lg object-cover opacity-0 shadow-2xl"
+              :class="{ 'fade-in': isVisible }"
+              :src="item.url"
+              :alt="`gallery image ${idx}`"
+              @click="() => showImg(idx)"
+            />
+          </ItemObserver>
         </li>
       </ul>
-
-      <button class="mx-auto mt-10 block text-lg text-white" type="button">
-        <span class="text-[22px]">+</span> Show More
-      </button>
+      <VueEasyLightbox
+        class="lightbox"
+        :visible="visibleRef"
+        :imgs="imgUrls"
+        :index="indexRef"
+        moveDisabled="true"
+        @hide="onHide"
+      />
+      <ItemObserver v-slot="{ isVisible }">
+        <button
+          class="mx-auto mt-10 block text-lg text-white opacity-0"
+          type="button"
+          :class="{ 'fade-in': isVisible }"
+        >
+          <span class="text-[22px]">+</span> Show More
+        </button>
+      </ItemObserver>
     </section>
   </div>
 </template>
 
 <script setup>
+const visibleRef = ref(false);
 const indexRef = ref(0);
 
 const imgs = [
-  "/images/gallery/gallery-1.jpg",
-  "/images/gallery/gallery-2.jpg",
-  "/images/gallery/gallery-3.jpg",
-  "/images/gallery/gallery-4.jpg",
-  "/images/gallery/gallery-5.jpg",
-  "/images/gallery/gallery-6.jpg",
-  "/images/gallery/gallery-7.jpg",
-  "/images/gallery/gallery-8.jpg",
-  "/images/gallery/gallery-9.jpg",
-  "/images/gallery/gallery-10.jpg",
-  "/images/gallery/gallery-11.jpg",
-  "/images/gallery/gallery-12.jpg",
+  {
+    url: "/images/gallery/gallery-1.jpg",
+    width: "563",
+    height: "375",
+  },
+  {
+    url: "/images/gallery/gallery-2.jpg",
+    width: "1920",
+    height: "2880",
+  },
+  {
+    url: "/images/gallery/gallery-3.jpg",
+    width: "1920",
+    height: "1280",
+  },
+  {
+    url: "/images/gallery/gallery-4.jpg",
+    width: "1920",
+    height: "1280",
+  },
+  {
+    url: "/images/gallery/gallery-5.jpg",
+    width: "1920",
+    height: "1440",
+  },
+  {
+    url: "/images/gallery/gallery-6.jpg",
+    width: "1920",
+    height: "2880",
+  },
 ];
+
+const imgUrls = imgs.map((img) => img.url);
+
+const showImg = (index) => {
+  indexRef.value = index;
+  visibleRef.value = true;
+};
+const onHide = () => (visibleRef.value = false);
 </script>
 
 <style scoped>
@@ -59,7 +107,7 @@ const imgs = [
   background-color: rgb(0, 0, 0, 0.8);
 }
 
-.car-list {
-  /* box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5); */
-}
+/* .car-list {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 1);
+} */
 </style>

@@ -21,6 +21,7 @@ module.exports = {
       "lg-max": { raw: "(width <= 1023px)" },
       "md-max": { raw: "(width <= 767px)" },
       "sm-max": { raw: "(width <= 639px)" },
+      "xs-max": { raw: "(width <= 479px" },
 
       "extra-min": { raw: "(width > 1700px)" },
       "2xl-min": { raw: "(width > 1535px)" },
@@ -28,6 +29,7 @@ module.exports = {
       "lg-min": { raw: "(width > 1023px)" },
       "md-min": { raw: "(width > 767px)" },
       "sm-min": { raw: "(width > 639px)" },
+      "xs-min": { raw: "(width > 479px" },
     },
     extend: {
       colors: {

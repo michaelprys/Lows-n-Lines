@@ -3,7 +3,7 @@
     <SectionIntro />
     <SectionExplore />
     <SectionFeaturedCars />
-    <SectionTires />
+    <SectionDriveWithUs />
     <SectionOwner />
     <SectionEssentials />
     <SectionJoinUs />
