@@ -23,17 +23,11 @@
           <div
             class="flex justify-center gap-2 pb-8 text-white *:flex *:items-center *:gap-x-1 *:bg-[#ffffff1f] *:px-5 *:py-2"
           >
-            <NuxtLink
-              class="transition-colors hover:bg-[#ffffff2c]"
-              to="/profile"
-            >
+            <NuxtLink class="link transition-colors" to="/profile">
               <img src="/icons/user.svg" alt="user icon" />
               Profile
             </NuxtLink>
-            <NuxtLink
-              class="transition-colors hover:bg-[#ffffff37]"
-              to="/profile/saved-cars"
-            >
+            <NuxtLink class="link transition-colors" to="/profile/saved-cars">
               <img src="/icons/favorite.svg" alt="favorite icon" />
               Saved cars
             </NuxtLink>
@@ -47,3 +41,17 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.link {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0.1875rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.link:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+</style>

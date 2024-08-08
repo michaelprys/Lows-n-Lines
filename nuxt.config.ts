@@ -2,18 +2,23 @@
 export default defineNuxtConfig({
   components: true,
   compatibilityDate: "2024-04-03",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxt/image",
     "shadcn-nuxt",
     "@nuxtjs/leaflet",
     "nuxt-easy-lightbox",
+    "@pinia/nuxt",
   ],
   future: {
     compatibilityVersion: 4,
   },
-  css: ["~/assets/styles/main.css", "~/assets/styles/font-face.css"],
+  css: [
+    "~/assets/styles/main.css",
+    "~/assets/styles/font-face.css",
+    "~/assets/styles/animations.css",
+  ],
   app: {
     pageTransition: {
       name: "page",
@@ -32,5 +37,8 @@ export default defineNuxtConfig({
   shadcn: {
     prefix: "",
     componentDir: "app/components/ui",
+  },
+  colorMode: {
+    classSuffix: "",
   },
 });

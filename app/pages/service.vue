@@ -62,7 +62,7 @@
       <ItemObserver class="max-w-1/2 w-full" v-slot="{ isVisible }">
         <NuxtImg
           class="mt-12 w-full max-w-[615] rounded-md object-cover opacity-0 xl-max:mx-auto xl-max:mt-0"
-          :class="{ 'fade-in-up': isVisible }"
+          :class="{ 'fade-in-up-delayed': isVisible }"
           src="/images/service/service.jpg"
           width="615"
           height="277"
@@ -79,7 +79,7 @@
             <li>
               <label class="font-semibold" for="first-name">First Name</label>
               <input
-                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                 type="text"
                 id="first-name"
                 placeholder="First Name*"
@@ -88,7 +88,7 @@
             <li>
               <label class="font-semibold" for="last-name">Last Name</label>
               <input
-                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                 type="text"
                 id="last-name"
                 placeholder="Last Name *"
@@ -99,7 +99,7 @@
                 >Phone Number</label
               >
               <input
-                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                 type="text"
                 id="phone-number"
                 placeholder="Phone Number *"
@@ -110,7 +110,7 @@
                 >Email Address</label
               >
               <input
-                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                class="v mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                 type="text"
                 id="email-address"
                 placeholder="Email Address *"
@@ -120,7 +120,7 @@
           <div class="mt-5 flex flex-col">
             <label class="font-semibold" for="message">Message</label>
             <textarea
-              class="mt-1 resize-none rounded-[2px] border border-[#C2C2C2] px-4 py-4"
+              class="mt-1 resize-none rounded-[2px] border border-[#C2C2C2] px-4 py-4 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
               name=""
               id="message"
               cols="30"
@@ -132,7 +132,7 @@
       </ItemObserver>
       <ItemObserver v-slot="{ isVisible }">
         <NuxtLink
-          class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase opacity-0"
+          class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase opacity-0 transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
           to="/"
           :class="{ 'fade-in-up': isVisible }"
         >
@@ -142,3 +142,9 @@
     </form>
   </section>
 </template>
+
+<style scoped>
+.fade-in-up-delayed {
+  animation: fadeInUp 0.3s 0.1s forwards;
+}
+</style>

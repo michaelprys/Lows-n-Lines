@@ -2,80 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+html body {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+html.dark body {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
 body {
-  color: #000;
   font-family: "Inter", "SF Pro", "Open Sans", Candara;
+  background-color: #fff;
+  color: #000;
 }
 
-.page-enter-active,
-.page-leave-active,
-.layout-enter-active,
-.layout-leave-active {
-  transition: opacity 0.4s ease-in-out;
-}
-
-.page-enter-from,
-.page-leave-to,
-.layout-enter-from,
-.layout-leave-to {
-  opacity: 0;
-}
-
-.pop-enter-active,
-.pop-leave-active {
-  transition:
-    transform 0.4s cubic-bezier(0.5, 0, 0.5, 1),
-    opacity 0.4s linear;
-}
-.pop-enter-from,
-.pop-leave-to {
-  opacity: 0;
-  transform: scale(0.3) translateY(-50%);
-}
-
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
-}
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
-}
-
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.3s forwards;
-}
-.fade-in-up {
-  animation: fadeInUp 0.3s forwards;
+.dark body {
+  background-color: #141414;
+  color: #f2f2f2;
 }
 
 @layer base {

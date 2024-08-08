@@ -9,7 +9,7 @@
           class="absolute flex h-full w-full items-center justify-center bg-[#526672] bg-opacity-25"
         >
           <h1
-            class="xs-max:text-xl px-20 text-center font-['Gin-Test'] text-5xl uppercase text-white xl-max:text-4xl lg-max:text-3xl"
+            class="px-20 text-center font-['Gin-Test'] text-5xl uppercase text-[#f2f2f2] xl-max:text-4xl lg-max:text-3xl xs-max:text-xl"
           >
             Lowrider Fest In San Fernando Valley
           </h1>
@@ -98,14 +98,19 @@
       </ItemObserver>
 
       <ItemObserver v-slot="{ isVisible }">
-        <NuxtImg
-          class="mx-auto mt-11 w-full max-w-[242px] object-cover opacity-0"
-          :class="{ 'fade-in-up': isVisible }"
-          src="/images/events/sponsor.png"
-          width="673"
-          height="589"
-          alt="sponsor image"
-        />
+        <div class="opacity-0" :class="{ 'fade-in-up': isVisible }">
+          <NuxtImg
+            class="mx-auto mt-11 w-full max-w-[242px] object-cover"
+            src="/images/events/sponsor.png"
+            width="673"
+            height="589"
+            alt="sponsor image"
+          />
+          <span
+            class="mt-2 block select-none text-center font-['Gin-Test'] text-6xl text-[#040707] dark:text-[#f2f2f2]"
+            >CASSIO
+          </span>
+        </div>
       </ItemObserver>
     </section>
   </div>

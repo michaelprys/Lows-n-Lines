@@ -5,13 +5,17 @@
         <div
           class="flex items-center justify-between md-max:flex-col md-max:gap-5"
         >
-          <h1 class="text-center text-2xl uppercase text-[#808080]">
+          <h1
+            class="text-center text-2xl uppercase text-[#808080] dark:text-[#9f9f9f]"
+          >
             Chevrolet Impala - 1964
           </h1>
           <div class="flex items-center gap-8">
-            <span class="text-xl uppercase text-[#444444]">$53,000</span>
+            <span class="text-xl uppercase text-[#808080] dark:text-[#9f9f9f]"
+              >$53,000</span
+            >
             <button
-              class="rounded-sm border border-[#e5ddac] bg-[#F1E798] p-4 uppercase text-black md-max:p-2 md-max:text-xs"
+              class="rounded-sm border border-[#e5ddac] bg-[#F1E798] p-4 uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black md-max:p-2 md-max:text-xs"
             >
               Print inverntory
             </button>
@@ -192,7 +196,7 @@
                     >First Name</label
                   >
                   <input
-                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                     id="first-name"
                     type="text"
                     placeholder="First Name *"
@@ -201,7 +205,7 @@
                 <li class="flex flex-col gap-1">
                   <label class="font-semibold" for="last-name">Last Name</label>
                   <input
-                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                     id="last-name"
                     type="text"
                     placeholder="Last Name *"
@@ -212,7 +216,7 @@
                     >Phone Number</label
                   >
                   <input
-                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                     id="phone-number"
                     type="text"
                     placeholder="Phone Number *"
@@ -223,7 +227,7 @@
                     >Email Address</label
                   >
                   <input
-                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                    class="rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                     id="email-address"
                     type="text"
                     placeholder="Email Address *"
@@ -236,20 +240,26 @@
                   <label class="font-semibold" for="">Subject</label>
                   <Select>
                     <SelectTrigger
-                      class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2"
+                      class="select mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536] dark:text-black"
                     >
                       <SelectValue
-                        class="text-[1rem]"
+                        class="text-[1rem] text-zinc-400"
                         placeholder="Select a fruit"
                       />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectGroup>
+                      <SelectGroup class="dark:bg-zinc-800 dark:text-dark-el">
                         <SelectLabel>Ask a question</SelectLabel>
-                        <SelectItem class="cursor-pointer" value="apple">
+                        <SelectItem
+                          class="cursor-pointer transition-colors dark:hover:bg-zinc-700 dark:hover:text-dark-el"
+                          value="apple"
+                        >
                           Apple
                         </SelectItem>
-                        <SelectItem class="cursor-pointer" value="banana">
+                        <SelectItem
+                          class="cursor-pointer transition-colors dark:hover:bg-zinc-700 dark:hover:text-dark-el"
+                          value="banana"
+                        >
                           Banana
                         </SelectItem>
                       </SelectGroup>
@@ -259,7 +269,7 @@
                 <div class="mt-5 flex flex-col">
                   <label class="font-semibold" for="message">Message</label>
                   <textarea
-                    class="mt-1 resize-none rounded-[2px] border border-[#C2C2C2] px-4 py-4"
+                    class="mt-1 resize-none rounded-[2px] border border-[#C2C2C2] px-4 py-4 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                     name=""
                     id="message"
                     cols="30"
@@ -272,7 +282,7 @@
           </ItemObserver>
           <ItemObserver v-slot="{ isVisible }">
             <NuxtLink
-              class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase opacity-0"
+              class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase opacity-0 transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
               :class="{ 'fade-in-up': isVisible }"
               to="/"
             >
@@ -284,3 +294,9 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.dark .select :deep svg {
+  stroke: #f2f2f2;
+}
+</style>

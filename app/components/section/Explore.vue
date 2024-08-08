@@ -1,7 +1,7 @@
 <template>
   <section class="container mt-28 flex justify-center md-max:mt-14">
     <div
-      class="flex max-w-[92.5rem] flex-col items-center gap-8 lg-max:max-w-[640px]"
+      class="flex max-w-[92.5rem] flex-col items-center gap-8 dark:text-black lg-max:max-w-[640px]"
     >
       <ul class="flex gap-8 lg-max:flex-col">
         <li
@@ -25,7 +25,7 @@
                 to="/"
                 class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
               >
-                About our cars
+                About us
               </div>
             </NuxtLink>
           </ItemObserver>
@@ -102,7 +102,7 @@
                 to="/"
                 class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
               >
-                Shop gear
+                Gallery
               </div>
             </NuxtLink>
           </ItemObserver>
@@ -111,28 +111,3 @@
     </div>
   </section>
 </template>
-
-<script setup>
-const items = [
-  {
-    id: "1",
-    width: "50.4149rem",
-    text: "About our cars",
-  },
-  {
-    id: "2",
-    width: "35.2081rem",
-    text: "Events",
-  },
-  {
-    id: "3",
-    width: "50.4149rem",
-    text: "Services",
-  },
-  {
-    id: "4",
-    width: "35.2081rem",
-    text: "Shop gear",
-  },
-];
-</script>

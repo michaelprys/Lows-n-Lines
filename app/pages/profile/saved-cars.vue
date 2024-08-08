@@ -3,7 +3,7 @@
     <section class="container mb-20 pt-12">
       <ItemObserver v-slot="{ isVisible }">
         <h1
-          class="text-left font-['Gin-Test'] text-3xl text-[#89737d] opacity-0"
+          class="text-left font-['Gin-Test'] text-3xl text-[#808080] opacity-0 dark:text-[#9f9f9f]"
           :class="{ 'fade-in': isVisible }"
         >
           Favorite cars
@@ -31,7 +31,7 @@
 
       <ItemObserver v-slot="{ isVisible }">
         <button
-          class="mx-auto mt-10 block text-lg opacity-0"
+          class="mx-auto mt-10 block text-lg opacity-0 transition-colors hover:text-gray-500"
           :class="{ 'fade-in': isVisible }"
           type="button"
         >

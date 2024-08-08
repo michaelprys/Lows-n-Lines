@@ -13,10 +13,16 @@
         </CarouselItem>
       </CarouselContent>
 
-      <button class="embla__btn-left" @click="emblaMainApi?.scrollPrev()">
+      <button
+        class="embla__btn-left transition-colors"
+        @click="emblaMainApi?.scrollPrev()"
+      >
         <IconArrow class="mx-auto rotate-180" />
       </button>
-      <button class="embla__btn-right" @click="emblaMainApi?.scrollNext()">
+      <button
+        class="embla__btn-right transition-colors"
+        @click="emblaMainApi?.scrollNext()"
+      >
         <IconArrow class="mx-auto" />
       </button>
     </Carousel>
@@ -110,6 +116,11 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 0.5rem;
 }
+.embla__btn-left:hover,
+.embla__btn-right:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
 @media (width <= 39.9375rem) {
   .embla__btn-left,
   .embla__btn-right {

@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-[#F4F6F8]">
+  <footer class="bg-[#F4F6F8] dark:bg-dark-primary">
     <div class="bg-[#151515] py-10">
       <div class="container">
         <ul
@@ -44,22 +44,22 @@
         </h2>
         <ul class="mt-5 flex flex-col gap-2">
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >Contact Us</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >FAQ</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >Help Center</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >About Us</NuxtLink
             >
           </li>
@@ -72,22 +72,22 @@
         </h2>
         <ul class="mt-5 flex flex-col gap-2">
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >Privacy Policy</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >Read The Journal</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >Terms & Conditions</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-zinc-500" to="/"
+            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
               >Awards & Achievements</NuxtLink
             >
           </li>
@@ -100,13 +100,13 @@
           Sign up for exclusive car offers, original builds, events, and more.
         </p>
         <input
-          class="mt-7 w-full max-w-[19.375rem] rounded-[3px] border-2 border-zinc-200 px-4 py-3 placeholder:text-[#1B1B1B]"
+          class="mt-7 w-full max-w-[19.375rem] rounded-[3px] border-2 border-zinc-200 px-4 py-3 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
           w-full
           type="text"
           placeholder="Enter email"
         />
         <NuxtLink
-          class="mt-6 block w-full max-w-[6.9375rem] rounded-[3px] border border-[#e5ddac] bg-[#F1E798] py-3 text-center text-sm uppercase"
+          class="mt-6 block w-full max-w-[6.9375rem] rounded-[3px] border border-[#e5ddac] bg-[#F1E798] py-3 text-center text-sm uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
           to="/"
         >
           Sign up
@@ -114,50 +114,19 @@
       </div>
     </div>
     <div>
-      <hr class="mt-14 border-[#EEEEEE]" />
+      <hr class="mt-14 border-[#EEEEEE] dark:border-dark-border" />
       <div
-        class="mt-10 flex items-center justify-between px-[3.75rem] pb-[3.75rem] md-max:flex-col-reverse md-max:items-start md-max:gap-10"
+        class="flex items-center justify-between px-[3.75rem] py-[3.75rem] md-max:flex-col-reverse md-max:items-start md-max:gap-10"
       >
-        <div class="w-full max-w-[13.125rem]">
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Select currency" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Currency</SelectLabel>
-                <SelectItem
-                  class="cursor-pointer transition-colors hover:bg-zinc-100"
-                  value="USD"
-                >
-                  USD
-                </SelectItem>
-                <SelectItem
-                  class="cursor-pointer transition-colors hover:bg-zinc-100"
-                  value="EUR"
-                >
-                  EUR
-                </SelectItem>
-                <SelectItem
-                  class="cursor-pointer transition-colors hover:bg-zinc-100"
-                  value="CAD"
-                >
-                  CAD
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <span class="mt-5 block text-xs uppercase"
-            >@ 2024 Lows 'n' Lines</span
-          >
-        </div>
+        <span class="block w-full max-w-[13.125rem] text-xs uppercase"
+          >@ 2024 Lows 'n' Lines</span
+        >
 
         <div
-          class="xs-max:w-full xs-max:justify-between flex items-center gap-8"
+          class="flex items-center gap-8 xs-max:w-full xs-max:justify-between"
         >
           <NuxtLink to="/">
             <img
-              class="image"
               src="/icons/youtube.svg"
               loading="lazy"
               alt="youtube icon"
@@ -167,7 +136,6 @@
           </NuxtLink>
           <NuxtLink to="/">
             <img
-              class="image"
               src="/icons/facebook.svg"
               loading="lazy"
               alt="facebook icon"
@@ -176,23 +144,10 @@
             />
           </NuxtLink>
           <NuxtLink to="/">
-            <img
-              class="image"
-              src="/icons/x.svg"
-              loading="lazy"
-              alt="x icon"
-              width="27px"
-              height="27px"
-          /></NuxtLink>
+            <IconX class="dark:fill-dark-el" aria-label="X icon" />
+          </NuxtLink>
           <NuxtLink to="/">
-            <img
-              class="image"
-              src="/icons/insta.svg"
-              loading="lazy"
-              alt="insta icon"
-              width="27px"
-              height="27px"
-            />
+            <IconInsta class="dark:fill-dark-el" aria-label="isnta icon" />
           </NuxtLink>
         </div>
       </div>

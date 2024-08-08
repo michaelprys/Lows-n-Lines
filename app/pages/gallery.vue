@@ -8,14 +8,14 @@
     <section class="container pb-24 pt-11">
       <ItemObserver v-slot="{ isVisible }">
         <h1
-          class="text-center font-['Gin-Test'] text-4xl text-[#ffffff] opacity-0 md-max:text-3xl"
+          class="text-center font-['Gin-Test'] text-4xl text-[#ffffff] opacity-0 drop-shadow-xl md-max:text-3xl"
           :class="{ 'fade-in': isVisible }"
         >
           Gallery
         </h1>
       </ItemObserver>
       <ul
-        class="xs-max:columns-1 mx-auto mt-11 columns-3 gap-3 space-y-3 md-max:columns-2"
+        class="mx-auto mt-11 columns-3 gap-3 space-y-3 md-max:columns-2 xs-max:columns-1"
       >
         <li class="break-inside-avoid" v-for="(item, idx) in imgs" :key="item">
           <ItemObserver v-slot="{ isVisible }">
@@ -39,11 +39,12 @@
       />
       <ItemObserver v-slot="{ isVisible }">
         <button
-          class="mx-auto mt-10 block text-lg text-white opacity-0"
+          class="mx-auto mt-10 block text-lg text-[#f2f2f2] opacity-0 transition-colors hover:text-white"
           type="button"
           :class="{ 'fade-in': isVisible }"
         >
-          <span class="text-[22px]">+</span> Show More
+          <span class="text-[22px]">+</span>
+          Show More
         </button>
       </ItemObserver>
     </section>
@@ -101,13 +102,10 @@ const onHide = () => (visibleRef.value = false);
   width: 62.5rem;
   height: 41.6875rem;
   object-fit: cover;
+  cursor: auto;
 }
 
 .vel-modal {
   background-color: rgb(0, 0, 0, 0.8);
 }
-
-/* .car-list {
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 1);
-} */
 </style>

@@ -8,25 +8,25 @@
         loop: true,
       }"
     >
-      <div class="flex flex-col items-center">
-        <div class="relative items-center gap-4">
-          <CarouselPrevious class="absolute"></CarouselPrevious>
-          <ItemObserver v-slot="{ isVisible }">
-            <h1
-              class="font-[Gin-Test] text-2xl uppercase opacity-0"
-              :class="{ 'fade-in': isVisible }"
-            >
-              Featured cars
-            </h1>
-          </ItemObserver>
-          <CarouselNext class="absolute"></CarouselNext>
-        </div>
-        <NuxtLink
-          to="/"
-          class="mt-3 uppercase text-[#1B1B1B] underline underline-offset-4"
-          >View all</NuxtLink
+      <ItemObserver v-slot="{ isVisible }">
+        <div
+          class="flex flex-col items-center opacity-0"
+          :class="{ 'fade-in': isVisible }"
         >
-      </div>
+          <div class="relative items-center gap-4">
+            <CarouselPrevious
+              class="btn absolute transition-colors"
+            ></CarouselPrevious>
+            <h1 class="font-[Gin-Test] text-2xl uppercase">Featured cars</h1>
+            <CarouselNext class="btn absolute transition-colors"></CarouselNext>
+          </div>
+          <NuxtLink
+            to="/"
+            class="mt-3 uppercase text-black underline underline-offset-4 transition-colors hover:text-gray-500 dark:text-gray-300 dark:hover:text-dark-el"
+            >View all</NuxtLink
+          >
+        </div>
+      </ItemObserver>
       <ItemObserver v-slot="{ isVisible }">
         <div class="opacity-0" :class="{ 'fade-in-up': isVisible }">
           <CarouselContent
@@ -56,3 +56,19 @@
     </Carousel>
   </section>
 </template>
+
+<style scoped>
+.btn:hover {
+  background-color: #e1e1e1;
+}
+
+.dark .btn {
+  background-color: rgb(219, 219, 219);
+}
+.dark .btn:hover {
+  background-color: #f2f2f2;
+}
+.dark .btn :deep svg {
+  stroke: #000;
+}
+</style>

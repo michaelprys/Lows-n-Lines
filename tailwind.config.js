@@ -1,11 +1,12 @@
-const animate = require("tailwindcss-animate");
+import animate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ["class"],
   safelist: ["dark"],
+  content: ["./src/**/*.{html,js}"],
   prefix: "",
-
+  plugins: [animate],
   theme: {
     container: {
       center: true,
@@ -21,7 +22,7 @@ module.exports = {
       "lg-max": { raw: "(width <= 1023px)" },
       "md-max": { raw: "(width <= 767px)" },
       "sm-max": { raw: "(width <= 639px)" },
-      "xs-max": { raw: "(width <= 479px" },
+      "xs-max": { raw: "(width <= 479px)" },
 
       "extra-min": { raw: "(width > 1700px)" },
       "2xl-min": { raw: "(width > 1535px)" },
@@ -29,10 +30,16 @@ module.exports = {
       "lg-min": { raw: "(width > 1023px)" },
       "md-min": { raw: "(width > 767px)" },
       "sm-min": { raw: "(width > 639px)" },
-      "xs-min": { raw: "(width > 479px" },
+      "xs-min": { raw: "(width > 479px)" },
     },
     extend: {
       colors: {
+        "dark-el": "#F2F2F2",
+        "dark-bg": "#141414",
+        "dark-primary": "#212224",
+        "dark-border": "#464646",
+
+        // shadcn
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -99,5 +106,4 @@ module.exports = {
       },
     },
   },
-  plugins: [animate],
 };

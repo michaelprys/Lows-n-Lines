@@ -4,24 +4,37 @@
       class="nav-bg w-full max-w-60 text-black *:py-2 lg-max:max-w-full lg-max:pl-0 extra-min:max-w-80"
     >
       <ItemObserver v-slot="{ isVisible }">
-        <div class="opacity-0" :class="{ 'fade-in': isVisible }">
-          <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">
+        <div
+          class="container opacity-0 dark:text-dark-el"
+          :class="{ 'fade-in': isVisible }"
+        >
+          <h2
+            class="mt-8 text-2xl font-semibold text-zinc-700 dark:text-dark-el lg-max:text-center"
+          >
             Vehicle types
           </h2>
 
-          <ul class="flex flex-col justify-center gap-3 lg-max:flex-row">
+          <ul class="mt-8 flex flex-col justify-center gap-3 lg-max:flex-row">
             <li v-for="(type, i) in types" :key="i">
-              <NuxtLink to="/">{{ type }}</NuxtLink>
+              <NuxtLink class="transition-colors hover:text-gray-300" to="/">{{
+                type
+              }}</NuxtLink>
             </li>
           </ul>
 
-          <h2 class="mt-8 text-2xl font-semibold lg-max:text-center">Eras</h2>
+          <h2
+            class="mt-8 text-2xl font-semibold text-zinc-700 dark:text-dark-el lg-max:text-center"
+          >
+            Eras
+          </h2>
 
           <ul
-            class="flex flex-col justify-center gap-3 lg-max:flex-row lg-max:pb-5"
+            class="mt-8 flex flex-col justify-center gap-3 lg-max:flex-row lg-max:pb-5"
           >
             <li v-for="(era, i) in eras" :key="i">
-              <NuxtLink to="/">{{ era }}</NuxtLink>
+              <NuxtLink class="transition-colors hover:text-gray-300" to="/">{{
+                era
+              }}</NuxtLink>
             </li>
           </ul>
         </div>
@@ -37,7 +50,7 @@
           <li
             v-for="car in 6"
             :key="car"
-            class="w-full max-w-[447px] shadow-lg transition-shadow hover:shadow-xl"
+            class="w-full max-w-[447px] shadow-lg transition-shadow hover:shadow-xl dark:bg-[#1b1b1c]"
           >
             <NuxtLink to="/car-details">
               <NuxtImg
@@ -48,7 +61,8 @@
                 alt="car image"
               />
               <div class="px-4">
-                <span class="mt-4 block text-sm font-semibold text-zinc-600"
+                <span
+                  class="mt-4 block text-sm font-semibold text-zinc-600 dark:text-[#999999]"
                   >1996 Mercedes-Benz R129 SL320</span
                 >
                 <ul class="mt-4 flex gap-4 text-xs">
@@ -57,7 +71,9 @@
                     v-for="(spec, i) in specs"
                     :key="i"
                   >
-                    <ul class="flex list-disc flex-wrap gap-2 *:ml-4">
+                    <ul
+                      class="flex list-disc flex-wrap gap-2 text-zinc-600 *:ml-4 dark:text-[#7e7e7e]"
+                    >
                       <li>{{ spec.engine }}</li>
                       <li>{{ spec.fuel }}</li>
                       <li>{{ spec.mileage }}</li>
@@ -68,11 +84,15 @@
                 </ul>
               </div>
 
-              <div class="mt-6 flex flex-col bg-[#F8F8F8] px-4 py-2">
-                <span class="block text-xs font-semibold text-[#595959]"
+              <div
+                class="mt-6 flex flex-col bg-[#F8F8F8] px-4 py-2 dark:bg-[#222324]"
+              >
+                <span
+                  class="block text-xs font-semibold text-zinc-600 dark:text-[#7e7e7e]"
                   >Current bid</span
                 >
-                <span class="mt-1 block text-xl font-semibold text-zinc-600"
+                <span
+                  class="mt-1 block text-xl font-semibold text-zinc-700 dark:text-dark-el"
                   >$35,000</span
                 >
               </div></NuxtLink
@@ -95,8 +115,8 @@
             v-slot="{ items }"
             class="flex items-center gap-1 *:border-none"
           >
-            <PaginationFirst />
-            <PaginationPrev />
+            <PaginationFirst class="dark:bg-[#141414]" />
+            <PaginationPrev class="dark:bg-[#141414]" />
 
             <template v-for="(item, index) in items">
               <PaginationListItem
@@ -107,9 +127,9 @@
                 as-child
               >
                 <Button
-                  class="h-10 w-10 bg-transparent p-0 text-black transition-colors hover:bg-zinc-100"
+                  class="h-10 w-10 bg-transparent p-0 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800"
                   :class="{
-                    'bg-[#8B8B8B] text-white hover:bg-[#8B8B8B]':
+                    'bg-zinc-400 text-white hover:bg-zinc-500 dark:bg-zinc-500 dark:hover:bg-zinc-600':
                       item.value === page,
                   }"
                   :variant="item.value === page ? 'default' : 'outline'"
@@ -117,16 +137,11 @@
                   {{ item.value }}
                 </Button>
               </PaginationListItem>
-              <PaginationEllipsis
-                class="text-zinc-600"
-                v-else
-                :key="item.type"
-                :index="index"
-              />
+              <PaginationEllipsis v-else :key="item.type" :index="index" />
             </template>
 
-            <PaginationNext />
-            <PaginationLast />
+            <PaginationNext class="dark:bg-[#141414]" />
+            <PaginationLast class="dark:bg-[#141414]" />
           </PaginationList>
         </Pagination>
       </ItemObserver>
