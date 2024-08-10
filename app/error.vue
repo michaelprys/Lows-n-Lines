@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout>
-      <div class="my-[7.3125rem] text-center">
+      <div class="my-[7.3125rem] text-center text-white">
         <h1 class="font-[Gin-Test] text-2xl">
           {{ error.statusCode }} PAGE NOT FOUND
         </h1>

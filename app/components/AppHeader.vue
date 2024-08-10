@@ -121,14 +121,14 @@ watchEffect(() => {
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 .dark .header {
   background-color: rgba(33, 34, 36, 0.85);
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 .header-bg {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);

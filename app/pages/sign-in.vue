@@ -1,28 +1,43 @@
 <template>
   <div>
     <form
-      class="mt-10 rounded-[2px] bg-white p-5 text-black dark:bg-dark-primary dark:text-dark-el"
+      class="mt-10 rounded-[2px] bg-white p-5 text-black dark:bg-[#28292c] dark:text-dark-el"
       ref="container"
+      @submit.prevent="onSubmit"
+      novalidate
     >
       <span class="block text-2xl font-semibold">Sign in</span>
       <div class="mt-5 flex flex-col gap-5">
-        <input
-          class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-        />
-        <div class="relative">
-          <input
-            class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-          />
-          <ButtonVisibility />
-        </div>
+        <FormField v-slot="{ field }" name="email">
+          <FormItem>
+            <FormControl>
+              <input
+                class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                placeholder="Email"
+                type="email"
+                id="email"
+                v-bind="field"
+              />
+            </FormControl>
+            <FormMessage class="text-[#ff2828]" />
+          </FormItem>
+        </FormField>
+
+        <FormField v-slot="{ field }" name="password">
+          <FormItem>
+            <FormControl>
+              <input
+                class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                placeholder="Password"
+                type="password"
+                id="password"
+                v-bind="field"
+              />
+            </FormControl>
+            <FormMessage class="text-[#ff2828]" />
+          </FormItem>
+        </FormField>
+
         <div class="flex items-center gap-2 *:cursor-pointer">
           <Checkbox
             class="rounded-[2px] transition duration-75"
@@ -56,8 +71,47 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { toTypedSchema } from "@vee-validate/valibot";
+import {
+  object,
+  string,
+  config,
+  pipe,
+  email,
+  nonEmpty,
+  minLength,
+} from "valibot";
+
 definePageMeta({
   layout: "auth",
+});
+
+const formSchema = toTypedSchema(
+  config(
+    object({
+      email: pipe(
+        string("Email is required"),
+        email("Requires a format example@gmail.com"),
+        nonEmpty(),
+      ),
+      password: pipe(
+        string("Password is required"),
+        minLength(6, "Password must be at least 6 characters long"),
+        nonEmpty(),
+      ),
+    }),
+    {
+      abortPipeEarly: true,
+    },
+  ),
+);
+
+const { handleSubmit } = useForm({
+  validationSchema: formSchema,
+});
+
+const onSubmit = handleSubmit((values) => {
+  console.log("Successfully submitted!", values);
 });
 </script>

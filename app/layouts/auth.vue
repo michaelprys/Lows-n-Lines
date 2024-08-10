@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative bg-cover"
+    class="relative"
     style="background-image: url(&quot;/images/sign-in/bg.jpg&quot;)"
   >
     <ItemObserver v-slot="{ isVisible }">

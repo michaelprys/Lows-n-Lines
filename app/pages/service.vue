@@ -37,9 +37,9 @@
               <p class="mt-4">
                 <strong
                   >To schedule service or get an estimate, email us at
-                  <span class="text-[#d61616]">service@lowsnlines.com</span> or
+                  <span class="text-[#ff3434]">service@lowsnlines.com</span> or
                   call at
-                  <span class="text-[#d61616]">207-602-6620</span></strong
+                  <span class="text-[#ff3434]">207-602-6620</span></strong
                 >.
               </p>
               <p class="mt-4">
@@ -71,77 +71,167 @@
       </ItemObserver>
     </div>
 
-    <form class="mt-24 xl-max:mt-16">
+    <form class="mt-24 xl-max:mt-16" @submit.prevent="onSubmit" novalidate>
       <ItemObserver v-slot="{ isVisible }">
         <div class="opacity-0" :class="{ 'fade-in': isVisible }">
           <h2 class="text-center font-['Gin-Test'] text-3xl">Contact us</h2>
           <ul class="mt-7 grid grid-cols-2 gap-x-7 gap-y-5 *:flex *:flex-col">
             <li>
-              <label class="font-semibold" for="first-name">First Name</label>
-              <input
-                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                type="text"
-                id="first-name"
-                placeholder="First Name*"
-              />
+              <label class="font-semibold" for="firstName">First Name</label>
+              <FormField v-slot="{ field }" name="firstName">
+                <FormItem class="pt-1.5">
+                  <FormControl>
+                    <input
+                      class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                      type="text"
+                      id="first-name"
+                      placeholder="First Name"
+                      v-bind="field"
+                    />
+                  </FormControl>
+                  <FormMessage class="text-[#ff3434]" />
+                </FormItem>
+              </FormField>
             </li>
             <li>
-              <label class="font-semibold" for="last-name">Last Name</label>
-              <input
-                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                type="text"
-                id="last-name"
-                placeholder="Last Name *"
-              />
+              <label class="font-semibold" for="lastName">Last Name</label>
+              <FormField v-slot="{ field }" name="lastName">
+                <FormItem class="pt-1.5">
+                  <FormControl>
+                    <input
+                      class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                      type="text"
+                      id="lastName"
+                      placeholder="Last Name"
+                      v-bind="field"
+                    />
+                  </FormControl>
+                  <FormMessage class="text-[#ff3434]" />
+                </FormItem>
+              </FormField>
             </li>
             <li>
-              <label class="font-semibold" for="phone-number"
+              <label class="font-semibold" for="phoneNumber"
                 >Phone Number</label
               >
-              <input
-                class="mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                type="text"
-                id="phone-number"
-                placeholder="Phone Number *"
-              />
+              <FormField v-slot="{ field }" name="phoneNumber">
+                <FormItem class="pt-1.5">
+                  <FormControl>
+                    <input
+                      class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                      type="text"
+                      id="phoneNumber"
+                      placeholder="Phone Number"
+                      v-bind="field"
+                    />
+                  </FormControl>
+                  <FormMessage class="text-[#ff3434]" />
+                </FormItem>
+              </FormField>
             </li>
             <li>
-              <label class="font-semibold" for="email-address"
-                >Email Address</label
-              >
-              <input
-                class="v mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                type="text"
-                id="email-address"
-                placeholder="Email Address *"
-              />
+              <label class="font-semibold" for="email">Email Address</label>
+              <FormField v-slot="{ field }" name="email">
+                <FormItem class="pt-1.5">
+                  <FormControl>
+                    <input
+                      class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                      type="text"
+                      id="emailAddress"
+                      placeholder="Email Address"
+                      v-bind="field"
+                    />
+                  </FormControl>
+                  <FormMessage class="text-[#ff3434]" />
+                </FormItem>
+              </FormField>
             </li>
           </ul>
           <div class="mt-5 flex flex-col">
             <label class="font-semibold" for="message">Message</label>
-            <textarea
-              class="mt-1 resize-none rounded-[2px] border border-[#C2C2C2] px-4 py-4 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-              name=""
-              id="message"
-              cols="30"
-              rows="10"
-              placeholder="I'd like to detail the issues with my vehicle or the services I'm requesting."
-            ></textarea>
+            <FormField v-slot="{ field }" name="message">
+              <FormItem class="pt-1.5">
+                <FormControl>
+                  <textarea
+                    class="mt-1 w-full resize-none rounded-[2px] border border-[#C2C2C2] px-4 py-4 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
+                    name=""
+                    id="message"
+                    cols="30"
+                    rows="10"
+                    placeholder="I'd like to detail the issues with my vehicle or the services I'm requesting."
+                    v-bind="field"
+                  ></textarea>
+                </FormControl>
+                <FormMessage class="text-[#ff3434]" />
+              </FormItem>
+            </FormField>
           </div>
         </div>
       </ItemObserver>
       <ItemObserver v-slot="{ isVisible }">
-        <NuxtLink
+        <button
           class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase opacity-0 transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
-          to="/"
           :class="{ 'fade-in-up': isVisible }"
         >
           Send message
-        </NuxtLink>
+        </button>
       </ItemObserver>
     </form>
   </section>
 </template>
+
+<script setup lang="ts">
+import { toTypedSchema } from "@vee-validate/valibot";
+import {
+  object,
+  string,
+  config,
+  pipe,
+  nonEmpty,
+  minLength,
+  regex,
+  email,
+} from "valibot";
+
+const letters = new RegExp(/^\p{L}+$/u);
+
+const formSchema = toTypedSchema(
+  pipe(
+    config(
+      object({
+        firstName: pipe(
+          string("First name is required"),
+          nonEmpty(),
+          regex(letters, "First name must consist of letters"),
+        ),
+        lastName: pipe(
+          string("Last name is required"),
+          nonEmpty(),
+          regex(letters, "Last name must consist of letters"),
+        ),
+        phoneNumber: pipe(string("Phone number is required"), nonEmpty()),
+        email: pipe(
+          string("Email is required"),
+          email("Requires a format example@gmail.com"),
+          nonEmpty(),
+        ),
+        message: pipe(string("Enter your message"), nonEmpty()),
+      }),
+      {
+        abortPipeEarly: true,
+      },
+    ),
+  ),
+);
+
+const { handleSubmit } = useForm({
+  validationSchema: formSchema,
+});
+
+const onSubmit = handleSubmit((values) => {
+  console.log("Successfully submitted!", values);
+});
+</script>
 
 <style scoped>
 .fade-in-up-delayed {

@@ -16,9 +16,11 @@
 
           <ul class="mt-8 flex flex-col justify-center gap-3 lg-max:flex-row">
             <li v-for="(type, i) in types" :key="i">
-              <NuxtLink class="transition-colors hover:text-gray-300" to="/">{{
-                type
-              }}</NuxtLink>
+              <NuxtLink
+                class="transition-colors hover:text-gray-500 dark:hover:text-gray-300"
+                to="/"
+                >{{ type }}</NuxtLink
+              >
             </li>
           </ul>
 

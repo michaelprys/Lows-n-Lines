@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   components: true,
   compatibilityDate: "2024-04-03",
   devtools: { enabled: false },
+  vite: {
+    optimizeDeps: {
+      exclude: ["vee-validate"],
+    },
+  },
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxt/image",
@@ -10,7 +15,17 @@ export default defineNuxtConfig({
     "@nuxtjs/leaflet",
     "nuxt-easy-lightbox",
     "@pinia/nuxt",
+    "@vee-validate/nuxt",
   ],
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: "VeeForm",
+      Field: "VeeField",
+      FieldArray: "VeeFieldArray",
+      ErrorMessage: "VeeErrorMessage",
+    },
+  },
   future: {
     compatibilityVersion: 4,
   },
