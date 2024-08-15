@@ -30,7 +30,7 @@ export const useStoreAuth = defineStore("storeAuth", {
       );
       if (status.value === "success") {
         this.registered = true;
-        this.successMessage = "User is successfully registered";
+        this.successMessage = "Successfully registered";
       } else if (error.value.statusCode === 409) {
         this.error = "User already exists";
       } else {

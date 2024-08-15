@@ -5,10 +5,28 @@
       @submit.prevent="signUp"
       novalidate
     >
-      <span class="block text-2xl font-semibold">Sign up</span>
+      <div class="relative">
+        <span class="block text-2xl font-semibold">Sign up</span>
+        <Transition name="error">
+          <span
+            v-if="fetchError || successMessage"
+            class="absolute right-0 top-1/2 -translate-y-1/2 text-lg font-bold"
+            :class="[fetchError ? 'text-[#ff3434]' : 'text-[#28b13f]']"
+          >
+            {{ fetchError ? fetchError : successMessage }}
+          </span>
+        </Transition>
+        <Transition name="error">
+          <span
+            v-if="fetchError"
+            class="absolute right-0 top-1/2 -translate-y-1/2 text-lg font-bold"
+            :class="[fetchError ? 'text-[#ff3434]' : 'text-[#28b13f]']"
+          >
+          </span>
+        </Transition>
+      </div>
+
       <div class="mt-5 flex flex-col gap-5">
-        <div class="text-[#ff3434]" v-if="error">{{ error }}</div>
-        <div class="text-[#29be42]" v-else>{{ successMessage }}</div>
         <FormField v-slot="{ field }" name="firstname">
           <FormItem>
             <FormControl>
@@ -97,6 +115,10 @@
         <div class="flex items-center justify-end">
           <button
             class="rounded-sm border border-[#f0a5a7] bg-[#F19899] px-6 py-2 transition-colors hover:border-[#f7c2c3] hover:bg-[#ffb9bb] dark:text-black"
+            :class="{
+              'sign-up cursor-not-allowed rounded-md border-transparent bg-gray-300 px-4 py-2 opacity-50 hover:border-transparent hover:bg-gray-300':
+                registered,
+            }"
           >
             Sign up
           </button>
@@ -122,7 +144,6 @@ import {
 } from "valibot";
 import { useStoreAuth } from "~/stores/auth";
 import type { UserData } from "~/stores/auth";
-import { parseDomain, ParseResultType } from "parse-domain";
 
 definePageMeta({
   layout: "auth",
@@ -177,7 +198,7 @@ const { handleSubmit } = useForm({
 
 const store = useStoreAuth();
 const { registerUser } = store;
-const { registered, error, successMessage } = storeToRefs(store);
+const { error: fetchError, successMessage, registered } = storeToRefs(store);
 
 const user = ref<UserData>({
   firstname: "",
@@ -187,10 +208,36 @@ const user = ref<UserData>({
   member_since: new Date(),
 });
 
+const router = useRouter();
+
 const signUp = handleSubmit(async () => {
+  if (registered.value) {
+    return;
+  }
+
   await registerUser(user.value);
   if (registered.value) {
-    console.log("Registration successful");
+    setTimeout(() => {
+      router.push("/");
+    }, 2000);
+  }
+});
+
+router.afterEach(() => {
+  if (registered.value) {
+    registered.value = false;
+    successMessage.value = "";
+  }
+  if (fetchError.value) {
+    fetchError.value = "";
   }
 });
 </script>
+
+<style scoped>
+.sign-up {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+  transition-duration: 200ms;
+}
+</style>
