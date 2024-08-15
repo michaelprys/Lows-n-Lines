@@ -31,7 +31,7 @@
         >
           <li v-for="link in linksPrimary" :key="link.name">
             <NuxtLink
-              class="duration-[350] relative py-2 transition-colors before:absolute before:bottom-0 before:left-[50%] before:h-[2px] before:w-0 before:origin-center before:bg-zinc-500 before:transition-[width] before:duration-500 before:ease-in-out after:absolute after:bottom-0 after:right-[50%] after:h-[2px] after:w-0 after:origin-center after:bg-zinc-500 after:transition-[width] after:duration-500 after:ease-in-out hover:text-zinc-500 hover:before:w-[50%] hover:after:w-[50%] dark:before:bg-zinc-300 dark:after:bg-zinc-300 dark:hover:text-zinc-300"
+              class="duration-[350ms] relative py-2 transition-colors before:absolute before:bottom-0 before:left-[50%] before:h-[2px] before:w-0 before:origin-center before:bg-zinc-500 before:transition-[width] before:duration-500 before:ease-in-out after:absolute after:bottom-0 after:right-[50%] after:h-[2px] after:w-0 after:origin-center after:bg-zinc-500 after:transition-[width] after:duration-500 after:ease-in-out hover:text-zinc-500 hover:before:w-[50%] hover:after:w-[50%] dark:before:bg-zinc-300 dark:after:bg-zinc-300 dark:hover:text-zinc-300"
               active-class=""
               :to="link.route"
               >{{ link.name }}

@@ -124,8 +124,8 @@
             <div class="mt-4">
               <h2 class="text-xl">Tips</h2>
               <p class="mt-4">
-                If you encounter issues with any uneditable information on the
-                left, please contact our support team.
+                If you have issues with any uneditable information, please
+                contact us at support@lowsnlines.com.
               </p>
             </div>
           </div>

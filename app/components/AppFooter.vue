@@ -44,22 +44,30 @@
         </h2>
         <ul class="mt-5 flex flex-col gap-2">
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >Contact Us</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >FAQ</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >Help Center</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >About Us</NuxtLink
             >
           </li>
@@ -72,22 +80,30 @@
         </h2>
         <ul class="mt-5 flex flex-col gap-2">
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >Privacy Policy</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >Read The Journal</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >Terms & Conditions</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink class="transition-colors hover:text-gray-500" to="/"
+            <NuxtLink
+              class="transition-colors hover:text-gray-500 dark:hover:text-gray-400"
+              to="/"
               >Awards & Achievements</NuxtLink
             >
           </li>

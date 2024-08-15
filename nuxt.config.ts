@@ -6,6 +6,13 @@ export default defineNuxtConfig({
   vite: {
     optimizeDeps: {
       exclude: ["vee-validate"],
+      include: ["tailwindcss"],
+    },
+  },
+  runtimeConfig: {
+    databaseUrl: "",
+    public: {
+      apiBase: "/api",
     },
   },
   modules: [

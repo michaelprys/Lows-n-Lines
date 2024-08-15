@@ -119,7 +119,7 @@
                   <FormControl>
                     <input
                       class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
-                      type="text"
+                      type="tel"
                       id="phoneNumber"
                       placeholder="Phone Number"
                       v-bind="field"
@@ -185,15 +185,19 @@ import { toTypedSchema } from "@vee-validate/valibot";
 import {
   object,
   string,
+  number,
   config,
   pipe,
   nonEmpty,
-  minLength,
   regex,
+  integer,
   email,
 } from "valibot";
 
 const letters = new RegExp(/^\p{L}+$/u);
+const phoneFormat = new RegExp(
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/u,
+);
 
 const formSchema = toTypedSchema(
   pipe(
@@ -209,7 +213,11 @@ const formSchema = toTypedSchema(
           nonEmpty(),
           regex(letters, "Last name must consist of letters"),
         ),
-        phoneNumber: pipe(string("Phone number is required"), nonEmpty()),
+        phoneNumber: pipe(
+          string("Phone number is required"),
+          nonEmpty("Phone number is required"),
+          regex(phoneFormat, "Phone number is invalid"),
+        ),
         email: pipe(
           string("Email is required"),
           email("Requires a format example@gmail.com"),

@@ -3,7 +3,7 @@
     <form
       class="mt-10 rounded-[2px] bg-white p-5 text-black dark:bg-[#28292c] dark:text-dark-el"
       ref="container"
-      @submit.prevent="onSubmit"
+      @submit.prevent="signIn"
       novalidate
     >
       <span class="block text-2xl font-semibold">Sign in</span>
@@ -19,7 +19,7 @@
                 v-bind="field"
               />
             </FormControl>
-            <FormMessage class="text-[#ff2828]" />
+            <FormMessage class="text-[#ff3434]" />
           </FormItem>
         </FormField>
 
@@ -34,7 +34,7 @@
                 v-bind="field"
               />
             </FormControl>
-            <FormMessage class="text-[#ff2828]" />
+            <FormMessage class="text-[#ff3434]" />
           </FormItem>
         </FormField>
 
@@ -61,9 +61,8 @@
       </div>
     </form>
     <span class="mb-10 mt-5 block text-center text-white"
-      >Don't have an account?
-      <NuxtLink
-        class="text-black transition-colors hover:text-gray-500"
+      >Don't have an account?<NuxtLink
+        class="ml-1.5 font-bold text-[#f09797]"
         to="/sign-up"
         >Create one</NuxtLink
       ></span
@@ -111,7 +110,5 @@ const { handleSubmit } = useForm({
   validationSchema: formSchema,
 });
 
-const onSubmit = handleSubmit((values) => {
-  console.log("Successfully submitted!", values);
-});
+const signIn = handleSubmit(() => {});
 </script>
