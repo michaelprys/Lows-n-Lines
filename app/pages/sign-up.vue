@@ -225,8 +225,10 @@ const signUp = handleSubmit(async () => {
 
 router.afterEach(() => {
   if (registered.value) {
-    registered.value = false;
-    successMessage.value = "";
+    setTimeout(() => {
+      registered.value = false;
+      successMessage.value = "";
+    }, 1500);
   }
   if (fetchError.value) {
     fetchError.value = "";

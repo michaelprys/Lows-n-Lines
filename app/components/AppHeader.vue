@@ -49,7 +49,7 @@
           :class="{ 'fade-in': isVisible }"
         >
           <div>
-            <button @click="toggleDark()">
+            <button @click="setColorTheme()">
               <IconDarkMode
                 class="stroke-[#33363F] dark:stroke-dark-el"
                 aria-label="dark mode icon"
@@ -60,11 +60,13 @@
             <NuxtLink class="flex items-center gap-2" to="/sign-in">
               <span class="lg-max:hidden">Sign In</span>
               <IconSignInDark
-                class=""
                 aria-label="sign in icon"
-                v-show="isDark"
+                v-show="$colorMode.preference === 'dark'"
               />
-              <IconSignInLight aria-label="sign in icon" v-show="!isDark" />
+              <IconSignInLight
+                aria-label="sign in icon"
+                v-show="$colorMode.preference === 'light'"
+              />
             </NuxtLink>
           </div>
         </div>
@@ -72,14 +74,14 @@
 
       <NuxtLink to="/">
         <NuxtImg
-          v-show="isDark"
+          v-show="$colorMode.preference === 'dark'"
           class="md-mx absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-cover extra-max:pb-7 md-max:w-48 md-max:pb-0 extra-min:pb-0"
           to="/"
           src="/images/logo-dark.png"
           width="240"
         />
         <NuxtImg
-          v-show="!isDark"
+          v-show="$colorMode.preference === 'light'"
           class="md-mx absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-cover extra-max:pb-7 md-max:w-48 md-max:pb-0 extra-min:pb-0"
           to="/"
           src="/images/logo-light.png"
@@ -90,21 +92,27 @@
   </header>
 </template>
 
-<script setup>
-import { useDark, useToggle, useWindowScroll } from "@vueuse/core";
+<script setup lang="ts">
+import { useWindowScroll } from "@vueuse/core";
 
-const props = defineProps(["toggleDrawer", "linksPrimary"]);
-
-const isDark = useDark({ disableTransition: false });
-const toggleDark = useToggle(isDark);
-// const darkModeCookie = useCookie("dark-mode");
+defineProps(["toggleDrawer", "linksPrimary"]);
 
 const { y } = useWindowScroll();
 const el = ref(null);
 const isHidden = ref(false);
 
-let lastScroll = y.value;
+const colorMode = useColorMode();
+const colorModeCookie = useCookie("color-mode");
 
+colorMode.preference = colorModeCookie.value ?? "light";
+
+const setColorTheme = () => {
+  const newTheme = colorMode.preference === "light" ? "dark" : "light";
+  colorMode.preference = newTheme;
+  colorModeCookie.value = newTheme;
+};
+
+let lastScroll = y.value;
 watchEffect(() => {
   if (lastScroll <= y.value && y.value >= 174) {
     isHidden.value = true;

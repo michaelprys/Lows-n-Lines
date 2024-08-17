@@ -1,5 +1,6 @@
 import pg from "pg";
 import argon2 from "argon2";
+
 const { Pool } = pg;
 const config = useRuntimeConfig();
 
@@ -18,7 +19,7 @@ export default defineEventHandler(async (event) => {
       const hashedPassword = await argon2.hash(password);
 
       await conn.query(
-        "INSERT INTO users (firstname, lastname,  email, password, member_since) VALUES ($1, $2, $3, $4, $5)",
+        "INSERT INTO users (firstname, lastname, email, password, member_since) VALUES ($1, $2, $3, $4, $5)",
         [firstname, lastname, email, hashedPassword, member_since],
       );
       setResponseStatus(event, 201, "User created successfully");

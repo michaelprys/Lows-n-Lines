@@ -17,6 +17,7 @@ export default defineNuxtConfig({
   },
   modules: [
     "@nuxtjs/tailwindcss",
+    "@nuxtjs/color-mode",
     "@nuxt/image",
     "shadcn-nuxt",
     "@nuxtjs/leaflet",
@@ -24,6 +25,11 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vee-validate/nuxt",
   ],
+  colorMode: {
+    fallback: "light",
+    classPrefix: "",
+    classSuffix: "",
+  },
   veeValidate: {
     autoImports: true,
     componentNames: {
@@ -59,8 +65,5 @@ export default defineNuxtConfig({
   shadcn: {
     prefix: "",
     componentDir: "app/components/ui",
-  },
-  colorMode: {
-    classSuffix: "",
   },
 });

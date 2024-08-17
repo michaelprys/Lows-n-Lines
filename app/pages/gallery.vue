@@ -102,7 +102,6 @@ const onHide = () => (visibleRef.value = false);
   width: 62.5rem;
   height: 41.6875rem;
   object-fit: cover;
-  cursor: auto;
 }
 
 .vel-modal {

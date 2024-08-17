@@ -62,7 +62,7 @@
     </form>
     <span class="mb-10 mt-5 block text-center text-white"
       >Don't have an account?<NuxtLink
-        class="ml-1.5 font-bold text-[#f09797]"
+        class="ml-1.5 text-[#fbff00]"
         to="/sign-up"
         >Create one</NuxtLink
       ></span
