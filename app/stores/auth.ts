@@ -3,7 +3,8 @@ export interface UserData {
   lastname: string;
   email: string;
   password: string;
-  member_since: Date;
+  confirmPassword: string;
+  member_since?: Date;
 }
 
 export const useStoreAuth = defineStore("storeAuth", {
@@ -28,9 +29,13 @@ export const useStoreAuth = defineStore("storeAuth", {
           body: JSON.stringify(user),
         },
       );
+
       if (status.value === "success") {
         this.registered = true;
         this.successMessage = "Successfully registered";
+      } else if (error.value.statusCode === 400) {
+        this.error = "Validation error";
+        console.error("Validation error");
       } else if (error.value.statusCode === 409) {
         this.error = "User already exists";
       } else {

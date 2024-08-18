@@ -10,7 +10,7 @@
         <Transition name="error">
           <span
             v-if="fetchError || successMessage"
-            class="absolute right-0 top-1/2 -translate-y-1/2 text-lg font-bold"
+            class="absolute right-0 top-1/2 -translate-y-1/2 text-xl font-bold"
             :class="[fetchError ? 'text-[#ff3434]' : 'text-[#28b13f]']"
           >
             {{ fetchError ? fetchError : successMessage }}
@@ -103,6 +103,7 @@
                   type="password"
                   placeholder="Confirm Password"
                   v-bind="field"
+                  v-model="user.confirmPassword"
                   autocomplete="on"
                 />
                 <ButtonVisibility />
@@ -130,18 +131,6 @@
 
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/valibot";
-import {
-  object,
-  string,
-  config,
-  pipe,
-  nonEmpty,
-  minLength,
-  regex,
-  email,
-  forward,
-  partialCheck,
-} from "valibot";
 import { useStoreAuth } from "~/stores/auth";
 import type { UserData } from "~/stores/auth";
 
@@ -149,51 +138,8 @@ definePageMeta({
   layout: "auth",
 });
 
-const letters = new RegExp(/^\p{L}+$/u);
-
-const formSchema = toTypedSchema(
-  pipe(
-    config(
-      object({
-        firstname: pipe(
-          string("First name is required"),
-          nonEmpty(),
-          regex(letters, "First name must consist of letters"),
-        ),
-        lastname: pipe(
-          string("Last name is required"),
-          nonEmpty(),
-          regex(letters, "Last name must consist of letters"),
-        ),
-        email: pipe(
-          string("Email is required"),
-          email("Requires a format example@gmail.com"),
-          nonEmpty(),
-        ),
-        password: pipe(
-          string("Password is required"),
-          minLength(6, "Password must be at least 6 characters long"),
-          nonEmpty(),
-        ),
-        confirmPassword: pipe(string("Confirm password"), nonEmpty()),
-      }),
-      {
-        abortPipeEarly: true,
-      },
-    ),
-    forward(
-      partialCheck(
-        [["password"], ["confirmPassword"]],
-        (input) => input.password === input.confirmPassword,
-        "Passwords do not match",
-      ),
-      ["confirmPassword"],
-    ),
-  ),
-);
-
 const { handleSubmit } = useForm({
-  validationSchema: formSchema,
+  validationSchema: toTypedSchema(formSchema),
 });
 
 const store = useStoreAuth();
@@ -205,6 +151,7 @@ const user = ref<UserData>({
   lastname: "",
   email: "",
   password: "",
+  confirmPassword: "",
   member_since: new Date(),
 });
 

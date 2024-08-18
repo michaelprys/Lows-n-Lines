@@ -26,8 +26,7 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
   ],
   colorMode: {
-    fallback: "light",
-    classPrefix: "",
+    preference: "light",
     classSuffix: "",
   },
   veeValidate: {

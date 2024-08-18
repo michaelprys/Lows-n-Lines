@@ -102,14 +102,10 @@ const el = ref(null);
 const isHidden = ref(false);
 
 const colorMode = useColorMode();
-const colorModeCookie = useCookie("color-mode");
-
-colorMode.preference = colorModeCookie.value ?? "light";
 
 const setColorTheme = () => {
   const newTheme = colorMode.preference === "light" ? "dark" : "light";
   colorMode.preference = newTheme;
-  colorModeCookie.value = newTheme;
 };
 
 let lastScroll = y.value;
