@@ -181,64 +181,9 @@
 </template>
 
 <script setup lang="ts">
-import { toTypedSchema } from "@vee-validate/valibot";
-import {
-  object,
-  string,
-  number,
-  config,
-  pipe,
-  nonEmpty,
-  regex,
-  integer,
-  email,
-} from "valibot";
-
-const letters = new RegExp(/^\p{L}+$/u);
-const phoneFormat = new RegExp(
-  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/u,
-);
-
-const formSchema = toTypedSchema(
-  pipe(
-    config(
-      object({
-        firstName: pipe(
-          string("First name is required"),
-          nonEmpty(),
-          regex(letters, "First name must consist of letters"),
-        ),
-        lastName: pipe(
-          string("Last name is required"),
-          nonEmpty(),
-          regex(letters, "Last name must consist of letters"),
-        ),
-        phoneNumber: pipe(
-          string("Phone number is required"),
-          nonEmpty("Phone number is required"),
-          regex(phoneFormat, "Phone number is invalid"),
-        ),
-        email: pipe(
-          string("Email is required"),
-          email("Requires a format example@gmail.com"),
-          nonEmpty(),
-        ),
-        message: pipe(string("Enter your message"), nonEmpty()),
-      }),
-      {
-        abortPipeEarly: true,
-      },
-    ),
-  ),
-);
-
-const { handleSubmit } = useForm({
-  validationSchema: formSchema,
-});
-
-const onSubmit = handleSubmit((values) => {
-  console.log("Successfully submitted!", values);
-});
+// const phoneFormat = new RegExp(
+//   /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/u,
+// );
 </script>
 
 <style scoped>

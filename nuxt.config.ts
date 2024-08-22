@@ -22,7 +22,6 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "@nuxtjs/leaflet",
     "nuxt-easy-lightbox",
-    "@pinia/nuxt",
     "@vee-validate/nuxt",
   ],
   colorMode: {

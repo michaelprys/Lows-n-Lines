@@ -7,6 +7,7 @@
     "components.json": true,
     "node_modules": true,
     "pnpm-lock.yaml": true,
-    ".nuxt": true
+    ".nuxt": true,
+    "tsconfig.json": true
   }
 }

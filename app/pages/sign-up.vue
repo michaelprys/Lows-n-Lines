@@ -2,28 +2,12 @@
   <div>
     <form
       class="my-10 rounded-[2px] bg-white p-5 dark:bg-[#28292c] dark:text-dark-el"
-      @submit.prevent="signUp"
+      @submit.prevent="submitForm"
       novalidate
     >
       <div class="relative">
         <span class="block text-2xl font-semibold">Sign up</span>
-        <Transition name="error">
-          <span
-            v-if="fetchError || successMessage"
-            class="absolute right-0 top-1/2 -translate-y-1/2 text-xl font-bold"
-            :class="[fetchError ? 'text-[#ff3434]' : 'text-[#28b13f]']"
-          >
-            {{ fetchError ? fetchError : successMessage }}
-          </span>
-        </Transition>
-        <Transition name="error">
-          <span
-            v-if="fetchError"
-            class="absolute right-0 top-1/2 -translate-y-1/2 text-lg font-bold"
-            :class="[fetchError ? 'text-[#ff3434]' : 'text-[#28b13f]']"
-          >
-          </span>
-        </Transition>
+        <ItemStatus />
       </div>
 
       <div class="mt-5 flex flex-col gap-5">
@@ -36,7 +20,7 @@
                 id="firstname"
                 placeholder="First Name"
                 v-bind="field"
-                v-model="user.firstname"
+                v-model="registerData.firstname"
               />
             </FormControl>
             <FormMessage class="text-[#ff3434]" />
@@ -52,7 +36,7 @@
                 id="lastname"
                 placeholder="Last Name"
                 v-bind="field"
-                v-model="user.lastname"
+                v-model="registerData.lastname"
               />
             </FormControl>
             <FormMessage class="text-[#ff3434]" />
@@ -68,7 +52,7 @@
                 id="email"
                 placeholder="Email"
                 v-bind="field"
-                v-model="user.email"
+                v-model="registerData.email"
               />
             </FormControl>
             <FormMessage class="text-[#ff3434]" />
@@ -84,7 +68,7 @@
                   type="password"
                   placeholder="Password"
                   v-bind="field"
-                  v-model="user.password"
+                  v-model="registerData.password"
                   autocomplete="on"
                 />
                 <ButtonVisibility />
@@ -103,7 +87,7 @@
                   type="password"
                   placeholder="Confirm Password"
                   v-bind="field"
-                  v-model="user.confirmPassword"
+                  v-model="registerData.confirmPassword"
                   autocomplete="on"
                 />
                 <ButtonVisibility />
@@ -131,22 +115,23 @@
 
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/valibot";
-import { useStoreAuth } from "~/stores/auth";
-import type { UserData } from "~/stores/auth";
+
+const {
+  registered,
+  successMessage,
+  error: fetchError,
+  registerUser,
+} = useStoreAuth();
 
 definePageMeta({
   layout: "auth",
 });
 
 const { handleSubmit } = useForm({
-  validationSchema: toTypedSchema(formSchema),
+  validationSchema: toTypedSchema(registrationSchema),
 });
 
-const store = useStoreAuth();
-const { registerUser } = store;
-const { error: fetchError, successMessage, registered } = storeToRefs(store);
-
-const user = ref<UserData>({
+const registerData = ref<RegisterData>({
   firstname: "",
   lastname: "",
   email: "",
@@ -157,15 +142,15 @@ const user = ref<UserData>({
 
 const router = useRouter();
 
-const signUp = handleSubmit(async () => {
+const submitForm = handleSubmit(async () => {
   if (registered.value) {
     return;
   }
 
-  await registerUser(user.value);
+  await registerUser(registerData.value);
   if (registered.value) {
     setTimeout(() => {
-      router.push("/");
+      navigateTo("/");
     }, 2000);
   }
 });

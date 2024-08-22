@@ -22,6 +22,11 @@ body {
   color: #000;
 }
 
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 .dark body {
   background-color: #141414;
   color: #f2f2f2;

@@ -1,31 +1,23 @@
-import pg from "pg";
+import { pool } from "~~/server/utils/db";
 import argon2 from "argon2";
-import { formSchema } from "~/utils/schemas";
+import { registrationSchema } from "~/utils/schemas";
 import { safeParse } from "valibot";
-
-const { Pool } = pg;
-const config = useRuntimeConfig();
-
-const pool = new Pool({
-  connectionString: config.databaseUrl,
-});
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
-  const validation = safeParse(formSchema, body);
+  const validation = safeParse(registrationSchema, body);
   if (!validation.success) {
     throw createError({
       statusCode: 400,
       statusMessage: "Validation error",
-      message: `Validation error: ${validation.issues
-        .map((issue, idx) => `${idx + 1}. ${issue.message}`)
-        .join(", ")}`,
+      message: `Validation error: ${validation.issues.map((issue, idx) => `${idx + 1}. ${issue.message}`).join(", ")}`,
     });
   }
 
   const { firstname, lastname, email, password, member_since } = body;
   const conn = await pool.connect();
+
   try {
     const hashedPassword = await argon2.hash(password);
 
