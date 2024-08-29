@@ -10,15 +10,13 @@
     >
       <ItemObserver v-slot="{ isVisible }">
         <div
-          class="flex flex-col items-center opacity-0"
+          class="flex flex-col items-center"
           :class="{ 'fade-in': isVisible }"
         >
           <div class="relative items-center gap-4">
-            <CarouselPrevious
-              class="btn absolute transition-colors"
-            ></CarouselPrevious>
+            <CarouselPrevious class="btn absolute"></CarouselPrevious>
             <h1 class="font-[Gin-Test] text-2xl uppercase">Featured cars</h1>
-            <CarouselNext class="btn absolute transition-colors"></CarouselNext>
+            <CarouselNext class="btn absolute"></CarouselNext>
           </div>
           <NuxtLink
             to="/showroom"
@@ -28,7 +26,7 @@
         </div>
       </ItemObserver>
       <ItemObserver v-slot="{ isVisible }">
-        <div class="opacity-0" :class="{ 'fade-in-up': isVisible }">
+        <div :class="{ 'fade-in-up': isVisible }">
           <CarouselContent
             class="mt-14 *:basis-1/5 lg-max:*:basis-1/3 sm-max:*:basis-1/2"
           >
@@ -38,7 +36,7 @@
                   class="w-full object-cover"
                   width="411"
                   height="411"
-                  src="/images/home/featured-cars/car-5.jpg"
+                  src="/images/cars/car-5.jpg"
                   alt="featured car 1"
                 />
               </NuxtLink>
@@ -58,8 +56,19 @@
 </template>
 
 <style scoped>
+.btn {
+  background-color: rgb(240, 240, 240);
+  border-radius: 50%;
+  padding: 0.4em;
+  stroke: rgb(158, 158, 158);
+  cursor: pointer;
+  border: 1px solid rgb(208, 208, 208);
+  width: 2rem;
+  height: 2rem;
+  user-select: none;
+}
 .btn:hover {
-  background-color: #e1e1e1;
+  background-color: #e4e4e4;
 }
 
 .dark .btn {
@@ -70,5 +79,11 @@
 }
 .dark .btn :deep svg {
   stroke: #000;
+}
+.swiper-button-disabled {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  cursor: auto;
 }
 </style>

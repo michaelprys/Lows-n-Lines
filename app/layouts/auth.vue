@@ -5,7 +5,7 @@
   >
     <ItemObserver v-slot="{ isVisible }">
       <div
-        class="container grid min-h-svh place-items-center opacity-0"
+        class="container grid min-h-svh place-items-center"
         :class="{ 'fade-in': isVisible }"
       >
         <div

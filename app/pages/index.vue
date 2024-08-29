@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="relative">
+    <ItemGlobalBg />
+
     <SectionIntro />
     <SectionExplore />
     <SectionFeaturedCars />

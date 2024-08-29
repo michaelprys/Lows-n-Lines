@@ -1,10 +1,8 @@
 <template>
-  <div class="mb-24">
+  <div class="relative mb-24">
+    <ItemGlobalBg />
     <ItemObserver v-slot="{ isVisible }">
-      <section
-        class="relative w-full opacity-0"
-        :class="{ 'fade-in': isVisible }"
-      >
+      <section class="relative w-full" :class="{ 'fade-in': isVisible }">
         <div
           class="absolute flex h-full w-full items-center justify-center bg-[#526672] bg-opacity-25"
         >
@@ -23,13 +21,13 @@
           muted
           ref="videoRef"
         >
-          <source src="/videos/Event.mp4" type="video/mp4" />
+          <source src="~/assets/videos/Event.mp4" type="video/mp4" />
         </video>
       </section>
     </ItemObserver>
     <section class="container mt-16 w-full max-w-[1240px]">
       <ItemObserver v-slot="{ isVisible }">
-        <div class="opacity-0" :class="{ 'fade-in': isVisible }">
+        <div :class="{ 'fade-in': isVisible }">
           <h3 class="mt-12 font-['Gin-Test'] text-xl uppercase">
             Friday, Novemeber 27, 2024 | 11AM - 11PM
           </h3>
@@ -47,7 +45,7 @@
 
       <ItemObserver v-slot="{ isVisible }">
         <h3
-          class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase opacity-0"
+          class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase"
           :class="{ 'fade-in': isVisible }"
         >
           location
@@ -56,7 +54,7 @@
 
       <ItemObserver v-slot="{ isVisible }">
         <div
-          class="mx-auto mt-10 h-[402px] w-full max-w-[1176px] opacity-0 shadow-xl"
+          class="mx-auto mt-10 h-[402px] w-full max-w-[1176px] shadow-xl"
           :class="{ 'fade-in-up': isVisible }"
         >
           <LMap
@@ -76,7 +74,7 @@
       </ItemObserver>
 
       <ItemObserver v-slot="{ isVisible }">
-        <p class="mt-14 opacity-0" :class="{ 'fade-in': isVisible }">
+        <p class="mt-14" :class="{ 'fade-in': isVisible }">
           Operating days and hours may change without notice. Management may
           deny entry for any reason. By entering Sunset Boulevard, you assume
           all risk of personal injury and loss or damage to property and hereby
@@ -90,7 +88,7 @@
 
       <ItemObserver v-slot="{ isVisible }">
         <h3
-          class="mt-14 text-center font-['Gin-Test'] text-2xl uppercase opacity-0"
+          class="mt-14 text-center font-['Gin-Test'] text-2xl uppercase"
           :class="{ 'fade-in': isVisible }"
         >
           Lows 'n' Lines is supported by
@@ -98,7 +96,7 @@
       </ItemObserver>
 
       <ItemObserver v-slot="{ isVisible }">
-        <div class="opacity-0" :class="{ 'fade-in-up': isVisible }">
+        <div :class="{ 'fade-in-up': isVisible }">
           <NuxtImg
             class="mx-auto mt-11 w-full max-w-[242px] object-cover"
             src="/images/events/sponsor.png"

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <section class="container mb-36 mt-16 lg-max:mb-20">
+    <section class="container pb-36 pt-16 lg-max:mb-20">
       <div class="flex justify-between gap-24 lg-max:flex-col lg-max:gap-10">
         <ItemObserver class="w-full" v-slot="{ isVisible }">
-          <div class="opacity-0" :class="{ 'fade-in': isVisible }">
+          <div :class="{ 'fade-in': isVisible }">
             <h1 class="text-2xl">My account</h1>
             <ul
               class="mt-3 *:border-t *:border-[#E0E0E0] *:dark:border-dark-border"
@@ -111,7 +111,7 @@
           class="w-full max-w-[26.25rem] lg-max:max-w-full"
           v-slot="{ isVisible }"
         >
-          <div class="opacity-0" :class="{ 'fade-in': isVisible }">
+          <div :class="{ 'fade-in': isVisible }">
             <div>
               <h2 class="text-xl">Account settings</h2>
               <p class="mt-4">

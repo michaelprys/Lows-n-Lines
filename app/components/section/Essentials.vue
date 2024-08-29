@@ -4,7 +4,7 @@
       <section
         class="container mt-32 flex max-w-[44.6875rem] flex-col text-center lg-max:mt-24"
       >
-        <div class="opacity-0" :class="{ 'fade-in': isVisible }">
+        <div :class="{ 'fade-in': isVisible }">
           <div>
             <h2 class="font-[Gin-Test] text-xl">
               LOWS 'N' LINES LUXURY LOWRIDER SHOP

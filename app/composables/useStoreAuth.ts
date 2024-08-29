@@ -12,6 +12,14 @@ export interface SignInData {
   password: string;
 }
 
+export interface MessageData {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: string;
+  message: string;
+}
+
 const state = reactive({
   registered: false,
   signedIn: false,

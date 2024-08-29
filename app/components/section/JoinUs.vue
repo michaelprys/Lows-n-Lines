@@ -5,7 +5,7 @@
     >
       <div class="container max-w-[30rem]">
         <ItemObserver v-slot="{ isVisible }">
-          <div class="opacity-0" :class="{ 'fade-in-delayed': isVisible }">
+          <div :class="{ 'fade-in-up-delayed': isVisible }">
             <h2 class="text-center uppercase text-dark-el">
               Lows 'n' lines family
             </h2>
@@ -29,9 +29,3 @@
     </section>
   </div>
 </template>
-
-<style scoped>
-.fade-in-delayed {
-  animation: fadeIn 0.7s 0.2s forwards;
-}
-</style>

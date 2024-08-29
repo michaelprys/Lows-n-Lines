@@ -3,11 +3,9 @@
     "README.md": true,
     ".prettierrc.json": true,
     ".vscode": true,
-    ".gitignore": true,
-    "components.json": true,
-    "node_modules": true,
     "pnpm-lock.yaml": true,
     ".nuxt": true,
-    "tsconfig.json": true
+    "node_modules": true,
+    ".gitignore": true
   }
 }

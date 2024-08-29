@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="relative">
+    <ItemGlobalBg />
     <nav>
       <ItemObserver v-slot="{ isVisible }">
         <div
-          class="relative min-h-[12.25rem] w-full bg-cover bg-center opacity-0"
+          class="relative min-h-[12.25rem] w-full bg-cover bg-center"
           :class="{ 'fade-in': isVisible }"
           style="background-image: url(&quot;/images/profile/head.jpg&quot;)"
         >
@@ -24,11 +25,11 @@
             class="flex justify-center gap-2 pb-8 text-white *:flex *:items-center *:gap-x-1 *:bg-[#ffffff1f] *:px-5 *:py-2"
           >
             <NuxtLink class="link transition-colors" to="/profile">
-              <img src="/icons/user.svg" alt="user icon" />
+              <IconUser />
               Profile
             </NuxtLink>
             <NuxtLink class="link transition-colors" to="/profile/saved-cars">
-              <img src="/icons/favorite.svg" alt="favorite icon" />
+              <IconFavorite />
               Saved cars
             </NuxtLink>
           </div>

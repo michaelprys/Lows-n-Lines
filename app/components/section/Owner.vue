@@ -6,7 +6,7 @@
       <div class="m-w-[365px] lg-max:pl-7">
         <ItemObserver v-slot="{ isVisible }">
           <NuxtImg
-            class="relative z-[8] mt-10 object-cover opacity-0 lg-max:ml-0"
+            class="relative z-[8] mt-10 object-cover lg-max:ml-0"
             :class="{ 'fade-in-up': isVisible }"
             src="/images/home/owner/owner-car.jpg"
             width="365"
@@ -18,7 +18,7 @@
       <div class="m-w-[365px]">
         <ItemObserver v-slot="{ isVisible }">
           <NuxtImg
-            class="z-5 -ml-7 object-cover opacity-0 lg-max:pl-0"
+            class="z-5 -ml-7 object-cover lg-max:pl-0"
             :class="{ 'fade-in-up-delayed': isVisible }"
             src="/images/home/owner/owner.jpg"
             width="365"
@@ -30,7 +30,7 @@
     </div>
     <div class="w-full max-w-[715px] pl-[30px] lg-max:mt-10 lg-max:pl-0">
       <ItemObserver v-slot="{ isVisible }">
-        <div class="opacity-0" :class="{ 'fade-in': isVisible }">
+        <div :class="{ 'fade-in': isVisible }">
           <h1 class="font-[Gin-Test] text-xl uppercase">
             Michael 'LA TORTUGA'
           </h1>
@@ -57,9 +57,3 @@
     </div>
   </section>
 </template>
-
-<style scoped>
-.fade-in-up-delayed {
-  animation: fadeInUp 0.3s 0.3s forwards;
-}
-</style>

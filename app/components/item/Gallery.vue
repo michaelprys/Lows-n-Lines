@@ -5,7 +5,7 @@
         <CarouselItem v-for="(item, idx) in images" :key="item">
           <NuxtImg
             class="embla__image h-[525px] object-cover"
-            :src="`/images/car-details/${item}.jpg`"
+            :src="`/images/cars/${item}.jpg`"
             :alt="`car ${idx} image`"
             width="1920"
             heigh="1280"
@@ -41,7 +41,7 @@
               'embla-thumbs__image',
               { 'embla-thumbs__image--active': idx === selectedIdx },
             ]"
-            :src="`/images/car-details/${item}.jpg`"
+            :src="`/images/cars/${item}.jpg`"
             :alt="`car ${idx} thumbnail`"
             width="300"
             height="200"

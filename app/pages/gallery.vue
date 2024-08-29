@@ -1,14 +1,14 @@
 <template>
   <div class="relative">
     <div
-      class="absolute -z-10 h-full w-full bg-cover bg-center"
+      class="absolute -z-[1] h-full w-full bg-cover bg-fixed bg-center opacity-50"
       style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
     ></div>
 
     <section class="container pb-24 pt-11">
       <ItemObserver v-slot="{ isVisible }">
         <h1
-          class="text-center font-['Gin-Test'] text-4xl text-[#ffffff] opacity-0 drop-shadow-xl md-max:text-3xl"
+          class="text-center font-['Gin-Test'] text-4xl text-[#ffffff] drop-shadow-xl md-max:text-3xl"
           :class="{ 'fade-in': isVisible }"
         >
           Gallery
@@ -18,15 +18,12 @@
         class="mx-auto mt-11 columns-3 gap-3 space-y-3 md-max:columns-2 xs-max:columns-1"
       >
         <li class="break-inside-avoid" v-for="(item, idx) in imgs" :key="item">
-          <ItemObserver v-slot="{ isVisible }">
-            <NuxtImg
-              class="w-full cursor-pointer rounded-lg object-cover opacity-0 shadow-2xl"
-              :class="{ 'fade-in': isVisible }"
-              :src="item.url"
-              :alt="`gallery image ${idx}`"
-              @click="() => showImg(idx)"
-            />
-          </ItemObserver>
+          <NuxtImg
+            class="w-full cursor-pointer rounded-lg object-cover shadow-2xl"
+            :src="item.url"
+            :alt="`gallery image ${idx}`"
+            @click="() => showImg(idx)"
+          />
         </li>
       </ul>
       <VueEasyLightbox
@@ -34,12 +31,12 @@
         :visible="visibleRef"
         :imgs="imgUrls"
         :index="indexRef"
-        moveDisabled="true"
+        :moveDisabled="true"
         @hide="onHide"
       />
       <ItemObserver v-slot="{ isVisible }">
         <button
-          class="mx-auto mt-10 block text-lg text-[#f2f2f2] opacity-0 transition-colors hover:text-white"
+          class="mx-auto mt-10 block text-lg text-[#f2f2f2] transition-colors hover:text-white"
           type="button"
           :class="{ 'fade-in': isVisible }"
         >
@@ -83,6 +80,21 @@ const imgs = [
   },
   {
     url: "/images/gallery/gallery-6.jpg",
+    width: "1920",
+    height: "2880",
+  },
+  {
+    url: "/images/gallery/gallery-7.jpg",
+    width: "1920",
+    height: "2880",
+  },
+  {
+    url: "/images/gallery/gallery-8.jpg",
+    width: "1920",
+    height: "2880",
+  },
+  {
+    url: "/images/gallery/gallery-10.jpg",
     width: "1920",
     height: "2880",
   },

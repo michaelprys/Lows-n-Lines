@@ -1,15 +1,7 @@
 <template>
   <div>
-    <AppHeader
-      class="sticky top-0 z-[10]"
-      :toggleDrawer="toggleDrawer"
-      :linksPrimary="linksPrimary"
-    />
-    <ItemDrawer
-      class="sticky top-0 z-[150]"
-      v-model:open="isOpen"
-      :linksPrimary="linksPrimary"
-    />
+    <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
+    <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
 
     <div>
       <slot />

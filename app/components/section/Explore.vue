@@ -8,19 +8,16 @@
           class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
           <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
-            <NuxtLink
-              class="opacity-0"
-              to="/"
-              :class="{ 'fade-in': isVisible }"
-            >
+            <NuxtLink to="/" :class="{ 'fade-in': isVisible }">
               <div class="absolute h-full w-full bg-black opacity-10"></div>
               <NuxtImg
                 class="h-full w-full object-cover"
-                src="images/home/explore/explore-1.jpg"
+                src="/images/home/explore/explore-1.jpg"
                 alt="explore image 1"
                 width="807"
                 height="460"
               />
+
               <div
                 to="/"
                 class="absolute bottom-5 left-5 rounded-[3px] bg-white px-3 py-2 text-sm uppercase transition-colors hover:bg-[#F1E798] md-max:text-xs"
@@ -34,15 +31,11 @@
           class="relative h-[28.75rem] w-full max-w-[35.2081rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
           <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
-            <NuxtLink
-              class="opacity-0"
-              to="/"
-              :class="{ 'fade-in': isVisible }"
-            >
+            <NuxtLink to="/" :class="{ 'fade-in': isVisible }">
               <div class="absolute h-full w-full bg-black opacity-10"></div>
               <NuxtImg
                 class="h-full w-full object-cover"
-                src="images/home/explore/explore-2.jpg"
+                src="/images/home/explore/explore-2.jpg"
                 alt="explore image 2"
                 width="563"
                 height="460"
@@ -63,11 +56,11 @@
           class="relative h-[28.75rem] w-full max-w-[50.4375rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
           <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
-            <NuxtLink class="opacity-0" to="/" :class="{ 'fade-in': isVisible }"
+            <NuxtLink to="/" :class="{ 'fade-in': isVisible }"
               ><div class="absolute h-full w-full bg-black opacity-10"></div>
               <NuxtImg
                 class="h-full w-full object-cover"
-                src="images/home/explore/explore-3.jpg"
+                src="/images/home/explore/explore-3.jpg"
                 alt="explore image 3"
                 width="807"
                 height="460"
@@ -85,15 +78,11 @@
           class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full sm-max:h-[24.75rem]"
         >
           <ItemObserver class="h-full" v-slot="{ isVisible }" rootMargin="45px">
-            <NuxtLink
-              class="opacity-0"
-              to="/"
-              :class="{ 'fade-in': isVisible }"
-            >
+            <NuxtLink to="/" :class="{ 'fade-in': isVisible }">
               <div class="absolute h-full w-full bg-black opacity-10"></div>
               <NuxtImg
                 class="h-full w-full object-cover"
-                src="images/home/explore/explore-4.jpg"
+                src="/images/home/explore/explore-4.jpg"
                 alt="explore image 4"
                 width="563"
                 height="460"

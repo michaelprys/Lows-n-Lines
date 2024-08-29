@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-[#F4F6F8] dark:bg-dark-primary">
+  <footer class="bg-[#F4F6F8] transition-colors dark:bg-dark-primary">
     <div class="bg-[#151515] py-10">
       <div class="container">
         <ul
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div
-      class="mt-16 grid grid-cols-4 place-items-center items-start gap-x-10 px-[3.75rem] xl-max:grid-cols-2 xl-max:place-items-start xl-max:gap-y-10 md-max:grid-cols-1"
+      class="grid grid-cols-4 place-items-center items-start gap-x-10 px-[3.75rem] pt-16 xl-max:grid-cols-2 xl-max:place-items-start xl-max:gap-y-10 md-max:grid-cols-1"
     >
       <div class="max-w-[26.25rem] md-max:max-w-full">
         <h2 class="font-[Gin-Test] text-xl uppercase">
@@ -142,28 +142,16 @@
           class="flex items-center gap-8 xs-max:w-full xs-max:justify-between"
         >
           <NuxtLink to="/">
-            <img
-              src="/icons/youtube.svg"
-              loading="lazy"
-              alt="youtube icon"
-              width="32px"
-              height="32px"
-            />
+            <IconYoutube />
           </NuxtLink>
           <NuxtLink to="/">
-            <img
-              src="/icons/facebook.svg"
-              loading="lazy"
-              alt="facebook icon"
-              width="27px"
-              height="27px"
-            />
+            <IconFacebook />
           </NuxtLink>
           <NuxtLink to="/">
-            <IconX class="dark:fill-dark-el" aria-label="X icon" />
+            <IconX class="fill-white" />
           </NuxtLink>
           <NuxtLink to="/">
-            <IconInsta class="dark:fill-dark-el" aria-label="isnta icon" />
+            <IconInsta class="fill-white" />
           </NuxtLink>
         </div>
       </div>

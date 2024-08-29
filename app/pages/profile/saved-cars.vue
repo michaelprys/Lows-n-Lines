@@ -1,9 +1,9 @@
 <template>
   <div>
-    <section class="container mb-20 pt-12">
+    <section class="container pb-20 pt-12">
       <ItemObserver v-slot="{ isVisible }">
         <h1
-          class="text-left font-['Gin-Test'] text-3xl text-[#808080] opacity-0 dark:text-[#9f9f9f]"
+          class="text-left font-['Gin-Test'] text-3xl text-[#808080] dark:text-[#9f9f9f]"
           :class="{ 'fade-in': isVisible }"
         >
           Favorite cars
@@ -12,13 +12,13 @@
 
       <ItemObserver v-slot="{ isVisible }">
         <ul
-          class="mt-12 grid grid-cols-4 place-items-center gap-7 opacity-0 lg-max:grid-cols-3 md-max:grid-cols-2 sm-max:grid-cols-1"
+          class="mt-12 grid grid-cols-4 place-items-center gap-7 lg-max:grid-cols-3 md-max:grid-cols-2 sm-max:grid-cols-1"
           :class="{ 'fade-in': isVisible }"
         >
           <li class="flex flex-col" v-for="(car, idx) in cars" :key="car">
             <NuxtImg
               class="rounded-sm object-cover"
-              :src="`/images/car-details/${car}.jpg`"
+              :src="`/images/cars/${car}.jpg`"
               width="340"
               height="277"
               :alt="`car ${idx} image`"
@@ -31,7 +31,7 @@
 
       <ItemObserver v-slot="{ isVisible }">
         <button
-          class="mx-auto mt-10 block text-lg opacity-0 transition-colors hover:text-gray-500"
+          class="mx-auto mt-10 block text-lg transition-colors hover:text-gray-500"
           :class="{ 'fade-in': isVisible }"
           type="button"
         >

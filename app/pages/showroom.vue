@@ -1,13 +1,28 @@
 <template>
-  <div class="flex px-8 lg-max:flex-col">
+  <div class="relative flex px-8 lg-max:flex-col">
+    <ItemGlobalBg />
     <nav
       class="nav-bg w-full max-w-60 text-black *:py-2 lg-max:max-w-full lg-max:pl-0 extra-min:max-w-80"
     >
       <ItemObserver v-slot="{ isVisible }">
         <div
-          class="container opacity-0 dark:text-dark-el"
+          class="px-8 dark:text-dark-el extra-max:px-2 lg-max:px-0"
           :class="{ 'fade-in': isVisible }"
         >
+          <div
+            class="relative mt-7 max-w-52 lg-max:mx-auto lg-max:max-w-[23rem]"
+          >
+            <NuxtLink to="/">
+              <IconSearch class="absolute right-3 top-1/2 -translate-y-1/2"
+            /></NuxtLink>
+            <input
+              class="w-full rounded-[3px] border-2 border-zinc-200 py-2 pl-3 pr-12 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
+              w-full
+              type="text"
+              placeholder="Search car"
+            />
+          </div>
+
           <h2
             class="mt-8 text-2xl font-semibold text-zinc-700 dark:text-dark-el lg-max:text-center"
           >
@@ -46,7 +61,7 @@
     <section>
       <ItemObserver v-slot="{ isVisible }">
         <ul
-          class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-10 opacity-0 xl-max:grid-cols-2 sm-max:grid-cols-1"
+          class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-10 xl-max:grid-cols-2 sm-max:grid-cols-1"
           :class="{ 'fade-in': isVisible }"
         >
           <li
@@ -57,7 +72,7 @@
             <NuxtLink to="/car-details">
               <NuxtImg
                 class="object-cover"
-                src="/images/showroom/car-1.jpg"
+                src="/images/cars/car-1.jpg"
                 width="447"
                 height="252"
                 alt="car image"
@@ -105,7 +120,7 @@
 
       <ItemObserver v-slot="{ isVisible }">
         <Pagination
-          class="flex justify-center py-20 opacity-0"
+          class="flex justify-center py-20"
           :class="{ 'fade-in-up': isVisible }"
           v-slot="{ page }"
           :total="100"
