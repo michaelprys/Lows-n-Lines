@@ -1,177 +1,151 @@
 <template>
-  <div>
-    <form
-      class="my-10 rounded-[2px] bg-white p-5 dark:bg-[#28292c] dark:text-dark-el"
-      @submit.prevent="submitForm"
-      novalidate
-    >
-      <div class="relative">
-        <span class="block text-2xl font-semibold">Sign up</span>
-        <ItemStatus />
-      </div>
+    <div>
+        <form
+            class="my-10 rounded-[2px] bg-white p-5 dark:bg-[#28292c] dark:text-dark-el"
+            @submit.prevent="submitForm"
+            novalidate
+        >
+            <div class="relative">
+                <span class="block text-2xl font-semibold">Sign up</span>
+                <ItemStatus />
+            </div>
 
-      <div class="mt-5 flex flex-col gap-5">
-        <FormField v-slot="{ field }" name="firstname">
-          <FormItem>
-            <FormControl>
-              <input
-                class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
-                type="text"
-                id="firstname"
-                placeholder="First Name"
-                v-bind="field"
-                v-model="registerData.firstname"
-              />
-            </FormControl>
-            <FormMessage class="text-[#ff3434]" />
-          </FormItem>
-        </FormField>
-
-        <FormField v-slot="{ field }" name="lastname">
-          <FormItem>
-            <FormControl>
-              <input
-                class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                type="text"
-                id="lastname"
-                placeholder="Last Name"
-                v-bind="field"
-                v-model="registerData.lastname"
-              />
-            </FormControl>
-            <FormMessage class="text-[#ff3434]" />
-          </FormItem>
-        </FormField>
-
-        <FormField v-slot="{ field }" name="email">
-          <FormItem>
-            <FormControl>
-              <input
-                class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                type="email"
-                id="email"
-                placeholder="Email"
-                v-bind="field"
-                v-model="registerData.email"
-              />
-            </FormControl>
-            <FormMessage class="text-[#ff3434]" />
-          </FormItem>
-        </FormField>
-
-        <FormField v-slot="{ field }" name="password">
-          <FormItem>
-            <FormControl>
-              <div class="relative" id="password">
+            <div class="mt-5 flex flex-col gap-5">
                 <input
-                  class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                  type="password"
-                  placeholder="Password"
-                  v-bind="field"
-                  v-model="registerData.password"
-                  autocomplete="on"
+                    class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                    type="text"
+                    id="firstname"
+                    placeholder="First Name"
+                    v-model="registerData.firstname"
                 />
-                <ButtonVisibility />
-              </div>
-            </FormControl>
-            <FormMessage class="text-[#ff3434]" />
-          </FormItem>
-        </FormField>
-
-        <FormField v-slot="{ field }" name="confirmPassword">
-          <FormItem>
-            <FormControl>
-              <div class="relative" id="confirm-password">
+                <ItemInputMessage :fieldName="'firstname'" :issues="issues" />
                 <input
-                  class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                  type="password"
-                  placeholder="Confirm Password"
-                  v-bind="field"
-                  v-model="registerData.confirmPassword"
-                  autocomplete="on"
+                    class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
+                    type="text"
+                    id="lastname"
+                    placeholder="Last Name"
+                    v-model="registerData.lastname"
                 />
-                <ButtonVisibility />
-              </div>
-            </FormControl>
-            <FormMessage class="text-[#ff3434]" />
-          </FormItem>
-        </FormField>
+                <ItemInputMessage :fieldName="'lastname'" :issues="issues" />
 
-        <div class="flex items-center justify-end">
-          <button
-            class="rounded-sm border border-[#f0a5a7] bg-[#F19899] px-6 py-2 transition-colors hover:border-[#f7c2c3] hover:bg-[#ffb9bb] dark:text-black"
-            :class="{
-              'sign-up cursor-not-allowed rounded-md border-transparent bg-gray-300 px-4 py-2 opacity-50 hover:border-transparent hover:bg-gray-300':
-                registered,
-            }"
-          >
-            Sign up
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
+                <input
+                    class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    v-model="registerData.email"
+                />
+                <ItemInputMessage :fieldName="'email'" :issues="issues" />
+
+                <div class="relative" id="password">
+                    <input
+                        class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
+                        type="password"
+                        placeholder="Password"
+                        autocomplete="on"
+                        v-model="registerData.password"
+                    />
+                    <ButtonVisibility />
+                </div>
+                <ItemInputMessage :fieldName="'password'" :issues="issues" />
+
+                <div class="relative" id="confirm-password">
+                    <input
+                        class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
+                        type="password"
+                        placeholder="Confirm Password"
+                        v-model="registerData.confirmPassword"
+                        autocomplete="on"
+                    />
+                    <ButtonVisibility />
+                </div>
+                <ItemInputMessage
+                    :fieldName="'confirmPassword'"
+                    :issues="issues"
+                />
+
+                <div class="flex items-center justify-end">
+                    <button
+                        class="rounded-sm border border-[#f0a5a7] bg-[#F19899] px-6 py-2 transition-colors hover:border-[#f7c2c3] hover:bg-[#ffb9bb] dark:text-black"
+                        :class="{
+                            'sign-up cursor-not-allowed rounded-md border-transparent bg-gray-300 px-4 py-2 opacity-50 hover:border-transparent hover:bg-gray-300':
+                                registered,
+                        }"
+                    >
+                        Sign up
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { toTypedSchema } from "@vee-validate/valibot";
+import { safeParse, flatten, type FlatErrors } from "valibot";
 
 const {
-  registered,
-  successMessage,
-  error: fetchError,
-  registerUser,
+    registered,
+    successMessage,
+    error: fetchError,
+    registerUser,
 } = useStoreAuth();
 
 definePageMeta({
-  layout: "auth",
+    layout: "auth",
 });
 
-const { handleSubmit } = useForm({
-  validationSchema: toTypedSchema(registrationSchema),
-});
-
-const registerData = ref<RegisterData>({
-  firstname: "",
-  lastname: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  member_since: new Date(),
+const registerData = reactive<RegisterData>({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    member_since: new Date(),
 });
 
 const router = useRouter();
 
-const submitForm = handleSubmit(async () => {
-  if (registered.value) {
-    return;
-  }
+const issues = ref<FlatErrors<typeof RegistrationSchema>["nested"]>();
 
-  await registerUser(registerData.value);
-  if (registered.value) {
-    setTimeout(() => {
-      navigateTo("/");
-    }, 2000);
-  }
-});
+const submitForm = async () => {
+    fetchError.value = "";
+    const result = safeParse(RegistrationSchema, registerData);
+
+    if (registered.value) {
+        return;
+    }
+
+    if (result.success) {
+        issues.value = {};
+        await registerUser(registerData);
+    } else {
+        issues.value = flatten<typeof RegistrationSchema>(result.issues).nested;
+    }
+
+    if (registered.value) {
+        setTimeout(() => {
+            navigateTo("/");
+        }, 2000);
+    }
+};
 
 router.afterEach(() => {
-  if (registered.value) {
-    setTimeout(() => {
-      registered.value = false;
-      successMessage.value = "";
-    }, 1500);
-  }
-  if (fetchError.value) {
-    fetchError.value = "";
-  }
+    if (registered.value) {
+        setTimeout(() => {
+            registered.value = false;
+            successMessage.value = "";
+        }, 1500);
+    }
+    if (fetchError.value) {
+        fetchError.value = "";
+    }
 });
 </script>
 
 <style scoped>
 .sign-up {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
-  transition-duration: 200ms;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transition-duration: 200ms;
 }
 </style>

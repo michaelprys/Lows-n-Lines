@@ -1,12 +1,12 @@
 import { pool } from "~~/server/utils/db";
 import argon2 from "argon2";
-import { registrationSchema } from "~/utils/schemas";
+import { RegistrationSchema } from "~/utils/schemas";
 import { safeParse } from "valibot";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
-  const validation = safeParse(registrationSchema, body);
+  const validation = safeParse(RegistrationSchema, body);
   if (!validation.success) {
     throw createError({
       statusCode: 400,

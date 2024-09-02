@@ -1,12 +1,12 @@
 import { pool } from "~~/server/utils/db";
 import argon2 from "argon2";
-import { signInSchema } from "~/utils/schemas";
+import { SignInSchema } from "~/utils/schemas";
 import { safeParse } from "valibot";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
-  const validation = safeParse(signInSchema, body);
+  const validation = safeParse(SignInSchema, body);
 
   if (!validation.success) {
     throw createError({
