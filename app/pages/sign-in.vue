@@ -8,7 +8,7 @@
         >
             <div class="relative">
                 <span class="block text-2xl font-semibold">Sign in</span>
-                <ItemStatus />
+                <ItemFormError />
             </div>
             <div class="mt-5 flex flex-col gap-5">
                 <input
@@ -63,6 +63,7 @@
                 >Create one</NuxtLink
             ></span
         >
+        <ItemModalStatus v-model:open="isOpen" :toggleDrawer="toggleDrawer" />
     </div>
 </template>
 
@@ -83,6 +84,16 @@ const signInData = reactive<SignInData>({
 const router = useRouter();
 
 const issues = ref<FlatErrors<typeof SignInSchema>["nested"]>();
+const isOpen = ref(false);
+
+const toggleDrawer = () => {
+    isOpen.value = !isOpen.value;
+};
+
+const resetForm = () => {
+    signInData.email = "";
+    signInData.password = "";
+};
 
 const submitForm = async () => {
     fetchError.value = "";
@@ -91,6 +102,14 @@ const submitForm = async () => {
     if (result.success) {
         issues.value = {};
         await signIn(signInData);
+        if (successMessage.value && !isOpen.value) {
+            isOpen.value = true;
+            resetForm();
+            setTimeout(() => {
+                isOpen.value = false;
+                navigateTo("/");
+            }, 3000);
+        }
     } else {
         issues.value = flatten<typeof SignInSchema>(result.issues).nested;
     }

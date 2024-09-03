@@ -8,6 +8,15 @@ export default defineNuxtConfig({
             include: ["tailwindcss"],
         },
     },
+    runtimeConfig: {
+        databaseUrl: "",
+        user: "",
+        appPassword: "",
+        emailPort: "",
+        public: {
+            apiBase: "/api",
+        },
+    },
     modules: [
         "@nuxtjs/color-mode",
         "@nuxt/image",
@@ -32,12 +41,6 @@ export default defineNuxtConfig({
     shadcn: {
         prefix: "",
         componentDir: "app/components/ui",
-    },
-    runtimeConfig: {
-        databaseUrl: "",
-        public: {
-            apiBase: "/api",
-        },
     },
     app: {
         pageTransition: {

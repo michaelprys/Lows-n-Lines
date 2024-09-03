@@ -73,7 +73,9 @@
                         />
                     </li>
                 </ul>
+
                 <slot />
+
                 <div class="mt-5 flex flex-col">
                     <label class="font-semibold" for="message">Message</label>
                     <textarea

@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <ItemGlobalBg />
-        <div class="container mt-7">
+        <div class="container pt-10">
             <ItemObserver v-slot="{ isVisible }">
                 <div :class="{ 'fade-in': isVisible }">
                     <div
@@ -19,6 +19,7 @@
                             >
                             <button
                                 class="rounded-sm border border-[#e5ddac] bg-[#F1E798] p-4 uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black md-max:p-2 md-max:text-xs"
+                                @click="printInventory"
                             >
                                 Print inverntory
                             </button>
@@ -29,7 +30,7 @@
                 </div>
             </ItemObserver>
 
-            <div class="mb-24 rounded-[2px] pb-10">
+            <div class="rounded-[2px] pb-24">
                 <div>
                     <ItemObserver v-slot="{ isVisible }">
                         <h2
@@ -204,63 +205,55 @@
                     </ItemObserver>
                 </div>
 
-                <div>
-                    <ItemObserver v-slot="{ isVisible }">
-                        <h2
-                            class="mt-10 text-center font-['Gin-Test'] text-2xl uppercase"
-                            :class="{ 'fade-in': isVisible }"
-                        >
-                            Contact
-                        </h2>
-                    </ItemObserver>
-
-                    <ItemMessageForm
-                        :messageData="messageData"
-                        :submitForm="submitForm"
-                        :issues="issues"
-                    >
-                        <div class="mt-4">
-                            <label class="font-semibold" for="">Subject</label>
-                            <Select>
-                                <SelectTrigger
-                                    class="select mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536] dark:text-black"
+                <ItemMessageForm
+                    :messageData="messageData"
+                    :submitForm="submitForm"
+                    :issues="issues"
+                >
+                    <div class="mt-4">
+                        <label class="font-semibold" for="">Subject</label>
+                        <Select v-model="messageData.subject">
+                            <SelectTrigger
+                                class="select mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536] dark:text-black"
+                            >
+                                <SelectValue
+                                    class="text-[1rem] text-zinc-400"
+                                    placeholder="Select a subject"
+                                />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup
+                                    class="bg-white dark:bg-zinc-800 dark:text-dark-el"
                                 >
-                                    <SelectValue
-                                        class="text-[1rem] text-zinc-400"
-                                        placeholder="Select a subject"
-                                    />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup
-                                        class="dark:bg-zinc-800 dark:text-dark-el"
+                                    <SelectLabel>Ask a question</SelectLabel>
+                                    <SelectItem
+                                        class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
+                                        value="Vehicle Interest"
                                     >
-                                        <SelectLabel
-                                            >Ask a question</SelectLabel
-                                        >
-                                        <SelectItem
-                                            class="cursor-pointer transition-colors dark:hover:bg-zinc-700 dark:hover:text-dark-el"
-                                            value="vehicleInterest"
-                                        >
-                                            Vehicle Interest
-                                        </SelectItem>
-                                        <SelectItem
-                                            class="cursor-pointer transition-colors dark:hover:bg-zinc-700 dark:hover:text-dark-el"
-                                            value="financingOptions"
-                                        >
-                                            Financing Options
-                                        </SelectItem>
-                                        <SelectItem
-                                            class="cursor-pointer transition-colors dark:hover:bg-zinc-700 dark:hover:text-dark-el"
-                                            value="testDrive"
-                                        >
-                                            Test Drive
-                                        </SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </ItemMessageForm>
-                </div>
+                                        Vehicle Interest
+                                    </SelectItem>
+                                    <SelectItem
+                                        class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
+                                        value="Financing Options"
+                                    >
+                                        Financing Options
+                                    </SelectItem>
+                                    <SelectItem
+                                        class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
+                                        value="Test Drive"
+                                    >
+                                        Test Drive
+                                    </SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        <ItemInputMessage
+                            :fieldName="'subject'"
+                            :issues="issues"
+                        />
+                    </div>
+                </ItemMessageForm>
+                <ItemModalStatus v-model:open="isOpen" :isOpen="isOpen" />
             </div>
         </div>
     </div>
@@ -269,29 +262,47 @@
 <script setup lang="ts">
 import { safeParse, flatten, type FlatErrors } from "valibot";
 
-const { error: fetchError } = useStoreAuth();
+const { messageSent, sendMessage, error: fetchError } = useStoreAuth();
+
+const printInventory = () => {
+    window.print();
+};
 
 const messageData = reactive<MessageData>({
     firstname: "",
     lastname: "",
     email: "",
     phoneNumber: "",
+    subject: "",
     message: "",
 });
 
 const issues = ref<FlatErrors<typeof MessageSchema>["nested"]>();
+const isOpen = ref(false);
+
+const resetForm = () => {
+    messageData.firstname = "";
+    messageData.lastname = "";
+    messageData.email = "";
+    messageData.phoneNumber = "";
+    messageData.subject = "";
+    messageData.message = "";
+};
 
 const submitForm = async () => {
     fetchError.value = "";
     const result = safeParse(MessageSchema, messageData);
 
-    // if (sent.value) {
-    //     return;
-    // }
-
     if (result.success) {
         issues.value = {};
-        // await sendMessage(messageData);
+        await sendMessage(messageData);
+        if (messageSent.value && !isOpen.value) {
+            isOpen.value = true;
+            resetForm();
+            setTimeout(() => {
+                isOpen.value = false;
+            }, 3000);
+        }
     } else {
         issues.value = flatten<typeof MessageSchema>(result.issues).nested;
     }

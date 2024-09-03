@@ -7,7 +7,7 @@
         >
             <div class="relative">
                 <span class="block text-2xl font-semibold">Sign up</span>
-                <ItemStatus />
+                <ItemFormError />
             </div>
 
             <div class="mt-5 flex flex-col gap-5">
@@ -77,6 +77,7 @@
                 </div>
             </div>
         </form>
+        <ItemModalStatus v-model:open="isOpen" :toggleDrawer="toggleDrawer" />
     </div>
 </template>
 
@@ -106,6 +107,19 @@ const registerData = reactive<RegisterData>({
 const router = useRouter();
 
 const issues = ref<FlatErrors<typeof RegistrationSchema>["nested"]>();
+const isOpen = ref(false);
+
+const toggleDrawer = () => {
+    isOpen.value = !isOpen.value;
+};
+
+const resetForm = () => {
+    registerData.firstname = "";
+    registerData.lastname = "";
+    registerData.email = "";
+    registerData.password = "";
+    registerData.confirmPassword = "";
+};
 
 const submitForm = async () => {
     fetchError.value = "";
@@ -118,6 +132,14 @@ const submitForm = async () => {
     if (result.success) {
         issues.value = {};
         await registerUser(registerData);
+        if (successMessage.value && !isOpen.value) {
+            isOpen.value = true;
+            resetForm();
+            setTimeout(() => {
+                isOpen.value = false;
+                navigateTo("/");
+            }, 3000);
+        }
     } else {
         issues.value = flatten<typeof RegistrationSchema>(result.issues).nested;
     }

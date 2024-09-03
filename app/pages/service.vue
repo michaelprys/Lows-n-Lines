@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <ItemGlobalBg />
-        <section class="container pb-24 pt-10">
+        <section class="container relative pb-24 pt-10">
             <div
                 class="flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8"
             >
@@ -94,6 +94,7 @@
                 :submitForm="submitForm"
                 :issues="issues"
             />
+            <ItemModalStatus v-model:open="isOpen" :isOpen="isOpen" />
         </section>
     </div>
 </template>
@@ -101,7 +102,7 @@
 <script setup lang="ts">
 import { safeParse, flatten, type FlatErrors } from "valibot";
 
-const { error: fetchError } = useStoreAuth();
+const { messageSent, sendMessage, error: fetchError } = useStoreAuth();
 
 const messageData = reactive<MessageData>({
     firstname: "",
@@ -112,18 +113,30 @@ const messageData = reactive<MessageData>({
 });
 
 const issues = ref<FlatErrors<typeof MessageSchema>["nested"]>();
+const isOpen = ref(false);
+
+const resetForm = () => {
+    messageData.firstname = "";
+    messageData.lastname = "";
+    messageData.email = "";
+    messageData.phoneNumber = "";
+    messageData.message = "";
+};
 
 const submitForm = async () => {
     fetchError.value = "";
     const result = safeParse(MessageSchema, messageData);
 
-    // if (sent.value) {
-    //     return;
-    // }
-
     if (result.success) {
         issues.value = {};
-        // await sendMessage(messageData);
+        await sendMessage(messageData);
+        if (messageSent.value && !isOpen.value) {
+            isOpen.value = true;
+            resetForm();
+            setTimeout(() => {
+                isOpen.value = false;
+            }, 3000);
+        }
     } else {
         issues.value = flatten<typeof MessageSchema>(result.issues).nested;
     }

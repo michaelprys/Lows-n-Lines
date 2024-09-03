@@ -15,8 +15,9 @@ export interface SignInData {
 export interface MessageData {
     firstname: string;
     lastname: string;
-    email: string;
     phoneNumber: string;
+    email: string;
+    subject?: string;
     message: string;
 }
 
@@ -24,6 +25,7 @@ const state = reactive({
     registered: false,
     signedIn: false,
     loading: false,
+    messageSent: false,
     error: null as string | null,
     successMessage: null as string | null,
 });
@@ -91,9 +93,39 @@ export const useStoreAuth = () => {
         }
     };
 
+    const sendMessage = async (messageData: MessageData) => {
+        const { apiBase } = useRuntimeConfig().public;
+        state.loading = true;
+        state.error = null;
+        state.successMessage = null;
+
+        const res = await fetch(`${apiBase}/inquiries`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(messageData),
+        });
+
+        try {
+            if (res.ok) {
+                state.messageSent = true;
+                state.successMessage = "Message sent successfully";
+            } else if (res.status === 400) {
+                state.error = "Validation error";
+            } else {
+                const resData = await res.json();
+                state.error = "Error sending message" || resData.message;
+            }
+        } catch (err) {
+            state.error = `An unexpected error occurred ${err.message}`;
+        } finally {
+            state.loading = false;
+        }
+    };
+
     return {
         ...toRefs(state),
         registerUser,
         signIn,
+        sendMessage,
     };
 };

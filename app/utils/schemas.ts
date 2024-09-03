@@ -9,6 +9,7 @@ import {
     email,
     forward,
     partialCheck,
+    optional,
 } from "valibot";
 
 const lettersOnly = new RegExp(/^\p{L}+$/u);
@@ -98,6 +99,7 @@ export const MessageSchema = config(
             nonEmpty("Phone number is required"),
             regex(phoneFormat, "Invalid format"),
         ),
+        subject: optional(string()),
         message: pipe(
             string("Enter the message"),
             nonEmpty("Enter the message"),
