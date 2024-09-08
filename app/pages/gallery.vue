@@ -1,35 +1,39 @@
 <template>
     <div class="relative">
-        <div
-            class="absolute -z-[1] h-full w-full bg-cover bg-fixed bg-center opacity-50"
+        <ItemGlobalBg />
+        <!-- <div
+            class="absolute -z-[1] h-full w-full bg-cover bg-fixed bg-center opacity-20"
             style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
-        ></div>
+        ></div> -->
 
         <section class="container pb-24 pt-11">
             <ItemObserver v-slot="{ isVisible }">
                 <h1
                     class="text-center font-['Gin-Test'] text-4xl text-[#ffffff] drop-shadow-xl md-max:text-3xl"
-                    :class="{ 'fade-in': isVisible }"
+                    :class="isVisible ? 'fade-in' : 'invisible'"
                 >
                     Gallery
                 </h1>
             </ItemObserver>
-            <ul
-                class="mx-auto mt-11 columns-3 gap-3 space-y-3 md-max:columns-2 xs-max:columns-1"
-            >
-                <li
-                    class="break-inside-avoid"
-                    v-for="(item, idx) in imgs"
-                    :key="item"
+            <ItemObserver v-slot="{ isVisible }">
+                <ul
+                    class="mx-auto mt-11 columns-3 gap-3 space-y-3 md-max:columns-2 xs-max:columns-1"
+                    :class="isVisible ? 'fade-in' : 'invisible'"
                 >
-                    <NuxtImg
-                        class="w-full cursor-pointer rounded-lg object-cover shadow-2xl"
-                        :src="item.url"
-                        :alt="`gallery image ${idx}`"
-                        @click="() => showImg(idx)"
-                    />
-                </li>
-            </ul>
+                    <li
+                        class="break-inside-avoid"
+                        v-for="(item, idx) in imgs"
+                        :key="item"
+                    >
+                        <NuxtImg
+                            class="w-full cursor-pointer rounded-lg object-cover shadow-2xl"
+                            :src="item.url"
+                            :alt="`gallery image ${idx}`"
+                            @click="() => showImg(idx)"
+                        />
+                    </li>
+                </ul>
+            </ItemObserver>
             <VueEasyLightbox
                 class="lightbox"
                 :visible="visibleRef"
@@ -42,7 +46,7 @@
                 <button
                     class="mx-auto mt-10 block text-lg text-[#f2f2f2] transition-colors hover:text-white"
                     type="button"
-                    :class="{ 'fade-in': isVisible }"
+                    :class="isVisible ? 'fade-in' : 'invisible'"
                 >
                     <span class="text-[22px]">+</span>
                     Show More

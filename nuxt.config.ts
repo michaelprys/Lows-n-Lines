@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
     components: true,
     compatibilityDate: "2024-04-03",
+    future: {
+        compatibilityVersion: 4,
+    },
     devtools: { enabled: false },
     vite: {
         optimizeDeps: {
@@ -23,9 +26,6 @@ export default defineNuxtConfig({
         "shadcn-nuxt",
         "nuxt-easy-lightbox",
     ],
-    future: {
-        compatibilityVersion: 4,
-    },
     postcss: {
         plugins: {
             tailwindcss: {},

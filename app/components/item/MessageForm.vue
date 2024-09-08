@@ -1,7 +1,7 @@
 <template>
     <form class="mt-24 xl-max:mt-16" @submit.prevent="onSubmit" novalidate>
         <ItemObserver v-slot="{ isVisible }">
-            <div :class="{ 'fade-in': isVisible }">
+            <div :class="isVisible ? 'fade-in' : 'invisible'">
                 <h2 class="text-center font-['Gin-Test'] text-3xl">
                     Contact us
                 </h2>
@@ -95,7 +95,7 @@
         <ItemObserver v-slot="{ isVisible }">
             <button
                 class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
-                :class="{ 'fade-in-up': isVisible }"
+                :class="isVisible ? 'fade-in-up' : 'invisible'"
                 @click="submitForm"
             >
                 Send message

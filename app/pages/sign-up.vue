@@ -89,6 +89,7 @@ const {
     successMessage,
     error: fetchError,
     registerUser,
+    pending,
 } = useStoreAuth();
 
 definePageMeta({
@@ -122,6 +123,8 @@ const resetForm = () => {
 };
 
 const submitForm = async () => {
+    if (pending.value) return;
+
     fetchError.value = "";
     const result = safeParse(RegistrationSchema, registerData);
 

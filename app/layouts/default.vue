@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
-    <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
-
     <div>
-      <slot />
-    </div>
+        <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
+        <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
 
-    <AppFooter />
-  </div>
+        <div>
+            <slot />
+        </div>
+
+        <AppFooter />
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -17,22 +17,22 @@ import { ref } from "vue";
 const router = useRouter();
 
 const linksPrimary = ref([
-  { name: "Home", route: "/" },
-  { name: "Showroom", route: "/showroom" },
-  { name: "Service Center", route: "/service" },
-  { name: "Events", route: "/events" },
-  { name: "Gallery", route: "/gallery" },
+    { name: "Home", route: "/" },
+    { name: "Showroom", route: "/showroom" },
+    { name: "Service Center", route: "/service" },
+    { name: "Events", route: "/events" },
+    { name: "Gallery", route: "/gallery" },
 ]);
 
 const isOpen = ref(false);
 
 const toggleDrawer = () => {
-  isOpen.value = !isOpen.value;
+    isOpen.value = !isOpen.value;
 };
 
 router.afterEach(() => {
-  if (isOpen.value) {
-    toggleDrawer();
-  }
+    if (isOpen.value) {
+        toggleDrawer();
+    }
 });
 </script>

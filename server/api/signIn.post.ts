@@ -4,54 +4,63 @@ import { SignInSchema } from "~/utils/schemas";
 import { safeParse } from "valibot";
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
+    const body = await readBody(event);
 
-  const validation = safeParse(SignInSchema, body);
+    const validation = safeParse(SignInSchema, body);
 
-  if (!validation.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Validation error",
-      message: `Validation error: ${validation.issues.map((issue, idx) => `${idx + 1} ${issue.message}`)}`,
-    });
-  }
-
-  const { email, password } = body;
-  const conn = await pool.connect();
-
-  try {
-    const res = await conn.query(
-      "SELECT password FROM users WHERE email = $1",
-      [email],
-    );
-
-    if (res.rows.length > 0) {
-      const user = res.rows[0];
-      const hashedPassword = user.password;
-      const isVerified = await argon2.verify(hashedPassword, password);
-
-      if (isVerified) {
-        setResponseStatus(event, 200, "Logged in successfully");
-      } else {
+    if (!validation.success) {
         throw createError({
-          statusCode: 401,
-          statusMessage: "Unauthorized",
-          message: "Invalid input",
+            statusCode: 400,
+            statusMessage: "Validation error",
+            message: `Validation error: ${validation.issues.map((issue, idx) => `${idx + 1} ${issue.message}`)}`,
         });
-      }
-    } else {
-      throw createError({
-        statusCode: 401,
-        statusMessage: "Unauthorized",
-        message: "Invalid input",
-      });
     }
-  } catch (err) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: `Server error ${err.message}`,
-    });
-  } finally {
-    conn.release();
-  }
+
+    const { email, password } = body;
+    const conn = await pool.connect();
+
+    try {
+        const res = await conn.query(
+            "SELECT id, email, password FROM users WHERE email = $1",
+            [email],
+        );
+
+        if (res.rows.length > 0) {
+            const user = res.rows[0];
+            const hashedPassword = user.password;
+            const isVerified = await argon2.verify(hashedPassword, password);
+
+            if (isVerified) {
+                const sessionData = { id: user.id, email: user.email };
+
+                setCookie(event, "session", JSON.stringify(sessionData), {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    maxAge: 60 * 60 * 24,
+                    path: "/",
+                    sameSite: "strict",
+                });
+                setResponseStatus(event, 200, "Logged in successfully");
+            } else {
+                throw createError({
+                    statusCode: 401,
+                    statusMessage: "Unauthorized",
+                    message: "Invalid input",
+                });
+            }
+        } else {
+            throw createError({
+                statusCode: 401,
+                statusMessage: "Unauthorized",
+                message: "Invalid input",
+            });
+        }
+    } catch (err) {
+        throw createError({
+            statusCode: 500,
+            statusMessage: `Server error ${err.message}`,
+        });
+    } finally {
+        conn.release();
+    }
 });

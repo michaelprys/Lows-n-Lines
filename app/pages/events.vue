@@ -2,7 +2,10 @@
     <div class="relative pb-24">
         <ItemGlobalBg />
         <ItemObserver v-slot="{ isVisible }">
-            <section class="relative w-full" :class="{ 'fade-in': isVisible }">
+            <section
+                class="relative w-full"
+                :class="isVisible ? 'fade-in' : 'invisible'"
+            >
                 <div
                     class="absolute flex h-full w-full items-center justify-center bg-[#526672] bg-opacity-25"
                 >
@@ -27,7 +30,7 @@
         </ItemObserver>
         <section class="container mt-16 w-full max-w-[1240px]">
             <ItemObserver v-slot="{ isVisible }">
-                <div :class="{ 'fade-in': isVisible }">
+                <div :class="isVisible ? 'fade-in' : 'invisible'">
                     <h3 class="mt-12 font-['Gin-Test'] text-xl uppercase">
                         Friday, Novemeber 27, 2024 | 11AM - 11PM
                     </h3>
@@ -47,14 +50,14 @@
             <ItemObserver v-slot="{ isVisible }">
                 <h3
                     class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase"
-                    :class="{ 'fade-in': isVisible }"
+                    :class="isVisible ? 'fade-in' : 'invisible'"
                 >
                     location
                 </h3>
             </ItemObserver>
 
             <ItemObserver v-slot="{ isVisible }">
-                <div :class="{ 'fade-in-up': isVisible }">
+                <div :class="isVisible ? 'fade-in-up' : 'invisible'">
                     <div
                         id="map"
                         class="z-0 mx-auto mt-10 h-[402px] w-full max-w-[1176px] shadow-xl"
@@ -63,7 +66,7 @@
             </ItemObserver>
 
             <ItemObserver v-slot="{ isVisible }">
-                <p class="mt-14" :class="{ 'fade-in': isVisible }">
+                <p class="mt-14" :class="isVisible ? 'fade-in' : 'invisible'">
                     Operating days and hours may change without notice.
                     Management may deny entry for any reason. By entering Sunset
                     Boulevard, you assume all risk of personal injury and loss
@@ -79,14 +82,14 @@
             <ItemObserver v-slot="{ isVisible }">
                 <h3
                     class="mt-14 text-center font-['Gin-Test'] text-2xl uppercase"
-                    :class="{ 'fade-in': isVisible }"
+                    :class="isVisible ? 'fade-in' : 'invisible'"
                 >
                     Lows 'n' Lines is supported by
                 </h3>
             </ItemObserver>
 
             <ItemObserver v-slot="{ isVisible }">
-                <div :class="{ 'fade-in-up': isVisible }">
+                <div :class="isVisible ? 'fade-in-up' : 'invisible'">
                     <NuxtImg
                         class="mx-auto mt-11 w-full max-w-[242px] object-cover"
                         src="/images/events/sponsor.png"

@@ -6,7 +6,7 @@
                 class="flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8"
             >
                 <ItemObserver class="max-w-1/2 w-full" v-slot="{ isVisible }">
-                    <div :class="{ 'fade-in': isVisible }">
+                    <div :class="isVisible ? 'fade-in' : 'invisible'">
                         <h1
                             class="font-['Gin-Test'] text-5xl xl-max:text-4xl md-max:text-3xl"
                         >
@@ -80,7 +80,7 @@
                 <ItemObserver class="max-w-1/2 w-full" v-slot="{ isVisible }">
                     <NuxtImg
                         class="mt-12 w-full max-w-[615] rounded-md object-cover xl-max:mx-auto xl-max:mt-0"
-                        :class="{ 'fade-in-up-delayed': isVisible }"
+                        :class="isVisible ? 'fade-in-up-delayed' : 'invisible'"
                         src="/images/service/service.jpg"
                         width="615"
                         height="277"
@@ -94,7 +94,10 @@
                 :submitForm="submitForm"
                 :issues="issues"
             />
-            <ItemModalStatus v-model:open="isOpen" :isOpen="isOpen" />
+            <ItemModalStatus
+                v-model:open="isOpen"
+                :toggleDrawer="toggleDrawer"
+            />
         </section>
     </div>
 </template>
@@ -102,7 +105,7 @@
 <script setup lang="ts">
 import { safeParse, flatten, type FlatErrors } from "valibot";
 
-const { messageSent, sendMessage, error: fetchError } = useStoreAuth();
+const { messageSent, sendMessage, error: fetchError, pending } = useStoreAuth();
 
 const messageData = reactive<MessageData>({
     firstname: "",
@@ -115,6 +118,10 @@ const messageData = reactive<MessageData>({
 const issues = ref<FlatErrors<typeof MessageSchema>["nested"]>();
 const isOpen = ref(false);
 
+const toggleDrawer = () => {
+    isOpen.value = !isOpen.value;
+};
+
 const resetForm = () => {
     messageData.firstname = "";
     messageData.lastname = "";
@@ -124,6 +131,8 @@ const resetForm = () => {
 };
 
 const submitForm = async () => {
+    if (pending.value) return;
+
     fetchError.value = "";
     const result = safeParse(MessageSchema, messageData);
 

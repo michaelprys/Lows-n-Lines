@@ -1,13 +1,13 @@
 <template>
-  <div class="relative">
-    <ItemGlobalBg />
+    <div class="relative">
+        <ItemGlobalBg />
 
-    <SectionIntro />
-    <SectionExplore />
-    <SectionFeaturedCars />
-    <SectionDriveWithUs />
-    <SectionOwner />
-    <SectionEssentials />
-    <SectionJoinUs />
-  </div>
+        <SectionIntro />
+        <SectionExplore />
+        <SectionFeaturedCars />
+        <SectionDriveWithUs />
+        <SectionOwner />
+        <SectionEssentials />
+        <SectionJoinUs />
+    </div>
 </template>

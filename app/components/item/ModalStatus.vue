@@ -1,13 +1,17 @@
 <template>
-    <Dialog v-model:open="model">
-        <DialogContent class="p-8">
-            <DialogHeader>
-                <DialogTitle class="flex justify-center">
-                    <div v-if="fetchError">
+    <AlertDialog v-model:open="model">
+        <AlertDialogContent class="p-8">
+            <AlertDialogHeader>
+                <AlertDialogTitle class="flex justify-center">
+                    <div
+                        class="flex flex-col items-center justify-center"
+                        v-if="fetchError"
+                    >
                         <IconError />
                         <span
                             class="mt-4 block text-center text-[1.6rem] text-red-400"
-                            >Error</span
+                        >
+                            Error</span
                         >
                     </div>
                     <div
@@ -20,14 +24,14 @@
                             >Success</span
                         >
                     </div>
-                </DialogTitle>
+                </AlertDialogTitle>
 
-                <DialogDescription class="sr-only"
+                <AlertDialogDescription class="sr-only"
                     >Please review the message above for the status of your
                     request. If you encountered an error, try again or contact
                     support for further assistance.
-                </DialogDescription>
-            </DialogHeader>
+                </AlertDialogDescription>
+            </AlertDialogHeader>
 
             <div
                 class="text-md mt-2 flex items-center justify-center text-center"
@@ -36,16 +40,16 @@
                 <span>{{ fetchError || successMessage }}</span>
             </div>
 
-            <DialogFooter>
+            <AlertDialogFooter>
                 <button
-                    class="mx-auto mt-5 rounded bg-zinc-700 px-5 py-2 uppercase transition-colors hover:bg-zinc-500"
+                    class="mx-auto mt-4 rounded bg-zinc-700 px-5 py-2 uppercase transition-colors hover:bg-zinc-500"
                     @click="toggleDrawer"
                 >
                     Ok
                 </button>
-            </DialogFooter>
-        </DialogContent>
-    </Dialog>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    </AlertDialog>
 </template>
 
 <script setup lang="ts">

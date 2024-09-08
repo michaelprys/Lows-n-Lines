@@ -3,7 +3,7 @@
         <ItemGlobalBg />
         <div class="container pt-10">
             <ItemObserver v-slot="{ isVisible }">
-                <div :class="{ 'fade-in': isVisible }">
+                <div :class="isVisible ? 'fade-in' : 'invisible'">
                     <div
                         class="flex items-center justify-between md-max:flex-col md-max:gap-5"
                     >
@@ -35,7 +35,7 @@
                     <ItemObserver v-slot="{ isVisible }">
                         <h2
                             class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase"
-                            :class="{ 'fade-in': isVisible }"
+                            :class="isVisible ? 'fade-in' : 'invisible'"
                         >
                             Description
                         </h2>
@@ -43,7 +43,7 @@
 
                     <div>
                         <ItemObserver v-slot="{ isVisible }">
-                            <div :class="{ 'fade-in': isVisible }">
+                            <div :class="isVisible ? 'fade-in' : 'invisible'">
                                 <p class="mt-8 text-lg uppercase">
                                     Welcome to Lows 'n' Lines Service Center
                                 </p>
@@ -80,7 +80,7 @@
                         <ItemObserver v-slot="{ isVisible }">
                             <h3
                                 class="mt-5 text-2xl font-semibold"
-                                :class="{ 'fade-in': isVisible }"
+                                :class="isVisible ? 'fade-in' : 'invisible'"
                             >
                                 Vitals
                             </h3>
@@ -89,7 +89,7 @@
                         <ItemObserver v-slot="{ isVisible }">
                             <ul
                                 class="mt-5 list-disc pl-[17px]"
-                                :class="{ 'fade-in': isVisible }"
+                                :class="isVisible ? 'fade-in' : 'invisible'"
                             >
                                 <li>Odometer: 45,000 miles</li>
                                 <li>Paint: Candy Apple Red</li>
@@ -114,7 +114,7 @@
                     <ItemObserver v-slot="{ isVisible }">
                         <h2
                             class="mt-10 text-center font-['Gin-Test'] text-2xl uppercase"
-                            :class="{ 'fade-in': isVisible }"
+                            :class="isVisible ? 'fade-in' : 'invisible'"
                         >
                             Vehicle specs
                         </h2>
@@ -123,7 +123,7 @@
                     <ItemObserver v-slot="{ isVisible }">
                         <div
                             class="mt-10 grid grid-cols-4 gap-x-8 md-max:grid-cols-2 md-max:gap-y-8"
-                            :class="{ 'fade-in': isVisible }"
+                            :class="isVisible ? 'fade-in' : 'invisible'"
                         >
                             <div>
                                 <h3 class="text-2xl">Basic</h3>
@@ -244,6 +244,12 @@
                                     >
                                         Test Drive
                                     </SelectItem>
+                                    <SelectItem
+                                        class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
+                                        value="Other"
+                                    >
+                                        Other
+                                    </SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -253,7 +259,10 @@
                         />
                     </div>
                 </ItemMessageForm>
-                <ItemModalStatus v-model:open="isOpen" :isOpen="isOpen" />
+                <ItemModalStatus
+                    v-model:open="isOpen"
+                    :toggleDrawer="toggleDrawer"
+                />
             </div>
         </div>
     </div>
@@ -262,7 +271,7 @@
 <script setup lang="ts">
 import { safeParse, flatten, type FlatErrors } from "valibot";
 
-const { messageSent, sendMessage, error: fetchError } = useStoreAuth();
+const { messageSent, sendMessage, error: fetchError, pending } = useStoreAuth();
 
 const printInventory = () => {
     window.print();
@@ -280,6 +289,10 @@ const messageData = reactive<MessageData>({
 const issues = ref<FlatErrors<typeof MessageSchema>["nested"]>();
 const isOpen = ref(false);
 
+const toggleDrawer = () => {
+    isOpen.value = !isOpen.value;
+};
+
 const resetForm = () => {
     messageData.firstname = "";
     messageData.lastname = "";
@@ -290,6 +303,7 @@ const resetForm = () => {
 };
 
 const submitForm = async () => {
+    if (pending.value) return;
     fetchError.value = "";
     const result = safeParse(MessageSchema, messageData);
 

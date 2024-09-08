@@ -70,7 +70,13 @@
 <script setup lang="ts">
 import { safeParse, flatten, type FlatErrors } from "valibot";
 
-const { signedIn, successMessage, error: fetchError, signIn } = useStoreAuth();
+const {
+    signedIn,
+    successMessage,
+    error: fetchError,
+    signIn,
+    pending,
+} = useStoreAuth();
 
 definePageMeta({
     layout: "auth",
@@ -96,6 +102,8 @@ const resetForm = () => {
 };
 
 const submitForm = async () => {
+    if (pending.value) return;
+
     fetchError.value = "";
     const result = safeParse(SignInSchema, signInData);
 

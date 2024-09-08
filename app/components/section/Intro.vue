@@ -1,7 +1,7 @@
 <template>
     <section>
         <ItemObserver v-slot="{ isVisible }">
-            <div class="relative" :class="{ 'fade-in': isVisible }">
+            <div class="relative" :class="isVisible ? 'fade-in' : 'invisible'">
                 <div class="relative">
                     <div
                         class="absolute h-full w-full bg-black opacity-10"

@@ -24,16 +24,19 @@ export interface MessageData {
 const state = reactive({
     registered: false,
     signedIn: false,
-    loading: false,
+    pending: false,
     messageSent: false,
     error: null as string | null,
     successMessage: null as string | null,
 });
 
 export const useStoreAuth = () => {
+    const router = useRouter();
+    const route = useRoute();
+
     const registerUser = async (registerData: RegisterData) => {
         const { apiBase } = useRuntimeConfig().public;
-        state.loading = true;
+        state.pending = true;
         state.error = null;
         state.successMessage = null;
 
@@ -60,13 +63,13 @@ export const useStoreAuth = () => {
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
         } finally {
-            state.loading = false;
+            state.pending = false;
         }
     };
 
     const signIn = async (signInData: SignInData) => {
         const { apiBase } = useRuntimeConfig().public;
-        state.loading = true;
+        state.pending = true;
         state.error = null;
         state.successMessage = null;
 
@@ -78,8 +81,12 @@ export const useStoreAuth = () => {
 
         try {
             if (res.ok) {
-                state.signedIn = true;
-                state.successMessage = "Signed in successfully";
+                await checkUser();
+                if (state.signedIn) {
+                    state.successMessage = "Signed in successfully";
+                } else {
+                    state.error = "Sign in failed, please try again";
+                }
             } else if (res.status === 400) {
                 state.error = "Validation error";
             } else {
@@ -89,13 +96,13 @@ export const useStoreAuth = () => {
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
         } finally {
-            state.loading = false;
+            state.pending = false;
         }
     };
 
     const sendMessage = async (messageData: MessageData) => {
         const { apiBase } = useRuntimeConfig().public;
-        state.loading = true;
+        state.pending = true;
         state.error = null;
         state.successMessage = null;
 
@@ -118,7 +125,68 @@ export const useStoreAuth = () => {
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
         } finally {
-            state.loading = false;
+            state.pending = false;
+        }
+    };
+
+    const checkUser = async () => {
+        const { apiBase } = useRuntimeConfig().public;
+        state.pending = true;
+        state.error = null;
+
+        try {
+            const res = await fetch(`${apiBase}/user`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (res.ok) {
+                const resData = await res.json();
+                if (resData.success) {
+                    state.signedIn = true;
+                }
+            } else {
+                state.signedIn = false;
+                const resData = await res.json();
+                state.error = resData.message || "Authentication failed";
+            }
+        } catch (err) {
+            state.error = `An unexpected error occurred ${err.message}`;
+            state.signedIn = false;
+        } finally {
+            state.pending = false;
+        }
+    };
+
+    const signOut = async () => {
+        const { apiBase } = useRuntimeConfig().public;
+        state.pending = true;
+        state.error = null;
+
+        try {
+            const res = await fetch(`${apiBase}/signOut`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (res.ok) {
+                state.signedIn = false;
+                if (route.path === "/") {
+                    router.go(0);
+                } else {
+                    navigateTo("/");
+                }
+
+                state.successMessage = "Signed out successfully";
+            } else {
+                const resData = await res.json();
+                state.error = resData.message || "Sign out failed";
+            }
+        } catch (err) {
+            state.error = `An unexpected error occurred ${err.message}`;
+            state.signedIn = false;
+        } finally {
+            state.pending = false;
         }
     };
 
@@ -127,5 +195,7 @@ export const useStoreAuth = () => {
         registerUser,
         signIn,
         sendMessage,
+        checkUser,
+        signOut,
     };
 };
