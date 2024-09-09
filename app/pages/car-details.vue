@@ -5,11 +5,9 @@
             <ItemObserver v-slot="{ isVisible }">
                 <div :class="isVisible ? 'fade-in' : 'invisible'">
                     <div
-                        class="flex items-center justify-between md-max:flex-col md-max:gap-5"
-                    >
+                        class="flex items-center justify-between md-max:flex-col md-max:gap-5">
                         <h1
-                            class="text-center text-2xl uppercase text-[#808080] dark:text-[#9f9f9f]"
-                        >
+                            class="`text`-center text-2xl uppercase text-[#808080] dark:text-[#9f9f9f]">
                             Chevrolet Impala - 1964
                         </h1>
                         <div class="flex items-center gap-8">
@@ -19,8 +17,7 @@
                             >
                             <button
                                 class="rounded-sm border border-[#e5ddac] bg-[#F1E798] p-4 uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black md-max:p-2 md-max:text-xs"
-                                @click="printInventory"
-                            >
+                                @click="printInventory">
                                 Print inverntory
                             </button>
                         </div>
@@ -35,8 +32,7 @@
                     <ItemObserver v-slot="{ isVisible }">
                         <h2
                             class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase"
-                            :class="isVisible ? 'fade-in' : 'invisible'"
-                        >
+                            :class="isVisible ? 'fade-in' : 'invisible'">
                             Description
                         </h2>
                     </ItemObserver>
@@ -80,8 +76,7 @@
                         <ItemObserver v-slot="{ isVisible }">
                             <h3
                                 class="mt-5 text-2xl font-semibold"
-                                :class="isVisible ? 'fade-in' : 'invisible'"
-                            >
+                                :class="isVisible ? 'fade-in' : 'invisible'">
                                 Vitals
                             </h3>
                         </ItemObserver>
@@ -89,8 +84,7 @@
                         <ItemObserver v-slot="{ isVisible }">
                             <ul
                                 class="mt-5 list-disc pl-[17px]"
-                                :class="isVisible ? 'fade-in' : 'invisible'"
-                            >
+                                :class="isVisible ? 'fade-in' : 'invisible'">
                                 <li>Odometer: 45,000 miles</li>
                                 <li>Paint: Candy Apple Red</li>
                                 <li>Tires: Whitewall</li>
@@ -114,8 +108,7 @@
                     <ItemObserver v-slot="{ isVisible }">
                         <h2
                             class="mt-10 text-center font-['Gin-Test'] text-2xl uppercase"
-                            :class="isVisible ? 'fade-in' : 'invisible'"
-                        >
+                            :class="isVisible ? 'fade-in' : 'invisible'">
                             Vehicle specs
                         </h2>
                     </ItemObserver>
@@ -123,8 +116,7 @@
                     <ItemObserver v-slot="{ isVisible }">
                         <div
                             class="mt-10 grid grid-cols-4 gap-x-8 md-max:grid-cols-2 md-max:gap-y-8"
-                            :class="isVisible ? 'fade-in' : 'invisible'"
-                        >
+                            :class="isVisible ? 'fade-in' : 'invisible'">
                             <div>
                                 <h3 class="text-2xl">Basic</h3>
                                 <hr class="my-4 border-[#BDBDBD]" />
@@ -208,46 +200,38 @@
                 <ItemMessageForm
                     :messageData="messageData"
                     :submitForm="submitForm"
-                    :issues="issues"
-                >
+                    :issues="issues">
                     <div class="mt-4">
                         <label class="font-semibold" for="">Subject</label>
                         <Select v-model="messageData.subject">
                             <SelectTrigger
-                                class="select mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536] dark:text-black"
-                            >
+                                class="select mt-1 rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536] dark:text-black">
                                 <SelectValue
                                     class="text-[1rem] text-zinc-400"
-                                    placeholder="Select a subject"
-                                />
+                                    placeholder="Select a subject" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup
-                                    class="bg-white dark:bg-zinc-800 dark:text-dark-el"
-                                >
+                                    class="bg-white dark:bg-zinc-800 dark:text-dark-el">
                                     <SelectLabel>Ask a question</SelectLabel>
                                     <SelectItem
                                         class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
-                                        value="Vehicle Interest"
-                                    >
+                                        value="Vehicle Interest">
                                         Vehicle Interest
                                     </SelectItem>
                                     <SelectItem
                                         class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
-                                        value="Financing Options"
-                                    >
+                                        value="Financing Options">
                                         Financing Options
                                     </SelectItem>
                                     <SelectItem
                                         class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
-                                        value="Test Drive"
-                                    >
+                                        value="Test Drive">
                                         Test Drive
                                     </SelectItem>
                                     <SelectItem
                                         class="cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-dark-el"
-                                        value="Other"
-                                    >
+                                        value="Other">
                                         Other
                                     </SelectItem>
                                 </SelectGroup>
@@ -255,21 +239,19 @@
                         </Select>
                         <ItemInputMessage
                             :fieldName="'subject'"
-                            :issues="issues"
-                        />
+                            :issues="issues" />
                     </div>
                 </ItemMessageForm>
                 <ItemModalStatus
                     v-model:open="isOpen"
-                    :toggleDrawer="toggleDrawer"
-                />
+                    :toggleDrawer="toggleDrawer" />
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { safeParse, flatten, type FlatErrors } from "valibot";
+import { safeParse, flatten, type FlatErrors } from 'valibot';
 
 const { messageSent, sendMessage, error: fetchError, pending } = useStoreAuth();
 
@@ -278,15 +260,15 @@ const printInventory = () => {
 };
 
 const messageData = reactive<MessageData>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phoneNumber: "",
-    subject: "",
-    message: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    phoneNumber: '',
+    subject: '',
+    message: '',
 });
 
-const issues = ref<FlatErrors<typeof MessageSchema>["nested"]>();
+const issues = ref<FlatErrors<typeof MessageSchema>['nested']>();
 const isOpen = ref(false);
 
 const toggleDrawer = () => {
@@ -294,17 +276,17 @@ const toggleDrawer = () => {
 };
 
 const resetForm = () => {
-    messageData.firstname = "";
-    messageData.lastname = "";
-    messageData.email = "";
-    messageData.phoneNumber = "";
-    messageData.subject = "";
-    messageData.message = "";
+    messageData.firstname = '';
+    messageData.lastname = '';
+    messageData.email = '';
+    messageData.phoneNumber = '';
+    messageData.subject = '';
+    messageData.message = '';
 };
 
 const submitForm = async () => {
     if (pending.value) return;
-    fetchError.value = "";
+    fetchError.value = '';
     const result = safeParse(MessageSchema, messageData);
 
     if (result.success) {
@@ -324,7 +306,7 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-.dark .select :deep svg {
+.dark .select :deep(svg) {
     stroke: #f2f2f2;
 }
 </style>

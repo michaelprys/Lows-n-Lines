@@ -4,7 +4,6 @@
     ".vscode": true,
     "pnpm-lock.yaml": true,
     ".gitignore": true,
-    ".prettierrc.json": true,
     "tsconfig.json": true,
     "components.json": true,
     "node_modules": true,

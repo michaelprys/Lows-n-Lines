@@ -3,13 +3,11 @@
         <ItemGlobalBg />
         <section class="container relative pb-24 pt-10">
             <div
-                class="flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8"
-            >
+                class="flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8">
                 <ItemObserver class="max-w-1/2 w-full" v-slot="{ isVisible }">
                     <div :class="isVisible ? 'fade-in' : 'invisible'">
                         <h1
-                            class="font-['Gin-Test'] text-5xl xl-max:text-4xl md-max:text-3xl"
-                        >
+                            class="font-['Gin-Test'] text-5xl xl-max:text-4xl md-max:text-3xl">
                             Rev up your ride
                         </h1>
                         <div class="mt-12">
@@ -84,38 +82,35 @@
                         src="/images/service/service.jpg"
                         width="615"
                         height="277"
-                        alt="service image"
-                    />
+                        alt="service image" />
                 </ItemObserver>
             </div>
 
             <ItemMessageForm
                 :messageData="messageData"
                 :submitForm="submitForm"
-                :issues="issues"
-            />
+                :issues="issues" />
             <ItemModalStatus
                 v-model:open="isOpen"
-                :toggleDrawer="toggleDrawer"
-            />
+                :toggleDrawer="toggleDrawer" />
         </section>
     </div>
 </template>
 
 <script setup lang="ts">
-import { safeParse, flatten, type FlatErrors } from "valibot";
+import { safeParse, flatten, type FlatErrors } from 'valibot';
 
 const { messageSent, sendMessage, error: fetchError, pending } = useStoreAuth();
 
 const messageData = reactive<MessageData>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phoneNumber: "",
-    message: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    phoneNumber: '',
+    message: '',
 });
 
-const issues = ref<FlatErrors<typeof MessageSchema>["nested"]>();
+const issues = ref<FlatErrors<typeof MessageSchema>['nested']>();
 const isOpen = ref(false);
 
 const toggleDrawer = () => {
@@ -123,18 +118,19 @@ const toggleDrawer = () => {
 };
 
 const resetForm = () => {
-    messageData.firstname = "";
-    messageData.lastname = "";
-    messageData.email = "";
-    messageData.phoneNumber = "";
-    messageData.message = "";
+    messageData.firstname = '';
+    messageData.lastname = '';
+    messageData.email = '';
+    messageData.phoneNumber = '';
+    messageData.message = '';
 };
 
 const submitForm = async () => {
     if (pending.value) return;
 
-    fetchError.value = "";
+    fetchError.value = '';
     const result = safeParse(MessageSchema, messageData);
+    console.log('Client-side before submission messageData:', messageData);
 
     if (result.success) {
         issues.value = {};

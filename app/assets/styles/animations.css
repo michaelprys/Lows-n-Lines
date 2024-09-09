@@ -2,7 +2,7 @@
 .page-leave-active,
 .layout-enter-active,
 .layout-leave-active {
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 300ms ease-in-out;
 }
 
 .page-enter-from,
@@ -14,7 +14,7 @@
 
 .error-enter-active,
 .error-leave-active {
-    transition: opacity 0.2s cubic-bezier(0.5, 0, 0.5, 1);
+    transition: opacity 200ms cubic-bezier(0.5, 0, 0.5, 1);
 }
 .error-enter-from,
 .error-leave-to {

@@ -1,22 +1,18 @@
 <template>
     <section
-        class="mt-36 flex flex-col items-center justify-center overflow-hidden md-max:mt-28"
-    >
+        class="mt-36 flex flex-col items-center justify-center overflow-hidden md-max:mt-28">
         <Carousel
             class="overflow-hidden"
             :opts="{
                 loop: true,
-            }"
-        >
+            }">
             <ItemObserver v-slot="{ isVisible }">
                 <div
                     class="flex flex-col items-center"
-                    :class="isVisible ? 'fade-in' : 'invisible'"
-                >
+                    :class="isVisible ? 'fade-in' : 'invisible'">
                     <div class="relative items-center gap-4">
                         <CarouselPrevious
-                            class="btn absolute"
-                        ></CarouselPrevious>
+                            class="btn absolute"></CarouselPrevious>
                         <h1 class="font-[Gin-Test] text-2xl uppercase">
                             Featured cars
                         </h1>
@@ -32,25 +28,21 @@
             <ItemObserver v-slot="{ isVisible }">
                 <div :class="isVisible ? 'fade-in-up' : 'invisible'">
                     <CarouselContent
-                        class="mt-14 *:basis-1/5 lg-max:*:basis-1/3 sm-max:*:basis-1/2"
-                    >
+                        class="mt-14 *:basis-1/5 lg-max:*:basis-1/3 sm-max:*:basis-1/2">
                         <CarouselItem v-for="item in 8" :key="item">
                             <NuxtLink
                                 to="/showroom"
-                                class="flex justify-center"
-                            >
+                                class="flex justify-center">
                                 <NuxtImg
                                     class="w-full object-cover"
                                     width="411"
                                     height="411"
                                     src="/images/cars/car-5.jpg"
-                                    alt="featured car 1"
-                                />
+                                    alt="featured car 1" />
                             </NuxtLink>
                             <NuxtLink
                                 to="/showroom"
-                                class="mt-4 flex flex-col gap-2 text-left text-sm md-max:text-xs"
-                            >
+                                class="mt-4 flex flex-col gap-2 text-left text-sm md-max:text-xs">
                                 <span>"ROLLIN' BEAUTY" - BUICK RIVIERA</span>
                                 <span>$25,000 - $45,000</span>
                             </NuxtLink>
@@ -84,7 +76,7 @@
 .dark .btn:hover {
     background-color: #f2f2f2;
 }
-.dark .btn :deep svg {
+.dark .btn :deep(svg) {
     stroke: #000;
 }
 .swiper-button-disabled {

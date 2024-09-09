@@ -42,20 +42,20 @@ export const useStoreAuth = () => {
 
         try {
             const res = await fetch(`${apiBase}/registration`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(registerData),
             });
 
             if (res.ok) {
                 state.registered = true;
-                state.successMessage = "Successfully registered";
+                state.successMessage = 'Successfully registered';
             } else {
                 const resData = await res.json();
                 if (res.status === 400) {
-                    state.error = "Validation error";
+                    state.error = 'Validation error';
                 } else if (res.status === 409) {
-                    state.error = "User already exists";
+                    state.error = 'User already exists';
                 } else {
                     state.error = `Unexpected response ${res.status}: ${resData.message}`;
                 }
@@ -74,8 +74,8 @@ export const useStoreAuth = () => {
         state.successMessage = null;
 
         const res = await fetch(`${apiBase}/signIn`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(signInData),
         });
 
@@ -83,12 +83,12 @@ export const useStoreAuth = () => {
             if (res.ok) {
                 await checkUser();
                 if (state.signedIn) {
-                    state.successMessage = "Signed in successfully";
+                    state.successMessage = 'Signed in successfully';
                 } else {
-                    state.error = "Sign in failed, please try again";
+                    state.error = 'Sign in failed, please try again';
                 }
             } else if (res.status === 400) {
-                state.error = "Validation error";
+                state.error = 'Validation error';
             } else {
                 const resData = await res.json();
                 state.error = "User doesn't exist" || resData.message;
@@ -107,20 +107,20 @@ export const useStoreAuth = () => {
         state.successMessage = null;
 
         const res = await fetch(`${apiBase}/inquiries`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(messageData),
         });
 
         try {
             if (res.ok) {
                 state.messageSent = true;
-                state.successMessage = "Message sent successfully";
+                state.successMessage = 'Message sent successfully';
             } else if (res.status === 400) {
-                state.error = "Validation error";
+                state.error = 'Validation error';
             } else {
                 const resData = await res.json();
-                state.error = "Error sending message" || resData.message;
+                state.error = 'Error sending message' || resData.message;
             }
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
@@ -136,8 +136,8 @@ export const useStoreAuth = () => {
 
         try {
             const res = await fetch(`${apiBase}/user`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
             });
 
             if (res.ok) {
@@ -148,7 +148,7 @@ export const useStoreAuth = () => {
             } else {
                 state.signedIn = false;
                 const resData = await res.json();
-                state.error = resData.message || "Authentication failed";
+                state.error = resData.message || 'Authentication failed';
             }
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
@@ -165,22 +165,24 @@ export const useStoreAuth = () => {
 
         try {
             const res = await fetch(`${apiBase}/signOut`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
             });
 
             if (res.ok) {
-                state.signedIn = false;
-                if (route.path === "/") {
+                setTimeout(() => {
+                    state.signedIn = false;
+                }, 300);
+                if (route.path === '/') {
                     router.go(0);
                 } else {
-                    navigateTo("/");
+                    navigateTo('/');
                 }
 
-                state.successMessage = "Signed out successfully";
+                state.successMessage = 'Signed out successfully';
             } else {
                 const resData = await res.json();
-                state.error = resData.message || "Sign out failed";
+                state.error = resData.message || 'Sign out failed';
             }
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;

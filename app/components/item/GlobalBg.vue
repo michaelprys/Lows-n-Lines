@@ -5,7 +5,7 @@
 <style scoped>
 .bg {
     position: absolute;
-    background-image: url("/images/bg.png");
+    background-image: url('/images/bg.png');
     z-index: -1;
     top: 0;
     left: 0;

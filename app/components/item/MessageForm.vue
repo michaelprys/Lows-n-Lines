@@ -6,8 +6,7 @@
                     Contact us
                 </h2>
                 <ul
-                    class="mt-7 grid grid-cols-2 gap-x-7 gap-y-5 *:flex *:flex-col"
-                >
+                    class="mt-7 grid grid-cols-2 gap-x-7 gap-y-5 *:flex *:flex-col">
                     <li>
                         <label class="font-semibold" for="firstname"
                             >First Name</label
@@ -15,14 +14,12 @@
                         <input
                             class="my-1.5 w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
                             type="text"
-                            id="first-name"
+                            id="firstname"
                             placeholder="First Name"
-                            v-model="messageData.firstname"
-                        />
+                            v-model="messageData.firstname" />
                         <ItemInputMessage
                             :fieldName="'firstname'"
-                            :issues="issues"
-                        />
+                            :issues="issues" />
                     </li>
                     <li>
                         <label class="font-semibold" for="lastname"
@@ -31,14 +28,12 @@
                         <input
                             class="my-1.5 w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
                             type="text"
-                            id="lastName"
+                            id="lastname"
                             placeholder="Last Name"
-                            v-model="messageData.lastname"
-                        />
+                            v-model="messageData.lastname" />
                         <ItemInputMessage
                             :fieldName="'lastname'"
-                            :issues="issues"
-                        />
+                            :issues="issues" />
                     </li>
                     <li>
                         <label class="font-semibold" for="phoneNumber"
@@ -49,12 +44,10 @@
                             type="tel"
                             id="phoneNumber"
                             placeholder="Phone Number"
-                            v-model="messageData.phoneNumber"
-                        />
+                            v-model="messageData.phoneNumber" />
                         <ItemInputMessage
                             :fieldName="'phoneNumber'"
-                            :issues="issues"
-                        />
+                            :issues="issues" />
                     </li>
                     <li>
                         <label class="font-semibold" for="email"
@@ -63,14 +56,12 @@
                         <input
                             class="my-1.5 w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
                             type="text"
-                            id="emailAddress"
+                            id="email"
                             placeholder="Email Address"
-                            v-model="messageData.email"
-                        />
+                            v-model="messageData.email" />
                         <ItemInputMessage
                             :fieldName="'email'"
-                            :issues="issues"
-                        />
+                            :issues="issues" />
                     </li>
                 </ul>
 
@@ -79,15 +70,12 @@
                 <div class="mt-5 flex flex-col">
                     <label class="font-semibold" for="message">Message</label>
                     <textarea
+                        v-model="messageData.message"
                         class="my-1.5 w-full resize-none rounded-[2px] border border-[#C2C2C2] px-4 py-4 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                        name=""
                         id="message"
                         cols="30"
                         rows="10"
-                        placeholder="I'd like to detail the issues with my vehicle or the services I'm requesting."
-                        v-model="messageData.message"
-                    >
-                    </textarea>
+                        placeholder="I'd like to detail the issues with my vehicle or the services I'm requesting."></textarea>
                     <ItemInputMessage :fieldName="'message'" :issues="issues" />
                 </div>
             </div>
@@ -96,8 +84,7 @@
             <button
                 class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
                 :class="isVisible ? 'fade-in-up' : 'invisible'"
-                @click="submitForm"
-            >
+                @click="submitForm">
                 Send message
             </button>
         </ItemObserver>
@@ -105,5 +92,5 @@
 </template>
 
 <script setup lang="ts">
-defineProps(["messageData", "submitForm", "issues"]);
+defineProps(['messageData', 'submitForm', 'issues']);
 </script>

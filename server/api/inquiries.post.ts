@@ -6,6 +6,7 @@ import nodemailer from "nodemailer";
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
 
+    console.log("Server-side received body:", body);
     const validation = safeParse(MessageSchema, body);
     if (!validation.success) {
         throw createError({
@@ -26,7 +27,6 @@ export default defineEventHandler(async (event) => {
     try {
         const { user, appPassword, emailPort } = useRuntimeConfig();
         const transporter = nodemailer.createTransport({
-            service: "gmail",
             host: "smtp.gmail.com",
             port: parseInt(emailPort),
             secure: false,
