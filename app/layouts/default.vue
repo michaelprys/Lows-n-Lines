@@ -2,26 +2,24 @@
     <div>
         <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
         <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
-
-        <div>
+        <div class="content">
             <slot />
         </div>
-
-        <AppFooter />
+        <AppFooter class="footer" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const router = useRouter();
 
 const linksPrimary = ref([
-    { name: "Home", route: "/" },
-    { name: "Showroom", route: "/showroom" },
-    { name: "Service Center", route: "/service" },
-    { name: "Events", route: "/events" },
-    { name: "Gallery", route: "/gallery" },
+    { name: 'Home', route: '/' },
+    { name: 'Showroom', route: '/showroom' },
+    { name: 'Service Center', route: '/service' },
+    { name: 'Events', route: '/events' },
+    { name: 'Gallery', route: '/gallery' },
 ]);
 
 const isOpen = ref(false);
@@ -36,3 +34,9 @@ router.afterEach(() => {
     }
 });
 </script>
+
+<style scoped>
+.content:has(.page-enter-active) + .footer {
+    display: none;
+}
+</style>

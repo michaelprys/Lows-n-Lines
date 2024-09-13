@@ -4,8 +4,7 @@
             class="mt-10 rounded-[2px] bg-white p-5 text-black dark:bg-[#28292c] dark:text-dark-el"
             ref="container"
             @submit.prevent="submitForm"
-            novalidate
-        >
+            novalidate>
             <div class="relative">
                 <span class="block text-2xl font-semibold">Sign in</span>
                 <ItemFormError />
@@ -16,8 +15,7 @@
                     placeholder="Email"
                     type="email"
                     id="email"
-                    v-model="signInData.email"
-                />
+                    v-model="signInData.email" />
                 <ItemInputMessage :fieldName="'email'" :issues="issues" />
 
                 <div class="relative" id="password">
@@ -26,8 +24,7 @@
                         type="password"
                         placeholder="Password"
                         v-model="signInData.password"
-                        autocomplete="on"
-                    />
+                        autocomplete="on" />
                     <ButtonVisibility />
                 </div>
                 <ItemInputMessage :fieldName="'password'" :issues="issues" />
@@ -35,8 +32,7 @@
                 <div class="flex items-center gap-2 *:cursor-pointer">
                     <Checkbox
                         class="rounded-[2px] transition duration-75"
-                        id="remember-me"
-                    />
+                        id="remember-me" />
                     <label class="select-none" for="remember-me"
                         >Remember me</label
                     >
@@ -49,8 +45,7 @@
                         >Forgot password?</NuxtLink
                     >
                     <button
-                        class="rounded-sm border border-[#f0a5a7] bg-[#F19899] px-6 py-2 transition-colors hover:border-[#f7c2c3] hover:bg-[#ffb9bb] dark:text-black"
-                    >
+                        class="rounded-sm border border-[#f0a5a7] bg-[#F19899] px-6 py-2 transition-colors hover:border-[#f7c2c3] hover:bg-[#ffb9bb] dark:text-black">
                         Sign in
                     </button>
                 </div>
@@ -68,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { safeParse, flatten, type FlatErrors } from "valibot";
+import { safeParse, flatten, type FlatErrors } from 'valibot';
 
 const {
     signedIn,
@@ -79,17 +74,17 @@ const {
 } = useStoreAuth();
 
 definePageMeta({
-    layout: "auth",
+    layout: 'auth',
 });
 
 const signInData = reactive<SignInData>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
 });
 
 const router = useRouter();
 
-const issues = ref<FlatErrors<typeof SignInSchema>["nested"]>();
+const issues = ref<FlatErrors<typeof SignInSchema>['nested']>();
 const isOpen = ref(false);
 
 const toggleDrawer = () => {
@@ -97,14 +92,14 @@ const toggleDrawer = () => {
 };
 
 const resetForm = () => {
-    signInData.email = "";
-    signInData.password = "";
+    signInData.email = '';
+    signInData.password = '';
 };
 
 const submitForm = async () => {
     if (pending.value) return;
 
-    fetchError.value = "";
+    fetchError.value = '';
     const result = safeParse(SignInSchema, signInData);
 
     if (result.success) {
@@ -115,7 +110,7 @@ const submitForm = async () => {
             resetForm();
             setTimeout(() => {
                 isOpen.value = false;
-                navigateTo("/");
+                navigateTo('/');
             }, 3000);
         }
     } else {
@@ -123,20 +118,21 @@ const submitForm = async () => {
     }
 
     if (signedIn.value) {
-        console.log("Login successful");
+        console.log('Login successful');
         return;
     }
 };
-
+watchEffect(() => {
+    console.log(signedIn.value);
+});
 router.afterEach(() => {
     if (signedIn.value) {
         setTimeout(() => {
-            signedIn.value = false;
-            successMessage.value = "";
+            successMessage.value = '';
         }, 1500);
     }
     if (fetchError.value) {
-        fetchError.value = "";
+        fetchError.value = '';
     }
 });
 </script>

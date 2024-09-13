@@ -1,6 +1,6 @@
 <template>
-    <div
-        class="bg h-[10.9375rem] w-full rotate-180 invert fade-in dark:invert-0"></div>
+    <!-- <div
+        class="bg h-[10.9375rem] w-full rotate-180 invert fade-in dark:invert-0"></div> -->
     <div class="sticky top-0 z-[10] w-full">
         <ItemObserver v-slot="{ isVisible }">
             <header
@@ -42,7 +42,7 @@
                                 class="stroke-[#33363F] dark:stroke-dark-el"
                                 aria-label="dark mode icon" />
                         </button>
-                        <div v-show="!signedIn && !pending">
+                        <div v-if="!signedIn && !pending">
                             <NuxtLink
                                 class="flex items-center gap-2"
                                 to="/sign-in">
@@ -53,7 +53,7 @@
 
                         <div
                             class="flex items-center gap-10 lg-max:gap-4"
-                            v-show="signedIn && !pending">
+                            v-else>
                             <NuxtLink
                                 class="flex items-center gap-2"
                                 to="/profile">
@@ -90,7 +90,7 @@ import { useWindowScroll } from '@vueuse/core';
 
 defineProps(['toggleDrawer', 'linksPrimary']);
 
-const { checkUser, signedIn, signOut, pending } = useStoreAuth();
+const { signedIn, signOut, pending } = useStoreAuth();
 
 const { y } = useWindowScroll();
 const el = ref(null);
@@ -118,16 +118,10 @@ onMounted(() => {
         }
     );
 });
-
-watchEffect(() => {
-    checkUser();
-
-    console.log(signedIn.value);
-});
 </script>
 
 <style scoped>
-.bg {
+/* .bg {
     position: absolute;
     background-image: url('/images/bg.png');
     z-index: -1;
@@ -135,7 +129,7 @@ watchEffect(() => {
     left: 0;
     bottom: 0;
     right: 0;
-}
+} */
 .header {
     background-color: rgba(255, 255, 255, 0.85);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
