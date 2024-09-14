@@ -32,7 +32,8 @@
                 <div class="flex items-center gap-2 *:cursor-pointer">
                     <Checkbox
                         class="rounded-[2px] transition duration-75"
-                        id="remember-me" />
+                        id="remember-me"
+                        v-model:checked="signInData.rememberMe" />
                     <label class="select-none" for="remember-me"
                         >Remember me</label
                     >
@@ -80,6 +81,11 @@ definePageMeta({
 const signInData = reactive<SignInData>({
     email: '',
     password: '',
+    rememberMe: false,
+});
+
+watchEffect(() => {
+    console.log('remembered?: ', signInData.rememberMe);
 });
 
 const router = useRouter();
@@ -122,9 +128,7 @@ const submitForm = async () => {
         return;
     }
 };
-watchEffect(() => {
-    console.log(signedIn.value);
-});
+
 router.afterEach(() => {
     if (signedIn.value) {
         setTimeout(() => {

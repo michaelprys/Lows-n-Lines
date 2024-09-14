@@ -18,7 +18,7 @@ export default defineEventHandler(async event => {
         });
     }
 
-    const { email, password } = body;
+    const { email, password, rememberMe } = body;
     const conn = await pool.connect();
 
     try {
@@ -35,10 +35,12 @@ export default defineEventHandler(async event => {
             if (isVerified) {
                 const sessionData = { id: user.id, email: user.email };
 
+                const maxAge = rememberMe ? 60 * 60 * 24 * 30 : undefined;
+
                 setCookie(event, 'session', JSON.stringify(sessionData), {
-                    httpOnly: false,
+                    httpOnly: true,
                     secure: process.env.NODE_ENV === 'production',
-                    maxAge: 60 * 60 * 24,
+                    maxAge,
                     path: '/',
                     sameSite: 'strict',
                 });

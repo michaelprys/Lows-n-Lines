@@ -53,7 +53,7 @@
 
                         <div
                             class="flex items-center gap-10 lg-max:gap-4"
-                            v-else>
+                            v-if="signedIn && !pending">
                             <NuxtLink
                                 class="flex items-center gap-2"
                                 to="/profile">
@@ -90,7 +90,7 @@ import { useWindowScroll } from '@vueuse/core';
 
 defineProps(['toggleDrawer', 'linksPrimary']);
 
-const { signedIn, signOut, pending } = useStoreAuth();
+const { signedIn, signOut, checkSession, pending } = useStoreAuth();
 
 const { y } = useWindowScroll();
 const el = ref(null);
@@ -105,7 +105,10 @@ const setColorTheme = () => {
 
 let lastScroll = y.value;
 
-onMounted(() => {
+const handleSignOut = () => {};
+
+onMounted(async () => {
+    await checkSession();
     watch(
         () => y.value,
         (newValue, oldValue) => {
@@ -117,6 +120,10 @@ onMounted(() => {
             lastScroll = newValue;
         }
     );
+});
+
+watchEffect(() => {
+    console.log(signedIn.value);
 });
 </script>
 

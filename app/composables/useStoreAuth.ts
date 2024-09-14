@@ -10,6 +10,7 @@ export interface RegisterData {
 export interface SignInData {
     email: string;
     password: string;
+    rememberMe: boolean;
 }
 
 export interface MessageData {
@@ -24,6 +25,7 @@ export interface MessageData {
 const state = reactive({
     registered: false,
     pending: false,
+    signedIn: false,
     messageSent: false,
     error: null as string | null,
     successMessage: null as string | null,
@@ -32,8 +34,6 @@ const state = reactive({
 export const useStoreAuth = () => {
     const router = useRouter();
     const route = useRoute();
-    const session = useCookie('session');
-    const signedIn = computed(() => !!session.value);
 
     const registerUser = async (registerData: RegisterData) => {
         const { apiBase } = useRuntimeConfig().public;
@@ -82,20 +82,41 @@ export const useStoreAuth = () => {
 
         try {
             if (res.ok) {
-                state.successMessage = 'Signed in successfully';
-                setTimeout(() => {
-                    navigateTo('/');
-                }, 3000);
+                await checkSession();
+                if (state.signedIn) {
+                    state.successMessage = 'Signed in successfully';
+                    setTimeout(() => {
+                        navigateTo('/');
+                    }, 3000);
+                } else {
+                    state.error = 'Error signing in';
+                }
             } else if (res.status === 400) {
                 state.error = 'Validation error';
             } else {
                 const resData = await res.json();
-                state.error = "User doesn't exist" || resData.message;
+                state.error = resData.message || "User doesn't exist";
             }
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
         } finally {
             state.pending = false;
+        }
+    };
+
+    const checkSession = async () => {
+        try {
+            const res = await fetch('/api/check-session');
+
+            if (res.ok) {
+                const data = await res.json();
+                state.signedIn = data.signedIn;
+            } else {
+                state.signedIn = false;
+            }
+        } catch (err) {
+            console.error('Error checking session: ', err);
+            state.signedIn = false;
         }
     };
 
@@ -111,15 +132,19 @@ export const useStoreAuth = () => {
             });
 
             if (res.ok) {
+                const data = await res.json();
+                state.successMessage = data.message;
+                setTimeout(() => {
+                    state.signedIn = data.signedIn;
+                }, 300);
                 if (route.path === '/') {
                     router.go(0);
                 } else {
                     navigateTo('/');
                 }
-                state.successMessage = 'Signed out successfully';
             } else {
-                const resData = await res.json();
-                state.error = resData.message || 'Sign out failed';
+                const data = await res.json();
+                state.error = data.message || 'Sign out failed';
             }
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
@@ -161,8 +186,8 @@ export const useStoreAuth = () => {
         ...toRefs(state),
         registerUser,
         signIn,
+        checkSession,
         sendMessage,
-        signedIn,
         signOut,
     };
 };
