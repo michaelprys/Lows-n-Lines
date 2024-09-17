@@ -5,19 +5,16 @@
                 <AlertDialogTitle class="flex justify-center">
                     <div
                         class="flex flex-col items-center justify-center"
-                        v-if="fetchError"
-                    >
+                        v-if="fetchError">
                         <IconError />
                         <span
-                            class="mt-4 block text-center text-[1.6rem] text-red-400"
-                        >
+                            class="mt-4 block text-center text-[1.6rem] text-red-400">
                             Error</span
                         >
                     </div>
                     <div
                         class="flex flex-col items-center justify-center"
-                        v-else
-                    >
+                        v-else>
                         <IconSuccess />
                         <span
                             class="mt-4 block text-center text-[1.6rem] text-green-400"
@@ -35,16 +32,14 @@
 
             <div
                 class="text-md mt-2 flex items-center justify-center text-center"
-                v-if="fetchError || successMessage"
-            >
+                v-if="fetchError || successMessage">
                 <span>{{ fetchError || successMessage }}</span>
             </div>
 
             <AlertDialogFooter>
                 <button
                     class="mx-auto mt-4 rounded bg-zinc-700 px-5 py-2 uppercase transition-colors hover:bg-zinc-500"
-                    @click="toggleDrawer"
-                >
+                    @click="toggleModal">
                     Ok
                 </button>
             </AlertDialogFooter>
@@ -55,7 +50,7 @@
 <script setup lang="ts">
 const { successMessage, error: fetchError } = useStoreAuth();
 
-defineProps(["toggleDrawer"]);
+defineProps(['toggleModal']);
 
 const model = defineModel();
 </script>

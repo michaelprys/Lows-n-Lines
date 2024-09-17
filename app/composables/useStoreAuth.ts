@@ -26,14 +26,15 @@ const state = reactive({
     registered: false,
     pending: false,
     signedIn: false,
+    isOpen: false,
     messageSent: false,
     error: null as string | null,
     successMessage: null as string | null,
 });
 
 export const useStoreAuth = () => {
-    const router = useRouter();
     const route = useRoute();
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const registerUser = async (registerData: RegisterData) => {
         const { apiBase } = useRuntimeConfig().public;
@@ -85,9 +86,6 @@ export const useStoreAuth = () => {
                 await checkSession();
                 if (state.signedIn) {
                     state.successMessage = 'Signed in successfully';
-                    setTimeout(() => {
-                        navigateTo('/');
-                    }, 3000);
                 } else {
                     state.error = 'Error signing in';
                 }
@@ -105,8 +103,9 @@ export const useStoreAuth = () => {
     };
 
     const checkSession = async () => {
+        const { apiBase } = useRuntimeConfig().public;
         try {
-            const res = await fetch('/api/check-session');
+            const res = await fetch(`${apiBase}/check-session`);
 
             if (res.ok) {
                 const data = await res.json();
@@ -132,19 +131,12 @@ export const useStoreAuth = () => {
             });
 
             if (res.ok) {
+                await checkSession();
                 const data = await res.json();
                 state.successMessage = data.message;
-                setTimeout(() => {
-                    state.signedIn = data.signedIn;
-                }, 300);
-                if (route.path === '/') {
-                    router.go(0);
-                } else {
-                    navigateTo('/');
-                }
             } else {
                 const data = await res.json();
-                state.error = data.message || 'Sign out failed';
+                state.error = data.message || 'Error signing out';
             }
         } catch (err) {
             state.error = `An unexpected error occurred ${err.message}`;
@@ -182,6 +174,31 @@ export const useStoreAuth = () => {
         }
     };
 
+    const startRedirect = async () => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        state.isOpen = true;
+
+        if (route.path === '/') {
+            setTimeout(() => {
+                state.isOpen = false;
+            }, 3000);
+        } else {
+            timeoutId = setTimeout(() => {
+                state.isOpen = false;
+                navigateTo('/');
+            }, 3000);
+        }
+    };
+
+    const cancelRedirect = async () => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+    };
+
     return {
         ...toRefs(state),
         registerUser,
@@ -189,5 +206,7 @@ export const useStoreAuth = () => {
         checkSession,
         sendMessage,
         signOut,
+        startRedirect,
+        cancelRedirect,
     };
 };

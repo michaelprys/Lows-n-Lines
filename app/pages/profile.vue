@@ -6,18 +6,14 @@
                 <div
                     class="relative min-h-[12.25rem] w-full bg-cover bg-center"
                     :class="isVisible ? 'fade-in' : 'invisible'"
-                    style="
-                        background-image: url(&quot;/images/profile/head.jpg&quot;);
-                    "
-                >
+                    style="background-image: url('/images/profile/head.jpg')">
                     <div class="min-h-[230px] w-full pt-8">
                         <NuxtImg
                             class="mx-auto rounded-full border-2 object-cover"
                             src="/images/profile/avatar.jpg"
                             width="134"
                             height="134"
-                            alt="avatar image"
-                        />
+                            alt="avatar image" />
                         <span
                             class="mt-3 block text-center uppercase text-white"
                             >Lance Wilson</span
@@ -25,16 +21,14 @@
                     </div>
 
                     <div
-                        class="flex justify-center gap-2 pb-8 text-white *:flex *:items-center *:gap-x-1 *:bg-[#ffffff1f] *:px-5 *:py-2"
-                    >
+                        class="flex justify-center gap-2 pb-8 text-white *:flex *:items-center *:gap-x-1 *:bg-[#ffffff1f] *:px-5 *:py-2">
                         <NuxtLink class="link transition-colors" to="/profile">
                             <IconUser />
                             Profile
                         </NuxtLink>
                         <NuxtLink
                             class="link transition-colors"
-                            to="/profile/saved-cars"
-                        >
+                            to="/profile/saved-cars">
                             <IconFavorite />
                             Saved cars
                         </NuxtLink>
@@ -49,7 +43,29 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// const { signedIn } = useStoreAuth();
+
+// definePageMeta({
+//     middleware: [
+//         function (to, from) {
+//             if (!signedIn.value) {
+//                 return abortNavigation({
+//                     statusCode: 404,
+//                     statusMessage: 'Permission denied, please sign in.',
+//                 });
+//             }
+//         },
+//     ],
+// });
+
+definePageMeta({
+    middleware: 'auth',
+});
+watchEffect(() => {
+    console.log('signed in ?: ', signedIn.value);
+});
+</script>
 
 <style scoped>
 .link {

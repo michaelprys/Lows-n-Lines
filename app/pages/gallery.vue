@@ -9,7 +9,7 @@
         <section class="container pb-24 pt-11">
             <ItemObserver v-slot="{ isVisible }">
                 <h1
-                    class="text-center font-['Gin-Test'] text-4xl text-[#ffffff] drop-shadow-xl md-max:text-3xl"
+                    class="text-center font-['Gin-Test'] text-4xl drop-shadow-xl text-zinc-500 dark:text-white md-max:text-3xl"
                     :class="isVisible ? 'fade-in' : 'invisible'">
                     Gallery
                 </h1>

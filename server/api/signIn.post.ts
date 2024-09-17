@@ -49,20 +49,20 @@ export default defineEventHandler(async event => {
                 throw createError({
                     statusCode: 401,
                     statusMessage: 'Unauthorized',
-                    message: 'Invalid input',
+                    message: "User doesn't exist",
                 });
             }
         } else {
             throw createError({
                 statusCode: 401,
                 statusMessage: 'Unauthorized',
-                message: 'Invalid input',
+                message: "User doesn't exist",
             });
         }
     } catch (err) {
         throw createError({
             statusCode: 500,
-            statusMessage: `Server error ${err.message}`,
+            statusMessage: `${err.message}`,
         });
     } finally {
         conn.release();

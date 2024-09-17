@@ -130,7 +130,6 @@ const submitForm = async () => {
 
     fetchError.value = '';
     const result = safeParse(MessageSchema, messageData);
-    console.log('Client-side before submission messageData:', messageData);
 
     if (result.success) {
         issues.value = {};

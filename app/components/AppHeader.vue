@@ -42,7 +42,7 @@
                                 class="stroke-[#33363F] dark:stroke-dark-el"
                                 aria-label="dark mode icon" />
                         </button>
-                        <div v-if="!signedIn && !pending">
+                        <div v-if="!signedIn">
                             <NuxtLink
                                 class="flex items-center gap-2"
                                 to="/sign-in">
@@ -50,10 +50,9 @@
                                 <IconSignIn aria-label="sign in icon" />
                             </NuxtLink>
                         </div>
-
                         <div
                             class="flex items-center gap-10 lg-max:gap-4"
-                            v-if="signedIn && !pending">
+                            v-else>
                             <NuxtLink
                                 class="flex items-center gap-2"
                                 to="/profile">
@@ -65,7 +64,7 @@
                             <button
                                 class="flex items-center gap-2"
                                 to="/sign-in"
-                                @click="signOut">
+                                @click="handleSignOut">
                                 <span class="lg-max:hidden">Sign Out</span>
                                 <IconSignOut aria-label="sign out icon" />
                             </button>
@@ -82,6 +81,7 @@
                 </nav>
             </header>
         </ItemObserver>
+        <ItemModalStatus v-model:open="isOpen" :toggleModal="toggleModal" />
     </div>
 </template>
 
@@ -90,7 +90,8 @@ import { useWindowScroll } from '@vueuse/core';
 
 defineProps(['toggleDrawer', 'linksPrimary']);
 
-const { signedIn, signOut, checkSession, pending } = useStoreAuth();
+const { signedIn, signOut, checkSession, pending, isOpen, startRedirect } =
+    useStoreAuth();
 
 const { y } = useWindowScroll();
 const el = ref(null);
@@ -105,7 +106,17 @@ const setColorTheme = () => {
 
 let lastScroll = y.value;
 
-const handleSignOut = () => {};
+const toggleModal = () => {
+    isOpen.value = !isOpen.value;
+};
+
+const handleSignOut = async () => {
+    await signOut();
+
+    if (!signedIn.value && !pending.value) {
+        startRedirect();
+    }
+};
 
 onMounted(async () => {
     await checkSession();
@@ -121,22 +132,9 @@ onMounted(async () => {
         }
     );
 });
-
-watchEffect(() => {
-    console.log(signedIn.value);
-});
 </script>
 
 <style scoped>
-/* .bg {
-    position: absolute;
-    background-image: url('/images/bg.png');
-    z-index: -1;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-} */
 .header {
     background-color: rgba(255, 255, 255, 0.85);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),

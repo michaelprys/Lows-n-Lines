@@ -19,13 +19,18 @@
                 <ItemInputMessage :fieldName="'email'" :issues="issues" />
 
                 <div class="relative" id="password">
-                    <input
-                        class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
-                        type="password"
-                        placeholder="Password"
-                        v-model="signInData.password"
-                        autocomplete="on" />
-                    <ButtonVisibility />
+                    <div>
+                        <input
+                            class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
+                            :type="visible ? 'text' : 'password'"
+                            placeholder="Password"
+                            v-model="signInData.password"
+                            autocomplete="on" />
+                    </div>
+
+                    <ButtonVisibility
+                        @click="toggleVisibility"
+                        :visible="visible" />
                 </div>
                 <ItemInputMessage :fieldName="'password'" :issues="issues" />
 
@@ -59,7 +64,7 @@
                 >Create one</NuxtLink
             ></span
         >
-        <ItemModalStatus v-model:open="isOpen" :toggleDrawer="toggleDrawer" />
+        <ItemModalStatus v-model:open="isOpen" :toggleModal="toggleModal" />
     </div>
 </template>
 
@@ -72,6 +77,9 @@ const {
     error: fetchError,
     signIn,
     pending,
+    isOpen,
+    startRedirect,
+    cancelRedirect,
 } = useStoreAuth();
 
 definePageMeta({
@@ -84,16 +92,11 @@ const signInData = reactive<SignInData>({
     rememberMe: false,
 });
 
-watchEffect(() => {
-    console.log('remembered?: ', signInData.rememberMe);
-});
-
 const router = useRouter();
 
 const issues = ref<FlatErrors<typeof SignInSchema>['nested']>();
-const isOpen = ref(false);
 
-const toggleDrawer = () => {
+const toggleModal = () => {
     isOpen.value = !isOpen.value;
 };
 
@@ -112,12 +115,8 @@ const submitForm = async () => {
         issues.value = {};
         await signIn(signInData);
         if (successMessage.value && !isOpen.value) {
-            isOpen.value = true;
+            startRedirect();
             resetForm();
-            setTimeout(() => {
-                isOpen.value = false;
-                navigateTo('/');
-            }, 3000);
         }
     } else {
         issues.value = flatten<typeof SignInSchema>(result.issues).nested;
@@ -129,6 +128,11 @@ const submitForm = async () => {
     }
 };
 
+const visible = ref(false);
+const toggleVisibility = () => {
+    visible.value = !visible.value;
+};
+
 router.afterEach(() => {
     if (signedIn.value) {
         setTimeout(() => {
@@ -138,5 +142,8 @@ router.afterEach(() => {
     if (fetchError.value) {
         fetchError.value = '';
     }
+});
+onUnmounted(() => {
+    cancelRedirect();
 });
 </script>
