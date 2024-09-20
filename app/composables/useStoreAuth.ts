@@ -26,7 +26,6 @@ const state = reactive({
     registered: false,
     pending: false,
     signedIn: false,
-    isOpen: false,
     messageSent: false,
     error: null as string | null,
     successMessage: null as string | null,
@@ -34,7 +33,6 @@ const state = reactive({
 
 export const useStoreAuth = () => {
     const route = useRoute();
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const registerUser = async (registerData: RegisterData) => {
         const { apiBase } = useRuntimeConfig().public;
@@ -51,6 +49,7 @@ export const useStoreAuth = () => {
 
             if (res.ok) {
                 state.registered = true;
+                await navigateTo('/sign-in');
                 state.successMessage = 'Successfully registered';
             } else {
                 const resData = await res.json();
@@ -85,6 +84,7 @@ export const useStoreAuth = () => {
             if (res.ok) {
                 await checkSession();
                 if (state.signedIn) {
+                    await navigateTo(`${route.query.redirect}` || '/');
                     state.successMessage = 'Signed in successfully';
                 } else {
                     state.error = 'Error signing in';
@@ -123,6 +123,7 @@ export const useStoreAuth = () => {
         const { apiBase } = useRuntimeConfig().public;
         state.pending = true;
         state.error = null;
+        state.successMessage = null;
 
         try {
             const res = await fetch(`${apiBase}/signOut`, {
@@ -132,6 +133,9 @@ export const useStoreAuth = () => {
 
             if (res.ok) {
                 await checkSession();
+                if (!state.signedIn && route.path !== '/') {
+                    navigateTo('/');
+                }
                 const data = await res.json();
                 state.successMessage = data.message;
             } else {
@@ -174,31 +178,6 @@ export const useStoreAuth = () => {
         }
     };
 
-    const startRedirect = async () => {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-        state.isOpen = true;
-
-        if (route.path === '/') {
-            setTimeout(() => {
-                state.isOpen = false;
-            }, 3000);
-        } else {
-            timeoutId = setTimeout(() => {
-                state.isOpen = false;
-                navigateTo('/');
-            }, 3000);
-        }
-    };
-
-    const cancelRedirect = async () => {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-            timeoutId = null;
-        }
-    };
-
     return {
         ...toRefs(state),
         registerUser,
@@ -206,7 +185,5 @@ export const useStoreAuth = () => {
         checkSession,
         sendMessage,
         signOut,
-        startRedirect,
-        cancelRedirect,
     };
 };

@@ -6,8 +6,8 @@
     ".gitignore": true,
     "tsconfig.json": true,
     "components.json": true,
-    "node_modules": true,
     "eslint.config.js": true,
-    ".nuxt": true
+    ".nuxt": true,
+    "node_modules": true
   }
 }

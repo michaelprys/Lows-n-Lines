@@ -3,7 +3,7 @@
         <form
             class="mt-10 rounded-[2px] bg-white p-5 text-black dark:bg-[#28292c] dark:text-dark-el"
             ref="container"
-            @submit.prevent="submitForm"
+            @submit.prevent="handleSignIn"
             novalidate>
             <div class="relative">
                 <span class="block text-2xl font-semibold">Sign in</span>
@@ -22,15 +22,13 @@
                     <div>
                         <input
                             class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 dark:border-dark-border dark:bg-[#333536]"
-                            :type="visible ? 'text' : 'password'"
+                            :type="show ? 'text' : 'password'"
                             placeholder="Password"
                             v-model="signInData.password"
                             autocomplete="on" />
                     </div>
 
-                    <ButtonVisibility
-                        @click="toggleVisibility"
-                        :visible="visible" />
+                    <ButtonVisibility :show="show" @click="toggle()" />
                 </div>
                 <ItemInputMessage :fieldName="'password'" :issues="issues" />
 
@@ -64,12 +62,18 @@
                 >Create one</NuxtLink
             ></span
         >
-        <ItemModalStatus v-model:open="isOpen" :toggleModal="toggleModal" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { safeParse, flatten, type FlatErrors } from 'valibot';
+import { useToggle } from '@vueuse/core';
+
+definePageMeta({
+    layout: 'auth',
+});
+
+const [show, toggle] = useToggle();
 
 const {
     signedIn,
@@ -77,14 +81,9 @@ const {
     error: fetchError,
     signIn,
     pending,
-    isOpen,
-    startRedirect,
-    cancelRedirect,
 } = useStoreAuth();
 
-definePageMeta({
-    layout: 'auth',
-});
+const { callToast } = useToast();
 
 const signInData = reactive<SignInData>({
     email: '',
@@ -92,20 +91,14 @@ const signInData = reactive<SignInData>({
     rememberMe: false,
 });
 
-const router = useRouter();
-
 const issues = ref<FlatErrors<typeof SignInSchema>['nested']>();
-
-const toggleModal = () => {
-    isOpen.value = !isOpen.value;
-};
 
 const resetForm = () => {
     signInData.email = '';
     signInData.password = '';
 };
 
-const submitForm = async () => {
+const handleSignIn = async () => {
     if (pending.value) return;
 
     fetchError.value = '';
@@ -114,8 +107,8 @@ const submitForm = async () => {
     if (result.success) {
         issues.value = {};
         await signIn(signInData);
-        if (successMessage.value && !isOpen.value) {
-            startRedirect();
+        if (successMessage.value) {
+            callToast();
             resetForm();
         }
     } else {
@@ -123,27 +116,7 @@ const submitForm = async () => {
     }
 
     if (signedIn.value) {
-        console.log('Login successful');
         return;
     }
 };
-
-const visible = ref(false);
-const toggleVisibility = () => {
-    visible.value = !visible.value;
-};
-
-router.afterEach(() => {
-    if (signedIn.value) {
-        setTimeout(() => {
-            successMessage.value = '';
-        }, 1500);
-    }
-    if (fetchError.value) {
-        fetchError.value = '';
-    }
-});
-onUnmounted(() => {
-    cancelRedirect();
-});
 </script>

@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+    <div>
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
+
+        <Teleport to="body">
+            <Toaster />
+        </Teleport>
+    </div>
 </template>

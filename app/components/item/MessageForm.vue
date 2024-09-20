@@ -80,17 +80,37 @@
                 </div>
             </div>
         </ItemObserver>
+
         <ItemObserver v-slot="{ isVisible }">
-            <button
-                class="mx-auto mt-10 block max-w-48 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] px-9 py-4 text-center text-sm uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
-                :class="isVisible ? 'fade-in-up' : 'invisible'"
-                @click="submitForm">
-                Send message
-            </button>
+            <div
+                class="flex justify-center items-center"
+                :class="isVisible ? 'fade-in-up' : 'invisible'">
+                <button
+                    class="mt-10 px-5 w-44 h-14 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] text-center text-sm uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
+                    :class="{
+                        'disabled:bg-zinc-300 disabled:text-zinc-500 disabled:border-zinc-400 disabled:shadow-none':
+                            pending,
+                    }"
+                    disabled
+                    @click="submitForm"
+                    v-if="pending">
+                    <span class="flex gap-2 items-center justify-center">
+                        <span>Please wait</span>
+                        <IconSpinner class="animate-spin" />
+                    </span>
+                </button>
+                <button
+                    class="mt-10 px-5 w-44 h-14 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] text-center text-sm uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
+                    @click="submitForm"
+                    v-else>
+                    <span>Send message</span>
+                </button>
+            </div>
         </ItemObserver>
     </form>
 </template>
 
 <script setup lang="ts">
-defineProps(['messageData', 'submitForm', 'issues']);
+const { messageData, issues, submitForm } = useFormSubmission();
+const { pending } = useStoreAuth();
 </script>

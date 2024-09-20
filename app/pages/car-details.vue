@@ -197,10 +197,7 @@
                     </ItemObserver>
                 </div>
 
-                <ItemMessageForm
-                    :messageData="messageData"
-                    :submitForm="submitForm"
-                    :issues="issues">
+                <ItemMessageForm>
                     <div class="mt-4">
                         <label class="font-semibold" for="">Subject</label>
                         <Select v-model="messageData.subject">
@@ -242,66 +239,16 @@
                             :issues="issues" />
                     </div>
                 </ItemMessageForm>
-                <ItemModalStatus
-                    v-model:open="isOpen"
-                    :toggleDrawer="toggleDrawer" />
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { safeParse, flatten, type FlatErrors } from 'valibot';
-
-const { messageSent, sendMessage, error: fetchError, pending } = useStoreAuth();
+const { messageData, issues } = useFormSubmission();
 
 const printInventory = () => {
     window.print();
-};
-
-const messageData = reactive<MessageData>({
-    firstname: '',
-    lastname: '',
-    email: '',
-    phoneNumber: '',
-    subject: '',
-    message: '',
-});
-
-const issues = ref<FlatErrors<typeof MessageSchema>['nested']>();
-const isOpen = ref(false);
-
-const toggleDrawer = () => {
-    isOpen.value = !isOpen.value;
-};
-
-const resetForm = () => {
-    messageData.firstname = '';
-    messageData.lastname = '';
-    messageData.email = '';
-    messageData.phoneNumber = '';
-    messageData.subject = '';
-    messageData.message = '';
-};
-
-const submitForm = async () => {
-    if (pending.value) return;
-    fetchError.value = '';
-    const result = safeParse(MessageSchema, messageData);
-
-    if (result.success) {
-        issues.value = {};
-        await sendMessage(messageData);
-        if (messageSent.value && !isOpen.value) {
-            isOpen.value = true;
-            resetForm();
-            setTimeout(() => {
-                isOpen.value = false;
-            }, 3000);
-        }
-    } else {
-        issues.value = flatten<typeof MessageSchema>(result.issues).nested;
-    }
 };
 </script>
 

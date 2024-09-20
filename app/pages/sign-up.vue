@@ -3,8 +3,7 @@
         <form
             class="my-10 rounded-[2px] bg-white p-5 dark:bg-[#28292c] dark:text-dark-el"
             @submit.prevent="submitForm"
-            novalidate
-        >
+            novalidate>
             <div class="relative">
                 <span class="block text-2xl font-semibold">Sign up</span>
                 <ItemFormError />
@@ -16,16 +15,14 @@
                     type="text"
                     id="firstname"
                     placeholder="First Name"
-                    v-model="registerData.firstname"
-                />
+                    v-model="registerData.firstname" />
                 <ItemInputMessage :fieldName="'firstname'" :issues="issues" />
                 <input
                     class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
                     type="text"
                     id="lastname"
                     placeholder="Last Name"
-                    v-model="registerData.lastname"
-                />
+                    v-model="registerData.lastname" />
                 <ItemInputMessage :fieldName="'lastname'" :issues="issues" />
 
                 <input
@@ -33,138 +30,104 @@
                     type="email"
                     id="email"
                     placeholder="Email"
-                    v-model="registerData.email"
-                />
+                    v-model="registerData.email" />
                 <ItemInputMessage :fieldName="'email'" :issues="issues" />
 
                 <div class="relative" id="password">
                     <input
                         class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                        type="password"
+                        :type="showPassword ? 'text' : 'password'"
                         placeholder="Password"
                         autocomplete="on"
-                        v-model="registerData.password"
-                    />
-                    <ButtonVisibility />
+                        v-model="registerData.password" />
+                    <ButtonVisibility
+                        :show="showPassword"
+                        @click="togglePassword()" />
                 </div>
                 <ItemInputMessage :fieldName="'password'" :issues="issues" />
 
                 <div class="relative" id="confirm-password">
                     <input
                         class="w-full rounded-[2px] border border-[#BDBDBD] px-4 py-2 placeholder-zinc-400 dark:border-dark-border dark:bg-[#333536]"
-                        type="password"
+                        :type="showConfirmPassword ? 'text' : 'password'"
                         placeholder="Confirm Password"
                         v-model="registerData.confirmPassword"
-                        autocomplete="on"
-                    />
-                    <ButtonVisibility />
+                        autocomplete="on" />
+                    <ButtonVisibility
+                        :show="showConfirmPassword"
+                        @click="toggleConfirmPassword()" />
                 </div>
                 <ItemInputMessage
                     :fieldName="'confirmPassword'"
-                    :issues="issues"
-                />
+                    :issues="issues" />
 
                 <div class="flex items-center justify-end">
                     <button
-                        class="rounded-sm border border-[#f0a5a7] bg-[#F19899] px-6 py-2 transition-colors hover:border-[#f7c2c3] hover:bg-[#ffb9bb] dark:text-black"
-                        :class="{
-                            'sign-up cursor-not-allowed rounded-md border-transparent bg-gray-300 px-4 py-2 opacity-50 hover:border-transparent hover:bg-gray-300':
-                                registered,
-                        }"
-                    >
+                        class="rounded-sm border border-[#f0a5a7] bg-[#F19899] px-6 py-2 transition-colors hover:border-[#f7c2c3] hover:bg-[#ffb9bb] dark:text-black">
                         Sign up
                     </button>
                 </div>
             </div>
         </form>
-        <ItemModalStatus v-model:open="isOpen" :toggleDrawer="toggleDrawer" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { safeParse, flatten, type FlatErrors } from "valibot";
+import { safeParse, flatten, type FlatErrors } from 'valibot';
+import { useToggle } from '@vueuse/core';
+
+const [showPassword, togglePassword] = useToggle();
+const [showConfirmPassword, toggleConfirmPassword] = useToggle();
 
 const {
-    registered,
     successMessage,
     error: fetchError,
     registerUser,
     pending,
 } = useStoreAuth();
 
+const { callToast } = useToast();
+
 definePageMeta({
-    layout: "auth",
+    layout: 'auth',
 });
 
 const registerData = reactive<RegisterData>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
     member_since: new Date(),
 });
 
-const router = useRouter();
-
-const issues = ref<FlatErrors<typeof RegistrationSchema>["nested"]>();
-const isOpen = ref(false);
-
-const toggleDrawer = () => {
-    isOpen.value = !isOpen.value;
-};
+const issues = ref<FlatErrors<typeof RegistrationSchema>['nested']>();
 
 const resetForm = () => {
-    registerData.firstname = "";
-    registerData.lastname = "";
-    registerData.email = "";
-    registerData.password = "";
-    registerData.confirmPassword = "";
+    registerData.firstname = '';
+    registerData.lastname = '';
+    registerData.email = '';
+    registerData.password = '';
+    registerData.confirmPassword = '';
 };
 
 const submitForm = async () => {
     if (pending.value) return;
 
-    fetchError.value = "";
+    fetchError.value = '';
     const result = safeParse(RegistrationSchema, registerData);
-
-    if (registered.value) {
-        return;
-    }
 
     if (result.success) {
         issues.value = {};
         await registerUser(registerData);
-        if (successMessage.value && !isOpen.value) {
-            isOpen.value = true;
+        if (successMessage.value) {
+            callToast();
             resetForm();
-            setTimeout(() => {
-                isOpen.value = false;
-                navigateTo("/");
-            }, 3000);
         }
     } else {
         issues.value = flatten<typeof RegistrationSchema>(result.issues).nested;
     }
-
-    if (registered.value) {
-        setTimeout(() => {
-            navigateTo("/");
-        }, 2000);
-    }
 };
-
-router.afterEach(() => {
-    if (registered.value) {
-        setTimeout(() => {
-            registered.value = false;
-            successMessage.value = "";
-        }, 1500);
-    }
-    if (fetchError.value) {
-        fetchError.value = "";
-    }
-});
 </script>
 
 <style scoped>

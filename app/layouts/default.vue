@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :key="route.fullPath">
         <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
         <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
         <div class="content">
@@ -13,6 +13,7 @@
 import { ref } from 'vue';
 
 const router = useRouter();
+const route = useRoute();
 
 const linksPrimary = ref([
     { name: 'Home', route: '/' },

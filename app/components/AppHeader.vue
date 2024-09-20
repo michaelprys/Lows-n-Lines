@@ -59,7 +59,7 @@
                                 <span class="lg-max:hidden">Profile</span>
                                 <IconProfile
                                     class="lg-min:hidden"
-                                    aria-label="user icon" />
+                                    aria-label="user profile icon" />
                             </NuxtLink>
                             <button
                                 class="flex items-center gap-2"
@@ -81,17 +81,15 @@
                 </nav>
             </header>
         </ItemObserver>
-        <ItemModalStatus v-model:open="isOpen" :toggleModal="toggleModal" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { useWindowScroll } from '@vueuse/core';
-
 defineProps(['toggleDrawer', 'linksPrimary']);
 
-const { signedIn, signOut, checkSession, pending, isOpen, startRedirect } =
-    useStoreAuth();
+const { signedIn, signOut, pending } = useStoreAuth();
+const { callToast } = useToast();
 
 const { y } = useWindowScroll();
 const el = ref(null);
@@ -106,20 +104,14 @@ const setColorTheme = () => {
 
 let lastScroll = y.value;
 
-const toggleModal = () => {
-    isOpen.value = !isOpen.value;
-};
-
 const handleSignOut = async () => {
     await signOut();
-
     if (!signedIn.value && !pending.value) {
-        startRedirect();
+        callToast();
     }
 };
 
 onMounted(async () => {
-    await checkSession();
     watch(
         () => y.value,
         (newValue, oldValue) => {
@@ -131,6 +123,10 @@ onMounted(async () => {
             lastScroll = newValue;
         }
     );
+});
+
+watchEffect(() => {
+    console.log('signedIn Client: ', signedIn.value);
 });
 </script>
 

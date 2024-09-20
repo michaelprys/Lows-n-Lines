@@ -43,30 +43,6 @@
     </div>
 </template>
 
-<script setup lang="ts">
-// const { signedIn } = useStoreAuth();
-
-// definePageMeta({
-//     middleware: [
-//         function (to, from) {
-//             if (!signedIn.value) {
-//                 return abortNavigation({
-//                     statusCode: 404,
-//                     statusMessage: 'Permission denied, please sign in.',
-//                 });
-//             }
-//         },
-//     ],
-// });
-
-definePageMeta({
-    middleware: 'auth',
-});
-watchEffect(() => {
-    console.log('signed in ?: ', signedIn.value);
-});
-</script>
-
 <style scoped>
 .link {
     background: rgba(255, 255, 255, 0.2);
