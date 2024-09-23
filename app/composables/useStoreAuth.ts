@@ -1,3 +1,6 @@
+import { ensureError } from '~/utils/ensureError';
+import type { ErrorResponse } from '~/types';
+
 export interface RegisterData {
     firstname: string;
     lastname: string;
@@ -22,6 +25,10 @@ export interface MessageData {
     message: string;
 }
 
+export type ResponseData = {
+    message: string;
+};
+
 const state = reactive({
     registered: false,
     pending: false,
@@ -32,8 +39,6 @@ const state = reactive({
 });
 
 export const useStoreAuth = () => {
-    const route = useRoute();
-
     const registerUser = async (registerData: RegisterData) => {
         const { apiBase } = useRuntimeConfig().public;
         state.pending = true;
@@ -41,28 +46,25 @@ export const useStoreAuth = () => {
         state.successMessage = null;
 
         try {
-            const res = await fetch(`${apiBase}/registration`, {
+            const res = await $fetch<ResponseData>(`${apiBase}/registration`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(registerData),
+                body: registerData,
             });
+            state.registered = true;
+            state.successMessage = res.message || 'Successfully registered';
+        } catch (e) {
+            const err = ensureError(e) as ErrorResponse;
 
-            if (res.ok) {
-                state.registered = true;
-                await navigateTo('/sign-in');
-                state.successMessage = 'Successfully registered';
+            if (err.statusCode === 400) {
+                state.error = err.statusMessage || 'Validation error';
+            } else if (err.statusCode === 409) {
+                state.error = err.statusMessage || 'User already exists';
+            } else if (err.statusCode) {
+                state.error = `Unexpected response ${err.statusCode}: ${err.statusMessage}`;
             } else {
-                const resData = await res.json();
-                if (res.status === 400) {
-                    state.error = 'Validation error';
-                } else if (res.status === 409) {
-                    state.error = 'User already exists';
-                } else {
-                    state.error = `Unexpected response ${res.status}: ${resData.message}`;
-                }
+                state.error = `An unexpected error occurred: ${err.message}`;
             }
-        } catch (err) {
-            state.error = `An unexpected error occurred ${err.message}`;
         } finally {
             state.pending = false;
         }
@@ -74,29 +76,27 @@ export const useStoreAuth = () => {
         state.error = null;
         state.successMessage = null;
 
-        const res = await fetch(`${apiBase}/signIn`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(signInData),
-        });
-
         try {
-            if (res.ok) {
-                await checkSession();
-                if (state.signedIn) {
-                    await navigateTo(`${route.query.redirect}` || '/');
-                    state.successMessage = 'Signed in successfully';
-                } else {
-                    state.error = 'Error signing in';
-                }
-            } else if (res.status === 400) {
-                state.error = 'Validation error';
+            const res = await $fetch<ResponseData>(`${apiBase}/signIn`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: signInData,
+            });
+
+            await checkSession();
+            if (state.signedIn) {
+                state.successMessage = res.message ?? 'Signed in successfully';
             } else {
-                const resData = await res.json();
-                state.error = resData.message || "User doesn't exist";
+                state.error = 'Error signing in';
             }
-        } catch (err) {
-            state.error = `An unexpected error occurred ${err.message}`;
+        } catch (e) {
+            const err = ensureError(e) as ErrorResponse;
+
+            if (err.statusCode === 400) {
+                state.error = err.statusMessage || 'Validation error';
+            } else {
+                state.error = err.statusMessage || "User doesn't exist";
+            }
         } finally {
             state.pending = false;
         }
@@ -105,17 +105,12 @@ export const useStoreAuth = () => {
     const checkSession = async () => {
         const { apiBase } = useRuntimeConfig().public;
         try {
-            const res = await fetch(`${apiBase}/check-session`);
-
-            if (res.ok) {
-                const data = await res.json();
-                state.signedIn = data.signedIn;
-            } else {
-                state.signedIn = false;
-            }
-        } catch (err) {
-            console.error('Error checking session: ', err);
-            state.signedIn = false;
+            const res = await $fetch<{ signedIn: boolean }>(
+                `${apiBase}/check-session`
+            );
+            state.signedIn = res.signedIn;
+        } catch (e) {
+            console.error('Error checking session: ', ensureError(e));
         }
     };
 
@@ -126,24 +121,20 @@ export const useStoreAuth = () => {
         state.successMessage = null;
 
         try {
-            const res = await fetch(`${apiBase}/signOut`, {
+            const res = await $fetch<ResponseData>(`${apiBase}/signOut`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
             });
+            state.successMessage = res.message ?? null;
+            await checkSession();
+        } catch (e) {
+            const err = ensureError(e) as ErrorResponse;
 
-            if (res.ok) {
-                await checkSession();
-                if (!state.signedIn && route.path !== '/') {
-                    navigateTo('/');
-                }
-                const data = await res.json();
-                state.successMessage = data.message;
+            if (err.statusCode) {
+                state.error = err.statusMessage || 'Error signing out';
             } else {
-                const data = await res.json();
-                state.error = data.message || 'Error signing out';
+                state.error = `An unexpected error occurred ${err.message}`;
             }
-        } catch (err) {
-            state.error = `An unexpected error occurred ${err.message}`;
         } finally {
             state.pending = false;
         }
@@ -155,24 +146,24 @@ export const useStoreAuth = () => {
         state.error = null;
         state.successMessage = null;
 
-        const res = await fetch(`${apiBase}/inquiries`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(messageData),
-        });
-
         try {
-            if (res.ok) {
-                state.messageSent = true;
-                state.successMessage = 'Message sent successfully';
-            } else if (res.status === 400) {
-                state.error = 'Validation error';
+            const res = await $fetch<ResponseData>(`${apiBase}/inquiries`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: messageData,
+            });
+            state.messageSent = true;
+            state.successMessage = res.message || 'Message sent successfully';
+        } catch (e) {
+            const err = ensureError(e) as ErrorResponse;
+
+            if (err.statusCode === 400) {
+                state.error = err.statusMessage || 'Validation error';
+            } else if (err.statusCode) {
+                state.error = err.statusMessage || 'Error sending message';
             } else {
-                const resData = await res.json();
-                state.error = 'Error sending message' || resData.message;
+                state.error = `An unexpected error occurred ${err.message}`;
             }
-        } catch (err) {
-            state.error = `An unexpected error occurred ${err.message}`;
         } finally {
             state.pending = false;
         }

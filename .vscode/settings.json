@@ -4,10 +4,10 @@
     ".vscode": true,
     "pnpm-lock.yaml": true,
     ".gitignore": true,
-    "tsconfig.json": true,
     "components.json": true,
     "eslint.config.js": true,
     ".nuxt": true,
-    "node_modules": true
+    "node_modules": true,
+    "tsconfig.json": true
   }
 }

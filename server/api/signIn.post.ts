@@ -2,6 +2,8 @@ import { pool } from '~~/server/utils/db';
 import argon2 from 'argon2';
 import { SignInSchema } from '~/utils/schemas';
 import { safeParse } from 'valibot';
+import { ensureError } from '~/utils/ensureError';
+import type { ErrorResponse } from '~/types';
 
 export default defineEventHandler(async event => {
     const body = await readBody(event);
@@ -45,6 +47,8 @@ export default defineEventHandler(async event => {
                     sameSite: 'strict',
                 });
                 setResponseStatus(event, 200, 'Logged in successfully');
+
+                return { message: 'Logged in successfully' };
             } else {
                 throw createError({
                     statusCode: 401,
@@ -59,7 +63,9 @@ export default defineEventHandler(async event => {
                 message: "User doesn't exist",
             });
         }
-    } catch (err) {
+    } catch (e) {
+        const err = ensureError(e) as ErrorResponse;
+
         throw createError({
             statusCode: 500,
             statusMessage: `${err.message}`,

@@ -74,6 +74,7 @@ definePageMeta({
 });
 
 const [show, toggle] = useToggle();
+const route = useRoute();
 
 const {
     signedIn,
@@ -107,6 +108,11 @@ const handleSignIn = async () => {
     if (result.success) {
         issues.value = {};
         await signIn(signInData);
+        if (signedIn.value && route.query.redirect) {
+            await navigateTo(`${route.query.redirect}`);
+        } else if (signedIn.value) {
+            await navigateTo('/');
+        }
         if (successMessage.value) {
             callToast();
             resetForm();

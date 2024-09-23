@@ -26,7 +26,7 @@
                             class="text-md flex flex-1 items-center gap-10 dark:text-dark-el">
                             <li v-for="link in linksPrimary" :key="link.name">
                                 <NuxtLink
-                                    class="duration-[350ms] relative py-2 transition-colors before:absolute before:bottom-0 before:left-[50%] before:h-[2px] before:w-0 before:origin-center before:bg-zinc-500 before:transition-[width] before:duration-500 before:ease-in-out after:absolute after:bottom-0 after:right-[50%] after:h-[2px] after:w-0 after:origin-center after:bg-zinc-500 after:transition-[width] after:duration-500 after:ease-in-out hover:text-zinc-500 hover:before:w-[50%] hover:after:w-[50%] dark:before:bg-zinc-300 dark:after:bg-zinc-300 dark:hover:text-zinc-300"
+                                    class="duration-300 relative py-2 transition-colors before:absolute before:bottom-0 before:left-[50%] before:h-[2px] before:w-0 before:origin-center before:bg-zinc-500 before:transition-[width] before:duration-500 before:ease-in-out after:absolute after:bottom-0 after:right-[50%] after:h-[2px] after:w-0 after:origin-center after:bg-zinc-500 after:transition-[width] after:duration-500 after:ease-in-out hover:text-zinc-500 hover:before:w-[50%] hover:after:w-[50%] dark:before:bg-zinc-300 dark:after:bg-zinc-300 dark:hover:text-zinc-300"
                                     :to="link.route"
                                     >{{ link.name }}
                                 </NuxtLink>
@@ -86,10 +86,12 @@
 
 <script setup lang="ts">
 import { useWindowScroll } from '@vueuse/core';
+import type { RouteLocationNormalized } from 'vue-router';
 defineProps(['toggleDrawer', 'linksPrimary']);
 
 const { signedIn, signOut, pending } = useStoreAuth();
 const { callToast } = useToast();
+const route: RouteLocationNormalized = useRoute();
 
 const { y } = useWindowScroll();
 const el = ref(null);
@@ -106,6 +108,9 @@ let lastScroll = y.value;
 
 const handleSignOut = async () => {
     await signOut();
+    if (!signedIn.value && route.path !== '/') {
+        navigateTo('/');
+    }
     if (!signedIn.value && !pending.value) {
         callToast();
     }
@@ -123,10 +128,10 @@ onMounted(async () => {
             lastScroll = newValue;
         }
     );
-});
 
-watchEffect(() => {
-    console.log('signedIn Client: ', signedIn.value);
+    watchEffect(() => {
+        console.log('signedIn: ', signedIn.value);
+    });
 });
 </script>
 

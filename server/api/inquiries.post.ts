@@ -1,18 +1,21 @@
-import { pool } from "~~/server/utils/db";
-import { MessageSchema } from "~/utils/schemas";
-import { safeParse } from "valibot";
-import nodemailer from "nodemailer";
+import { pool } from '~~/server/utils/db';
+import { MessageSchema } from '~/utils/schemas';
+import { safeParse } from 'valibot';
+import nodemailer from 'nodemailer';
+import { ensureError } from '~/utils/ensureError';
+import type { ErrorResponse } from '~/types';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
     const body = await readBody(event);
 
-    console.log("Server-side received body:", body);
     const validation = safeParse(MessageSchema, body);
     if (!validation.success) {
         throw createError({
             statusCode: 400,
-            statusMessage: "Validation error",
-            message: `Validation error: ${validation.issues.map((issue, idx) => `${idx + 1}. ${issue.message}`).join(", ")}`,
+            statusMessage: 'Validation error',
+            message: `Validation error: ${validation.issues
+                .map((issue, idx) => `${idx + 1}. ${issue.message}`)
+                .join(', ')}`,
         });
     }
 
@@ -20,14 +23,14 @@ export default defineEventHandler(async (event) => {
 
     const subjectHtml = subject
         ? `<p><strong>Subject:</strong> ${subject}</p>`
-        : "";
+        : '';
 
     const conn = await pool.connect();
 
     try {
         const { user, appPassword, emailPort } = useRuntimeConfig();
         const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
+            host: 'smtp.gmail.com',
             port: parseInt(emailPort),
             secure: false,
             auth: {
@@ -41,8 +44,8 @@ export default defineEventHandler(async (event) => {
                 name: `${firstname} ${lastname}`,
                 address: email,
             },
-            to: "flowersjustin09123@gmail.com",
-            subject: "Service Inquiry",
+            to: 'flowersjustin09123@gmail.com',
+            subject: 'Service Inquiry',
             text: message,
             html: `
                 <p><strong>Name:</strong> ${firstname} ${lastname}</p>
@@ -53,10 +56,14 @@ export default defineEventHandler(async (event) => {
             `,
         });
 
-        console.log("Message sent: %s", info.messageId);
+        console.log('Message sent: %s', info.messageId);
 
-        setResponseStatus(event, 200, "Massage was sent");
-    } catch (err) {
+        setResponseStatus(event, 200, 'Message was sent');
+
+        return { message: 'Message was sent' };
+    } catch (e) {
+        const err = ensureError(e) as ErrorResponse;
+
         throw createError({
             statusCode: 500,
             statusMessage: `Server error ${err.message}`,
