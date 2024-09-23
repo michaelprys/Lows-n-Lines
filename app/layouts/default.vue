@@ -1,5 +1,5 @@
 <template>
-    <div :key="route.fullPath">
+    <div>
         <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
         <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
         <div class="content">
