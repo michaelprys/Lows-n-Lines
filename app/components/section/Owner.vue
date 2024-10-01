@@ -1,9 +1,8 @@
 <template>
     <section
-        class="container mt-32 flex lg-max:mt-28 lg-max:flex-col lg-max:items-center md-max:mt-24"
-    >
-        <div class="flex w-full max-w-[715px]">
-            <div class="m-w-[365px] lg-max:pl-7">
+        class="container mt-32 flex lg-max:mt-24 lg-max:flex-col lg-max:items-center md-max:mt-16">
+        <div class="flex w-full max-w-[44.6875rem]">
+            <div class="w-[22.8125rem] h-[19.3125rem] lg-max:pl-7">
                 <ItemObserver v-slot="{ isVisible }">
                     <NuxtImg
                         class="relative z-[8] mt-10 object-cover lg-max:ml-0"
@@ -12,10 +11,10 @@
                         width="365"
                         height="309"
                         alt="owner car photo"
-                    />
+                        fit="cover" />
                 </ItemObserver>
             </div>
-            <div class="m-w-[365px]">
+            <div class="w-[22.8125rem] h-[19.3125rem]">
                 <ItemObserver v-slot="{ isVisible }">
                     <NuxtImg
                         class="z-5 -ml-7 object-cover lg-max:pl-0"
@@ -24,11 +23,12 @@
                         width="365"
                         height="309"
                         alt="LA TORTUGA photo"
-                    />
+                        fit="cover" />
                 </ItemObserver>
             </div>
         </div>
-        <div class="w-full max-w-[715px] pl-[30px] lg-max:mt-10 lg-max:pl-0">
+        <div
+            class="w-full lg-max:pt-6 max-w-[44.6875rem] pl-[1.875em] lg-max:mt-10 lg-max:pl-0">
             <ItemObserver v-slot="{ isVisible }">
                 <div :class="isVisible ? 'fade-in' : 'invisible'">
                     <h1 class="font-[Gin-Test] text-xl uppercase">
@@ -49,8 +49,7 @@
                     </p>
                     <NuxtLink
                         class="transition-colorshover:border-[#e9e3b5] mt-9 block max-w-32 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] py-3 text-center text-sm uppercase transition-colors hover:bg-[#fff8c7] dark:text-black"
-                        to="/"
-                    >
+                        to="/">
                         Read more
                     </NuxtLink>
                 </div>

@@ -29,22 +29,32 @@
                 <div :class="isVisible ? 'fade-in-up' : 'invisible'">
                     <CarouselContent
                         class="mt-14 *:basis-1/5 lg-max:*:basis-1/3 sm-max:*:basis-1/2">
-                        <CarouselItem v-for="item in 8" :key="item">
+                        <CarouselItem
+                            class="max-w-[23rem] w-full select-none"
+                            v-for="item in vehicles"
+                            :key="item.id">
                             <NuxtLink
                                 to="/showroom"
                                 class="flex justify-center">
                                 <NuxtImg
-                                    class="w-full object-cover"
-                                    width="411"
-                                    height="411"
-                                    src="/images/cars/car-5.jpg"
-                                    alt="featured car 1" />
+                                    class="w-[25.6875rem] h-[20rem] object-cover"
+                                    :width="item.cover_width"
+                                    :height="item.cover_height"
+                                    :src="
+                                        getSrc(
+                                            'cars/cover/',
+                                            item.cover_name,
+                                            '.jpg'
+                                        )
+                                    "
+                                    :alt="`${item.cover_name} image`"
+                                    fit="cover" />
                             </NuxtLink>
                             <NuxtLink
                                 to="/showroom"
                                 class="mt-4 flex flex-col gap-2 text-left text-sm md-max:text-xs">
-                                <span>"ROLLIN' BEAUTY" - BUICK RIVIERA</span>
-                                <span>$25,000 - $45,000</span>
+                                <span>{{ item.brand }} {{ item.model }}</span>
+                                <span>${{ item.price }}</span>
                             </NuxtLink>
                         </CarouselItem>
                     </CarouselContent>
@@ -53,6 +63,16 @@
         </Carousel>
     </section>
 </template>
+
+<script setup>
+const { getSrc, vehicles, getVehicle } = useStoreVehicle();
+
+console.log(vehicles.value);
+
+onMounted(async () => {
+    await getVehicle();
+});
+</script>
 
 <style scoped>
 .btn {

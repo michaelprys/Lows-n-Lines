@@ -42,7 +42,7 @@
                                 class="stroke-[#33363F] dark:stroke-dark-el"
                                 aria-label="dark mode icon" />
                         </button>
-                        <div v-if="!signedIn">
+                        <div v-if="!loggedIn">
                             <NuxtLink
                                 class="flex items-center gap-2"
                                 to="/sign-in">
@@ -63,7 +63,6 @@
                             </NuxtLink>
                             <button
                                 class="flex items-center gap-2"
-                                to="/sign-in"
                                 @click="handleSignOut">
                                 <span class="lg-max:hidden">Sign Out</span>
                                 <IconSignOut aria-label="sign out icon" />
@@ -76,7 +75,10 @@
                             class="md-mx absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-cover dark:brightness-[190%] dark:grayscale extra-max:pb-7 md-max:w-48 md-max:pb-0 sm-max:w-40 extra-min:pb-0"
                             to="/"
                             src="/images/logo.png"
-                            width="240" />
+                            width="240"
+                            alt="Lows-n-Lines logo"
+                            fit="cover"
+                            preload />
                     </NuxtLink>
                 </nav>
             </header>
@@ -89,8 +91,9 @@ import { useWindowScroll } from '@vueuse/core';
 import type { RouteLocationNormalized } from 'vue-router';
 defineProps(['toggleDrawer', 'linksPrimary']);
 
-const { signedIn, signOut, pending } = useStoreAuth();
-const { callToast } = useToast();
+const { signOut } = useStoreAuth();
+const { loggedIn } = useUserSession();
+
 const route: RouteLocationNormalized = useRoute();
 
 const { y } = useWindowScroll();
@@ -108,11 +111,8 @@ let lastScroll = y.value;
 
 const handleSignOut = async () => {
     await signOut();
-    if (!signedIn.value && route.path !== '/') {
+    if (!loggedIn.value && route.path !== '/') {
         navigateTo('/');
-    }
-    if (!signedIn.value && !pending.value) {
-        callToast();
     }
 };
 
@@ -128,10 +128,6 @@ onMounted(async () => {
             lastScroll = newValue;
         }
     );
-
-    watchEffect(() => {
-        console.log('signedIn: ', signedIn.value);
-    });
 });
 </script>
 

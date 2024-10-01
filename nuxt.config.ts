@@ -25,6 +25,7 @@ export default defineNuxtConfig({
         '@nuxt/image',
         'shadcn-nuxt',
         'nuxt-easy-lightbox',
+        'nuxt-auth-utils',
     ],
     postcss: {
         plugins: {
@@ -33,7 +34,7 @@ export default defineNuxtConfig({
         },
     },
     css: [
-        '~/assets/styles/main.css',
+        '/_nuxt/assets/styles/main.css',
         '~/assets/styles/animations.css',
         '~/assets/styles/font-face.css',
         'leaflet/dist/leaflet.css',

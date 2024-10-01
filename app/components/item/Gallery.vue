@@ -2,13 +2,14 @@
     <div class="mx-auto mt-7">
         <Carousel @init-api="val => (emblaMainApi = val)">
             <CarouselContent>
-                <CarouselItem v-for="(item, idx) in images" :key="item">
+                <CarouselItem v-for="item in vehicle_images" :key="item">
                     <NuxtImg
                         class="embla__image h-[525px] object-cover"
-                        :src="`/images/cars/${item}.jpg`"
-                        :alt="`car ${idx} image`"
-                        width="1920"
-                        heigh="1280" />
+                        :src="getSrc('/cars', item.name, '.jpg')"
+                        :width="item.width"
+                        :height="item.height"
+                        :alt="`${item.name} image`"
+                        fit="cover" />
                 </CarouselItem>
             </CarouselContent>
 
@@ -28,8 +29,8 @@
             <CarouselContent class="m-0 flex gap-1">
                 <CarouselItem
                     class="embla-thumbs__slide"
-                    v-for="(item, idx) in images"
-                    :key="item"
+                    v-for="(item, idx) in vehicle_images"
+                    :key="item.id"
                     @click="onThumbClick(idx)">
                     <NuxtImg
                         class="h-24 object-cover"
@@ -40,10 +41,11 @@
                                     idx === selectedIdx,
                             },
                         ]"
-                        :src="`/images/cars/${item}.jpg`"
-                        :alt="`car ${idx} thumbnail`"
-                        width="300"
-                        height="200" />
+                        :src="getSrc('/cars', item.name, '.jpg')"
+                        :width="item.width"
+                        :height="item.height"
+                        :alt="`${item.name} image`"
+                        fit="cover" />
                 </CarouselItem>
             </CarouselContent>
         </Carousel>
@@ -59,16 +61,7 @@ import {
     CarouselItem,
 } from '@/components/ui/carousel';
 
-const images = [
-    'car-1',
-    'car-2',
-    'car-3',
-    'car-4',
-    'car-5',
-    'car-6',
-    'car-7',
-    'car-8',
-];
+const { getSrc, vehicle_images, getVehicleImage } = useStoreVehicle();
 
 const emblaMainApi = ref<CarouselApi>();
 const emblaThumbnailApi = ref<CarouselApi>();
@@ -91,6 +84,10 @@ watchOnce(emblaMainApi, emblaMainApi => {
     onSelect();
     emblaMainApi.on('select', onSelect);
     emblaMainApi.on('reInit', onSelect);
+});
+
+onMounted(async () => {
+    await getVehicleImage();
 });
 </script>
 

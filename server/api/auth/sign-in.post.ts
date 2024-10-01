@@ -20,7 +20,7 @@ export default defineEventHandler(async event => {
         });
     }
 
-    const { email, password, rememberMe } = body;
+    const { email, password } = body;
     const conn = await pool.connect();
 
     try {
@@ -35,32 +35,27 @@ export default defineEventHandler(async event => {
             const isVerified = await argon2.verify(hashedPassword, password);
 
             if (isVerified) {
-                const sessionData = { id: user.id, email: user.email };
-
-                const maxAge = rememberMe ? 60 * 60 * 24 * 30 : undefined;
-
-                setCookie(event, 'session', JSON.stringify(sessionData), {
-                    httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production',
-                    maxAge,
-                    path: '/',
-                    sameSite: 'strict',
+                await setUserSession(event, {
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                    },
                 });
-                setResponseStatus(event, 200, 'Logged in successfully');
 
-                return { message: 'Logged in successfully' };
+                setResponseStatus(event, 200, 'Signed in successfully');
+                return { message: 'Signed in successfully' };
             } else {
                 throw createError({
                     statusCode: 401,
                     statusMessage: 'Unauthorized',
-                    message: "User doesn't exist",
+                    message: 'Invalid password',
                 });
             }
         } else {
             throw createError({
                 statusCode: 401,
                 statusMessage: 'Unauthorized',
-                message: "User doesn't exist",
+                message: 'User not found',
             });
         }
     } catch (e) {

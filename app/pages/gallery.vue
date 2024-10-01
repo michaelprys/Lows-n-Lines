@@ -1,11 +1,5 @@
 <template>
     <div class="relative">
-        <ItemGlobalBg />
-        <!-- <div
-            class="absolute -z-[1] h-full w-full bg-cover bg-fixed bg-center opacity-20"
-            style="background-image: url(&quot;/images/gallery/bg.jpg&quot;)"
-        ></div> -->
-
         <section class="container pb-24 pt-11">
             <ItemObserver v-slot="{ isVisible }">
                 <h1
@@ -14,101 +8,100 @@
                     Gallery
                 </h1>
             </ItemObserver>
-            <ItemObserver v-slot="{ isVisible }">
+            <div>
                 <ul
-                    class="mx-auto mt-11 columns-3 gap-3 space-y-3 md-max:columns-2 xs-max:columns-1"
-                    :class="isVisible ? 'fade-in' : 'invisible'">
-                    <li
-                        class="break-inside-avoid"
-                        v-for="(item, idx) in imgs"
-                        :key="item">
-                        <NuxtImg
-                            class="w-full cursor-pointer rounded-lg object-cover shadow-2xl"
-                            :src="item.url"
-                            :alt="`gallery image ${idx}`"
-                            @click="() => showImg(idx)" />
-                    </li>
+                    class="mx-auto mt-11 columns-3 gap-3 md-max:columns-2 xs-max:columns-1"
+                    ref="listEl">
+                    <ItemObserver v-slot="{ isVisible }">
+                        <li
+                            class="break-inside-avoid mt-3 relative"
+                            v-for="(item, idx) in imgList"
+                            :key="item.id"
+                            :class="isVisible ? 'fade-in' : 'invisible'">
+                            <Skeleton
+                                class="opacity-100 animate-none w-full h-3 bg-white"
+                                :style="{
+                                    height: `${item.skeleton_height}px`,
+                                }"
+                                v-if="pending" />
+                            <NuxtImg
+                                class="w-full cursor-pointer rounded-lg object-cover shadow-2xl"
+                                :src="getSrc('gallery', item.name, '.jpg')"
+                                :width="item.width"
+                                :height="item.height"
+                                :alt="`gallery image ${idx}`"
+                                fit="cover"
+                                @click="showImg(idx)"
+                                v-else />
+                        </li>
+                    </ItemObserver>
                 </ul>
-            </ItemObserver>
+
+                <ItemObserver v-slot="{ isVisible }">
+                    <button
+                        class="mx-auto block mt-10 transition-colors pointer-events-none dark:fill-white"
+                        type="button"
+                        v-show="pending"
+                        :class="isVisible ? 'fade-in' : 'invisible'">
+                        <IconSpinner
+                            class="animate-spin"
+                            width="1.8em"
+                            height="1.8em" />
+                    </button>
+                </ItemObserver>
+            </div>
+
             <VueEasyLightbox
                 class="lightbox"
+                :imgs="getLightboxImg"
                 :visible="visibleRef"
-                :imgs="imgUrls"
                 :index="indexRef"
                 :moveDisabled="true"
                 @hide="onHide" />
-            <ItemObserver v-slot="{ isVisible }">
-                <button
-                    class="mx-auto mt-10 block text-lg text-[#f2f2f2] transition-colors hover:text-white"
-                    type="button"
-                    :class="isVisible ? 'fade-in' : 'invisible'">
-                    <span class="text-[22px]">+</span>
-                    Show More
-                </button>
-            </ItemObserver>
         </section>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+// import { useImage } from '@vueuse/core';
+
+const { getSrc } = useStoreVehicle();
+const { apiBase } = useRuntimeConfig().public;
 const visibleRef = ref(false);
 const indexRef = ref(0);
+const imgList = ref<Image[]>([]);
+const pending = ref(false);
+const limit = 10;
+const offset = 0;
 
-const imgs = [
-    {
-        url: '/images/gallery/gallery-1.jpg',
-        width: '563',
-        height: '375',
-    },
-    {
-        url: '/images/gallery/gallery-2.jpg',
-        width: '1920',
-        height: '2880',
-    },
-    {
-        url: '/images/gallery/gallery-3.jpg',
-        width: '1920',
-        height: '1280',
-    },
-    {
-        url: '/images/gallery/gallery-4.jpg',
-        width: '1920',
-        height: '1280',
-    },
-    {
-        url: '/images/gallery/gallery-5.jpg',
-        width: '1920',
-        height: '1440',
-    },
-    {
-        url: '/images/gallery/gallery-6.jpg',
-        width: '1920',
-        height: '2880',
-    },
-    {
-        url: '/images/gallery/gallery-7.jpg',
-        width: '1920',
-        height: '2880',
-    },
-    {
-        url: '/images/gallery/gallery-8.jpg',
-        width: '1920',
-        height: '2880',
-    },
-    {
-        url: '/images/gallery/gallery-10.jpg',
-        width: '1920',
-        height: '2880',
-    },
-];
+const getImages = async () => {
+    pending.value = true;
+    try {
+        const res = await $fetch(
+            `${apiBase}/gallery-images?limit=${limit}&offset=${offset}`
+        );
+        imgList.value = res.data;
+    } catch (e) {
+        const err = ensureError(e) as ErrorResponse;
+        console.error('Error fetching gallery images', err.message);
+    } finally {
+        pending.value = false;
+    }
+};
 
-const imgUrls = imgs.map(img => img.url);
+const getLightboxImg = computed(() => {
+    return imgList.value.map(item => getSrc('gallery', item.name, '.jpg'));
+});
 
-const showImg = index => {
+const showImg = (index: number) => {
     indexRef.value = index;
     visibleRef.value = true;
 };
 const onHide = () => (visibleRef.value = false);
+
+onMounted(async () => {
+    await getImages();
+});
 </script>
 
 <style scoped>

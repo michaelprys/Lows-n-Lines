@@ -1,17 +1,13 @@
 <template>
     <div class="relative pb-24">
-        <ItemGlobalBg />
         <ItemObserver v-slot="{ isVisible }">
             <section
                 class="relative w-full"
-                :class="isVisible ? 'fade-in' : 'invisible'"
-            >
+                :class="isVisible ? 'fade-in' : 'invisible'">
                 <div
-                    class="absolute flex h-full w-full items-center justify-center bg-[#526672] bg-opacity-25"
-                >
+                    class="absolute flex h-full w-full items-center justify-center bg-[#526672] bg-opacity-25">
                     <h1
-                        class="px-20 text-center font-['Gin-Test'] text-5xl uppercase text-[#f2f2f2] xl-max:text-4xl lg-max:text-3xl xs-max:text-xl"
-                    >
+                        class="px-20 text-center font-['Gin-Test'] text-5xl uppercase text-[#f2f2f2] xl-max:text-4xl lg-max:text-3xl xs-max:text-xl">
                         Lowrider Fest In San Fernando Valley
                     </h1>
                 </div>
@@ -22,8 +18,8 @@
                     autoplay
                     loop
                     muted
-                    ref="videoRef"
-                >
+                    preload="auto"
+                    ref="videoRef">
                     <source src="~/assets/videos/Event.mp4" type="video/mp4" />
                 </video>
             </section>
@@ -50,8 +46,7 @@
             <ItemObserver v-slot="{ isVisible }">
                 <h3
                     class="mt-10 text-center font-['Gin-Test'] text-3xl uppercase"
-                    :class="isVisible ? 'fade-in' : 'invisible'"
-                >
+                    :class="isVisible ? 'fade-in' : 'invisible'">
                     location
                 </h3>
             </ItemObserver>
@@ -60,8 +55,7 @@
                 <div :class="isVisible ? 'fade-in-up' : 'invisible'">
                     <div
                         id="map"
-                        class="z-0 mx-auto mt-10 h-[402px] w-full max-w-[1176px] shadow-xl"
-                    ></div>
+                        class="z-0 mx-auto mt-10 h-[402px] w-full max-w-[1176px] shadow-xl"></div>
                 </div>
             </ItemObserver>
 
@@ -82,8 +76,7 @@
             <ItemObserver v-slot="{ isVisible }">
                 <h3
                     class="mt-14 text-center font-['Gin-Test'] text-2xl uppercase"
-                    :class="isVisible ? 'fade-in' : 'invisible'"
-                >
+                    :class="isVisible ? 'fade-in' : 'invisible'">
                     Lows 'n' Lines is supported by
                 </h3>
             </ItemObserver>
@@ -96,7 +89,7 @@
                         width="673"
                         height="589"
                         alt="sponsor image"
-                    />
+                        fit="cover" />
                     <span
                         class="mt-2 block select-none text-center font-['Gin-Test'] text-6xl text-[#040707] dark:text-[#f2f2f2]"
                         >CASSIO
@@ -108,14 +101,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Map as LeafletMap } from "leaflet";
+import type { Map as LeafletMap } from 'leaflet';
 
 let map: LeafletMap;
 
 onMounted(async () => {
-    const L = await import("leaflet");
-    map = L.map("map").setView([34.299074, -118.45949], 15);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    const L = await import('leaflet');
+    map = L.map('map').setView([34.299074, -118.45949], 15);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution:
             '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -131,9 +124,3 @@ onBeforeUnmount(() => {
     }
 });
 </script>
-
-<style scoped>
-.intro {
-    background-image: url("/images/events/header.jpg");
-}
-</style>

@@ -27,12 +27,12 @@ export interface MessageData {
 
 export type ResponseData = {
     message: string;
+    signedIn: boolean;
 };
 
 const state = reactive({
     registered: false,
     pending: false,
-    signedIn: false,
     messageSent: false,
     error: null as string | null,
     successMessage: null as string | null,
@@ -75,17 +75,19 @@ export const useStoreAuth = () => {
         state.pending = true;
         state.error = null;
         state.successMessage = null;
+        const { loggedIn, fetch } = useUserSession();
+        const { callToast } = useToast();
 
         try {
-            const res = await $fetch<ResponseData>(`${apiBase}/signIn`, {
+            const res = await $fetch<ResponseData>(`${apiBase}/auth/sign-in`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: signInData,
             });
-
-            await checkSession();
-            if (state.signedIn) {
+            await fetch();
+            if (loggedIn.value) {
                 state.successMessage = res.message ?? 'Signed in successfully';
+                callToast();
             } else {
                 state.error = 'Error signing in';
             }
@@ -102,31 +104,26 @@ export const useStoreAuth = () => {
         }
     };
 
-    const checkSession = async () => {
-        const { apiBase } = useRuntimeConfig().public;
-        try {
-            const res = await $fetch<{ signedIn: boolean }>(
-                `${apiBase}/check-session`
-            );
-            state.signedIn = res.signedIn;
-        } catch (e) {
-            console.error('Error checking session: ', ensureError(e));
-        }
-    };
-
     const signOut = async () => {
         const { apiBase } = useRuntimeConfig().public;
+        const { loggedIn, clear } = useUserSession();
+        const { callToast } = useToast();
+
         state.pending = true;
         state.error = null;
         state.successMessage = null;
 
         try {
-            const res = await $fetch<ResponseData>(`${apiBase}/signOut`, {
+            const res = await $fetch<ResponseData>(`${apiBase}/auth/sign-out`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
             });
-            state.successMessage = res.message ?? null;
-            await checkSession();
+
+            await clear();
+            if (!loggedIn.value) {
+                state.successMessage = res.message ?? 'Signed out successfully';
+                callToast();
+            }
         } catch (e) {
             const err = ensureError(e) as ErrorResponse;
 
@@ -173,7 +170,6 @@ export const useStoreAuth = () => {
         ...toRefs(state),
         registerUser,
         signIn,
-        checkSession,
         sendMessage,
         signOut,
     };

@@ -1,6 +1,5 @@
 <template>
     <div class="relative">
-        <ItemGlobalBg />
         <section class="container relative pb-24 pt-10">
             <div
                 class="flex items-start gap-16 xl-max:flex-col-reverse xl-max:gap-8 lg-max:gap-8">
@@ -77,12 +76,13 @@
 
                 <ItemObserver class="max-w-1/2 w-full" v-slot="{ isVisible }">
                     <NuxtImg
-                        class="mt-12 w-full max-w-[615] rounded-md object-cover xl-max:mx-auto xl-max:mt-0"
+                        class="mt-12 w-full h-full max-w-[615px] max-h-[277px] xl-max:max-h-[377px] xl-max:max-w-[715px] rounded-md object-cover xl-max:mx-auto xl-max:mt-0"
                         :class="isVisible ? 'fade-in-up-delayed' : 'invisible'"
                         src="/images/service/service.jpg"
                         width="615"
                         height="277"
-                        alt="service image" />
+                        alt="service image"
+                        fit="cover" />
                 </ItemObserver>
             </div>
 

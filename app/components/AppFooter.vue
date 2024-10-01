@@ -8,9 +8,10 @@
                         <NuxtImg
                             class="object-cover mix-blend-screen"
                             :src="`/images/home/partners/partner-${item}.png`"
-                            :alt="`partner image ${item}`"
                             width="148"
-                            height="118" />
+                            height="118"
+                            :alt="`partner image ${item}`"
+                            fit="cover" />
                     </li>
                 </ul>
             </div>

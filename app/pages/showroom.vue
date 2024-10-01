@@ -1,6 +1,5 @@
 <template>
     <div class="relative flex px-8 lg-max:flex-col">
-        <ItemGlobalBg />
         <nav
             class="nav-bg w-full max-w-60 text-black *:py-2 lg-max:max-w-full lg-max:pl-0 extra-min:max-w-80">
             <ItemObserver v-slot="{ isVisible }">
@@ -61,33 +60,38 @@
                     class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-10 xl-max:grid-cols-2 sm-max:grid-cols-1"
                     :class="isVisible ? 'fade-in' : 'invisible'">
                     <li
-                        v-for="car in 6"
-                        :key="car"
-                        class="w-full max-w-[447px] shadow-lg transition-shadow hover:shadow-xl dark:bg-[#1b1b1c]">
+                        v-for="item in vehicles"
+                        :key="item.id"
+                        class="w-full h-full shadow-lg transition-shadow hover:shadow-xl dark:bg-[#1b1b1c]">
                         <NuxtLink to="/car-details">
                             <NuxtImg
-                                class="object-cover"
-                                src="/images/cars/car-1.jpg"
-                                width="447"
-                                height="252"
-                                alt="car image" />
+                                class="h-[289px] w-full object-cover"
+                                :src="
+                                    getSrc(
+                                        '/cars/cover',
+                                        item.cover_name,
+                                        '.jpg'
+                                    )
+                                "
+                                :width="item.cover_width"
+                                :height="item.cover_height"
+                                :alt="`${item.cover_name} image`" />
                             <div class="px-4">
                                 <span
                                     class="mt-4 block text-sm font-semibold text-zinc-600 dark:text-[#999999]"
-                                    >1996 Mercedes-Benz R129 SL320</span
+                                    >{{ item.manufacture_year }}
+                                    {{ item.brand }}
+                                    {{ item.model }}</span
                                 >
                                 <ul class="mt-4 flex gap-4 text-xs">
-                                    <li
-                                        class="font-semibold text-[#595959]"
-                                        v-for="(spec, i) in specs"
-                                        :key="i">
+                                    <li class="font-semibold text-[#595959]">
                                         <ul
                                             class="flex list-disc flex-wrap gap-2 text-zinc-600 *:ml-4 dark:text-[#7e7e7e]">
-                                            <li>{{ spec.engine }}</li>
-                                            <li>{{ spec.fuel }}</li>
-                                            <li>{{ spec.mileage }}</li>
-                                            <li>{{ spec.transmission }}</li>
-                                            <li>{{ spec.gears }}</li>
+                                            <li>{{ item.engine_type }}</li>
+                                            <li>
+                                                {{ item.transmission_type }}
+                                            </li>
+                                            <li>{{ item.miles }}m</li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -97,11 +101,11 @@
                                 class="mt-6 flex flex-col bg-[#F8F8F8] px-4 py-2 dark:bg-[#222324]">
                                 <span
                                     class="block text-xs font-semibold text-zinc-600 dark:text-[#7e7e7e]"
-                                    >Current bid</span
+                                    >Current price</span
                                 >
                                 <span
                                     class="mt-1 block text-xl font-semibold text-zinc-700 dark:text-dark-el"
-                                    >$35,000</span
+                                    >{{ item.price }}</span
                                 >
                             </div></NuxtLink
                         >
@@ -124,11 +128,11 @@
                         <PaginationFirst class="dark:bg-[#141414]" />
                         <PaginationPrev class="dark:bg-[#141414]" />
 
-                        <template v-for="(item, index) in items">
+                        <template v-for="(item, idx) in items">
                             <PaginationListItem
                                 class=""
                                 v-if="item.type === 'page'"
-                                :key="index"
+                                :key="idx"
                                 :value="item.value"
                                 as-child>
                                 <Button
@@ -163,13 +167,10 @@
 <script setup lang="ts">
 const types = ['Classic', 'Hydraulic', 'Retro', 'Cruiser', 'Convertible'];
 const eras = ['2010s+', '2000s', '1990s', '1980s', '1970s', '1960s'];
-const specs = [
-    {
-        engine: '3199cc',
-        fuel: 'Petrol',
-        mileage: '1522,1928 miles',
-        transmission: 'Automatic',
-        gears: '5 speed',
-    },
-];
+
+const { getSrc, vehicles, getVehicle } = useStoreVehicle();
+
+onMounted(async () => {
+    await getVehicle();
+});
 </script>

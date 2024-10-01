@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="relative"
-        style="background-image: url('/images/sign-in/bg.jpg')">
+    <div class="relative" :style="bg">
         <ItemObserver v-slot="{ isVisible }">
             <div
                 class="container grid min-h-svh place-items-center"
@@ -25,7 +23,9 @@
                             src="/images/sign-in/logo.png"
                             width="292"
                             height="76"
-                            alt="logo" />
+                            alt="Lows-n-Lines logo"
+                            fit="cover"
+                            preload />
                     </NuxtLink>
 
                     <div>
@@ -56,6 +56,14 @@
         </ItemObserver>
     </div>
 </template>
+
+<script setup>
+const img = useImage();
+const bg = computed(() => {
+    const imgUrl = img('/images/sign-in/bg.jpg');
+    return { backgroundImage: `url('${imgUrl}')` };
+});
+</script>
 
 <style scoped>
 .highlight-link {

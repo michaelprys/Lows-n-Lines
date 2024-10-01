@@ -1,19 +1,19 @@
 <template>
     <div class="relative">
-        <ItemGlobalBg />
         <nav>
             <ItemObserver v-slot="{ isVisible }">
                 <div
                     class="relative min-h-[12.25rem] w-full bg-cover bg-center"
                     :class="isVisible ? 'fade-in' : 'invisible'"
-                    style="background-image: url('/images/profile/head.jpg')">
+                    :style="bg">
                     <div class="min-h-[230px] w-full pt-8">
                         <NuxtImg
                             class="mx-auto rounded-full border-2 object-cover"
                             src="/images/profile/avatar.jpg"
                             width="134"
                             height="134"
-                            alt="avatar image" />
+                            alt="avatar image"
+                            fit="cover" />
                         <span
                             class="mt-3 block text-center uppercase text-white"
                             >Lance Wilson</span
@@ -42,6 +42,14 @@
         </div>
     </div>
 </template>
+
+<script setup>
+const img = useImage();
+const bg = computed(() => {
+    const imgUrl = img('/images/profile/head.jpg');
+    return { backgroundImage: `url('${imgUrl}')` };
+});
+</script>
 
 <style scoped>
 .link {

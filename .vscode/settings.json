@@ -8,6 +8,7 @@
     "eslint.config.js": true,
     ".nuxt": true,
     "node_modules": true,
-    "tsconfig.json": true
+    "tsconfig.json": true,
+    "app\\lib": true
   }
 }

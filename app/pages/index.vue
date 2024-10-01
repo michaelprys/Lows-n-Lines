@@ -1,7 +1,5 @@
 <template>
     <div>
-        <!-- <ItemGlobalBg /> -->
-
         <SectionIntro />
         <SectionExplore />
         <SectionFeaturedCars />

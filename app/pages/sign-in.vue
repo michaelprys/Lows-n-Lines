@@ -75,14 +75,9 @@ definePageMeta({
 
 const [show, toggle] = useToggle();
 const route = useRoute();
+const { loggedIn } = useUserSession();
 
-const {
-    signedIn,
-    successMessage,
-    error: fetchError,
-    signIn,
-    pending,
-} = useStoreAuth();
+const { successMessage, error: fetchError, signIn, pending } = useStoreAuth();
 
 const { callToast } = useToast();
 
@@ -108,20 +103,19 @@ const handleSignIn = async () => {
     if (result.success) {
         issues.value = {};
         await signIn(signInData);
-        if (signedIn.value && route.query.redirect) {
-            await navigateTo(`${route.query.redirect}`);
-        } else if (signedIn.value) {
-            await navigateTo('/');
-        }
-        if (successMessage.value) {
-            callToast();
+        if (loggedIn.value) {
             resetForm();
+        }
+        if (loggedIn.value && route.query.redirect) {
+            await navigateTo(`${route.query.redirect}`);
+        } else if (loggedIn.value) {
+            await navigateTo('/');
         }
     } else {
         issues.value = flatten<typeof SignInSchema>(result.issues).nested;
     }
 
-    if (signedIn.value) {
+    if (loggedIn.value) {
         return;
     }
 };

@@ -1,6 +1,5 @@
 <template>
     <div class="relative">
-        <ItemGlobalBg />
         <NuxtLayout>
             <div class="py-[7.3125rem] text-center">
                 <h1 class="font-[Gin-Test] uppercase text-2xl">

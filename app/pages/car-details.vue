@@ -1,6 +1,5 @@
 <template>
     <div class="relative">
-        <ItemGlobalBg />
         <div class="container pt-10">
             <ItemObserver v-slot="{ isVisible }">
                 <div :class="isVisible ? 'fade-in' : 'invisible'">
@@ -128,7 +127,7 @@
                                     </li>
                                     <li>
                                         <span class="mt-4 font-semibold"
-                                            >Make</span
+                                            >Brand</span
                                         ><span class="mt-1">Pontiac</span>
                                     </li>
                                     <li>
