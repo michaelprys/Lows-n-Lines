@@ -7,7 +7,7 @@
                         class="flex items-center justify-between md-max:flex-col md-max:gap-5">
                         <h1
                             class="`text`-center text-2xl uppercase text-[#808080] dark:text-[#9f9f9f]">
-                            Chevrolet Impala - 1964
+                            {{ vehicles[0]?.brand }}
                         </h1>
                         <div class="flex items-center gap-8">
                             <span
@@ -245,10 +245,15 @@
 
 <script setup lang="ts">
 const { messageData, issues } = useFormSubmission();
+const { getVehicle, vehicles, getSrc } = useStoreVehicle();
 
 const printInventory = () => {
     window.print();
 };
+
+onMounted(async () => {
+    await getVehicle();
+});
 </script>
 
 <style scoped>

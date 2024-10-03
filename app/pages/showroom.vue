@@ -63,12 +63,14 @@
                         v-for="item in vehicles"
                         :key="item.id"
                         class="w-full h-full shadow-lg transition-shadow hover:shadow-xl dark:bg-[#1b1b1c]">
-                        <NuxtLink to="/car-details">
+                        <NuxtLink
+                            :to="`/car-details/${item.slug}`"
+                            @click="selectVehicle(item.slug)">
                             <NuxtImg
                                 class="h-[289px] w-full object-cover"
                                 :src="
                                     getSrc(
-                                        '/cars/cover',
+                                        '/vehicles/cover',
                                         item.cover_name,
                                         '.jpg'
                                     )
@@ -152,7 +154,7 @@
                             <PaginationEllipsis
                                 v-else
                                 :key="item.type"
-                                :index="index" />
+                                :index="idx" />
                         </template>
 
                         <PaginationNext class="dark:bg-[#141414]" />
@@ -168,7 +170,7 @@
 const types = ['Classic', 'Hydraulic', 'Retro', 'Cruiser', 'Convertible'];
 const eras = ['2010s+', '2000s', '1990s', '1980s', '1970s', '1960s'];
 
-const { getSrc, vehicles, getVehicle } = useStoreVehicle();
+const { getSrc, vehicles, getVehicle, selectVehicle } = useStoreVehicle();
 
 onMounted(async () => {
     await getVehicle();

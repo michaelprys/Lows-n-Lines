@@ -34,15 +34,16 @@
                             v-for="item in vehicles"
                             :key="item.id">
                             <NuxtLink
-                                to="/showroom"
-                                class="flex justify-center">
+                                :to="`/car-details/${item.slug}`"
+                                class="flex justify-center"
+                                @click="selectVehicle(item.slug)">
                                 <NuxtImg
                                     class="w-[25.6875rem] h-[20rem] object-cover"
                                     :width="item.cover_width"
                                     :height="item.cover_height"
                                     :src="
                                         getSrc(
-                                            'cars/cover/',
+                                            'vehicles/cover/',
                                             item.cover_name,
                                             '.jpg'
                                         )
@@ -65,9 +66,7 @@
 </template>
 
 <script setup>
-const { getSrc, vehicles, getVehicle } = useStoreVehicle();
-
-console.log(vehicles.value);
+const { getSrc, vehicles, getVehicle, selectVehicle } = useStoreVehicle();
 
 onMounted(async () => {
     await getVehicle();

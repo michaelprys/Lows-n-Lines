@@ -30,6 +30,7 @@ interface Vehicle {
     cover_width: number;
     cover_height: number;
     cover_blurhash: string;
+    slug: string;
 }
 
 const state = reactive({
@@ -47,7 +48,6 @@ export const useStoreVehicle = () => {
         try {
             const res = await $fetch<{ data: Vehicle[] }>(`${apiBase}/vehicle`);
             state.vehicles = res.data;
-            console.log('Vehicle loaded: ', res.message);
         } catch (e) {
             const err = ensureError(e) as ErrorResponse;
             console.log('Error loading vehicles: ', err.statusMessage);
@@ -76,10 +76,15 @@ export const useStoreVehicle = () => {
         return `/images/${path}/${name}${ext}`;
     };
 
+    const selectVehicle = (slug: string) => {
+        useCookie('selectedVehicle').value = slug;
+    };
+
     return {
         ...toRefs(state),
         getVehicle,
         getVehicleImage,
         getSrc,
+        selectVehicle,
     };
 };

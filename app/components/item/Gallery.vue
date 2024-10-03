@@ -2,10 +2,16 @@
     <div class="mx-auto mt-7">
         <Carousel @init-api="val => (emblaMainApi = val)">
             <CarouselContent>
-                <CarouselItem v-for="item in vehicle_images" :key="item">
+                <CarouselItem v-for="item in vehicle_images" :key="item.id">
                     <NuxtImg
                         class="embla__image h-[525px] object-cover"
-                        :src="getSrc('/cars', item.name, '.jpg')"
+                        :src="
+                            getSrc(
+                                `/vehicles/${selectedVehicle}`,
+                                item.name,
+                                '.jpg'
+                            )
+                        "
                         :width="item.width"
                         :height="item.height"
                         :alt="`${item.name} image`"
@@ -41,7 +47,13 @@
                                     idx === selectedIdx,
                             },
                         ]"
-                        :src="getSrc('/cars', item.name, '.jpg')"
+                        :src="
+                            getSrc(
+                                `/vehicles/${selectedVehicle}`,
+                                item.name,
+                                '.jpg'
+                            )
+                        "
                         :width="item.width"
                         :height="item.height"
                         :alt="`${item.name} image`"
@@ -85,6 +97,10 @@ watchOnce(emblaMainApi, emblaMainApi => {
     emblaMainApi.on('select', onSelect);
     emblaMainApi.on('reInit', onSelect);
 });
+
+const selectedVehicle = useCookie('selectedVehicle');
+
+watchEffect(() => console.log('cookie: ', selectedVehicle.value));
 
 onMounted(async () => {
     await getVehicleImage();

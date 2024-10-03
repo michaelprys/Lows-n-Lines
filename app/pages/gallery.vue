@@ -14,7 +14,7 @@
                     ref="listEl">
                     <ItemObserver v-slot="{ isVisible }">
                         <li
-                            class="break-inside-avoid mt-3 relative"
+                            class="break-inside-avoid mb-3 relative"
                             v-for="(item, idx) in imgList"
                             :key="item.id"
                             :class="isVisible ? 'fade-in' : 'invisible'">

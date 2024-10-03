@@ -19,7 +19,7 @@
                         :key="car">
                         <NuxtImg
                             class="rounded-sm object-cover"
-                            :src="`/images/cars/${car}.jpg`"
+                            :src="`/images/vehicles/${car}.jpg`"
                             width="340"
                             height="277"
                             :alt="`car ${idx} image`"
