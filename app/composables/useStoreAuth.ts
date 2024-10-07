@@ -16,15 +16,6 @@ export interface SignInData {
     rememberMe: boolean;
 }
 
-export interface MessageData {
-    firstname: string;
-    lastname: string;
-    phoneNumber: string;
-    email: string;
-    subject?: string;
-    message: string;
-}
-
 export type ResponseData = {
     message: string;
     signedIn: boolean;
@@ -33,7 +24,6 @@ export type ResponseData = {
 const state = reactive({
     registered: false,
     pending: false,
-    messageSent: false,
     error: null as string | null,
     successMessage: null as string | null,
 });
@@ -44,6 +34,7 @@ export const useStoreAuth = () => {
         state.pending = true;
         state.error = null;
         state.successMessage = null;
+        const { callToast } = useToast();
 
         try {
             const res = await $fetch<ResponseData>(`${apiBase}/registration`, {
@@ -53,6 +44,7 @@ export const useStoreAuth = () => {
             });
             state.registered = true;
             state.successMessage = res.message || 'Successfully registered';
+            callToast(state.successMessage, state.error);
         } catch (e) {
             const err = ensureError(e) as ErrorResponse;
 
@@ -87,7 +79,7 @@ export const useStoreAuth = () => {
             await fetch();
             if (loggedIn.value) {
                 state.successMessage = res.message ?? 'Signed in successfully';
-                callToast();
+                callToast(state.successMessage, state.error);
             } else {
                 state.error = 'Error signing in';
             }
@@ -122,7 +114,7 @@ export const useStoreAuth = () => {
             await clear();
             if (!loggedIn.value) {
                 state.successMessage = res.message ?? 'Signed out successfully';
-                callToast();
+                callToast(state.successMessage, state.error);
             }
         } catch (e) {
             const err = ensureError(e) as ErrorResponse;
@@ -137,40 +129,10 @@ export const useStoreAuth = () => {
         }
     };
 
-    const sendMessage = async (messageData: MessageData) => {
-        const { apiBase } = useRuntimeConfig().public;
-        state.pending = true;
-        state.error = null;
-        state.successMessage = null;
-
-        try {
-            const res = await $fetch<ResponseData>(`${apiBase}/inquiries`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: messageData,
-            });
-            state.messageSent = true;
-            state.successMessage = res.message || 'Message sent successfully';
-        } catch (e) {
-            const err = ensureError(e) as ErrorResponse;
-
-            if (err.statusCode === 400) {
-                state.error = err.statusMessage || 'Validation error';
-            } else if (err.statusCode) {
-                state.error = err.statusMessage || 'Error sending message';
-            } else {
-                state.error = `An unexpected error occurred ${err.message}`;
-            }
-        } finally {
-            state.pending = false;
-        }
-    };
-
     return {
         ...toRefs(state),
         registerUser,
         signIn,
-        sendMessage,
         signOut,
     };
 };

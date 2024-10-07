@@ -83,10 +83,9 @@ const {
     successMessage,
     error: fetchError,
     registerUser,
+    registered,
     pending,
 } = useStoreAuth();
-
-const { callToast } = useToast();
 
 definePageMeta({
     layout: 'auth',
@@ -121,8 +120,10 @@ const submitForm = async () => {
         issues.value = {};
         await registerUser(registerData);
         if (successMessage.value) {
-            callToast();
             resetForm();
+        }
+        if (registered.value) {
+            await navigateTo('/sign-in');
         }
     } else {
         issues.value = flatten<typeof RegistrationSchema>(result.issues).nested;

@@ -1,5 +1,5 @@
 <template>
-    <div class="relative" :style="bg">
+    <div class="relative bg-no-repeat" :style="bg">
         <ItemObserver v-slot="{ isVisible }">
             <div
                 class="container grid min-h-svh place-items-center"

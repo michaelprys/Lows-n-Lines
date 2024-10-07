@@ -4,3 +4,7 @@ export interface ErrorResponse {
     message?: string;
     code?: string;
 }
+
+export type ApiRes<T> = {
+    data: T;
+};

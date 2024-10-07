@@ -77,9 +77,7 @@ const [show, toggle] = useToggle();
 const route = useRoute();
 const { loggedIn } = useUserSession();
 
-const { successMessage, error: fetchError, signIn, pending } = useStoreAuth();
-
-const { callToast } = useToast();
+const { error: fetchError, signIn, pending } = useStoreAuth();
 
 const signInData = reactive<SignInData>({
     email: '',

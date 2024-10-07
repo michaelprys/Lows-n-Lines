@@ -7,12 +7,13 @@
                         class="flex items-center justify-between md-max:flex-col md-max:gap-5">
                         <h1
                             class="`text`-center text-2xl uppercase text-[#808080] dark:text-[#9f9f9f]">
-                            {{ vehicles[0]?.brand }}
+                            {{ selectedVehicle?.brand }}
+                            {{ selectedVehicle?.model }}
                         </h1>
                         <div class="flex items-center gap-8">
                             <span
                                 class="text-xl uppercase text-[#808080] dark:text-[#9f9f9f]"
-                                >$53,000</span
+                                >${{ selectedVehicle?.price }}</span
                             >
                             <button
                                 class="rounded-sm border border-[#e5ddac] bg-[#F1E798] p-4 uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black md-max:p-2 md-max:text-xs"
@@ -84,20 +85,30 @@
                             <ul
                                 class="mt-5 list-disc pl-[17px]"
                                 :class="isVisible ? 'fade-in' : 'invisible'">
-                                <li>Odometer: 45,000 miles</li>
-                                <li>Paint: Candy Apple Red</li>
-                                <li>Tires: Whitewall</li>
-                                <li>Upholstery: White Leather</li>
-                                <li>Door Panels: Red and White</li>
+                                <li>
+                                    Odometer: {{ selectedVehicle?.miles }} miles
+                                </li>
+                                <li>
+                                    Paint: {{ selectedVehicle?.body_color }}
+                                </li>
+                                <li>Tires: {{ selectedVehicle?.tires }}</li>
+                                <li>
+                                    Upholstery:
+                                    {{ selectedVehicle?.upholstery }}
+                                </li>
+                                <li>Door Panels:</li>
                                 <li>Headliner: White</li>
                                 <li>Steering System: Hydraulic Steering</li>
-                                <li>Engine: 5.7L V8</li>
-                                <li>Brakes: Disc Brakes</li>
-                                <li>Transmission: 4 Speed Automatic</li>
                                 <li>
-                                    Battery: 12 Volt with Dual Batteries for
-                                    Hydraulics
+                                    Engine: {{ selectedVehicle?.engine_type }}
+                                    {{ selectedVehicle?.engine_size }}
                                 </li>
+                                <li>Brakes: {{ selectedVehicle?.brakes }}</li>
+                                <li>
+                                    Transmission:
+                                    {{ selectedVehicle?.transmission_type }}
+                                </li>
+                                <li>Battery: {{ selectedVehicle?.battery }}</li>
                             </ul>
                         </ItemObserver>
                     </div>
@@ -123,22 +134,30 @@
                                     <li>
                                         <span class="mt-0 font-semibold"
                                             >Year</span
-                                        ><span class="mt-1">2006</span>
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.manufacture_year
+                                        }}</span>
                                     </li>
                                     <li>
                                         <span class="mt-4 font-semibold"
                                             >Brand</span
-                                        ><span class="mt-1">Pontiac</span>
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.brand
+                                        }}</span>
                                     </li>
                                     <li>
                                         <span class="mt-4 font-semibold"
                                             >Model</span
-                                        ><span class="mt-1">Solstice</span>
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.model
+                                        }}</span>
                                     </li>
                                     <li>
                                         <span class="mt-4 font-semibold"
                                             >Miles</span
-                                        ><span class="mt-1">33,000</span>
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.miles
+                                        }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -150,21 +169,23 @@
                                     <li>
                                         <span class="mt-0 font-semibold"
                                             >Engine Type</span
-                                        ><span class="mt-1">Gasoline</span>
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.engine_type
+                                        }}</span>
                                     </li>
                                     <li>
                                         <span class="mt-4 font-semibold"
                                             >Engine Size</span
-                                        ><span class="mt-1"
-                                            >4 Cylinder Engine</span
-                                        >
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.engine_size
+                                        }}</span>
                                     </li>
                                     <li>
                                         <span class="mt-4 font-semibold"
                                             >Transmission Type</span
-                                        ><span class="mt-1"
-                                            >5 Speed Manual</span
-                                        >
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.transmission_type
+                                        }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -176,7 +197,9 @@
                                     <li>
                                         <span class="mt-0 font-semibold"
                                             >Body Color</span
-                                        ><span class="mt-1">Blue</span>
+                                        ><span class="mt-1">{{
+                                            selectedVehicle?.body_color
+                                        }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -188,7 +211,10 @@
                                     <li>
                                         <span class="mt-0 font-semibold"
                                             >Interior Color</span
-                                        ><span class="mt-1">Black</span>
+                                        >
+                                        <span class="mt-1">{{
+                                            selectedVehicle?.interior_color
+                                        }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -245,15 +271,16 @@
 
 <script setup lang="ts">
 const { messageData, issues } = useFormSubmission();
-const { getVehicle, vehicles, getSrc } = useStoreVehicle();
+const { vehicles } = useStoreVehicle();
 
 const printInventory = () => {
     window.print();
 };
 
-onMounted(async () => {
-    await getVehicle();
-});
+const id = useCookie('selectedVehicle');
+const selectedVehicle = vehicles.value?.data.find(
+    (item: Vehicle) => item.id === Number(id.value)
+);
 </script>
 
 <style scoped>

@@ -1,15 +1,6 @@
-import type { ErrorResponse } from '~/types';
+import type { ApiRes } from '~/types';
 
-interface Image {
-    id: number;
-    name: string;
-    width: number;
-    height: number;
-    skeleton_height?: number;
-    blurhash?: string;
-}
-
-interface Vehicle {
+export interface Vehicle {
     id: number;
     manufacture_year: number;
     brand: string;
@@ -33,58 +24,31 @@ interface Vehicle {
     slug: string;
 }
 
-const state = reactive({
-    pending: false,
-    vehicles: [] as Vehicle[],
-    vehicle_images: [] as Image[],
-});
-
 export const useStoreVehicle = () => {
     const { apiBase } = useRuntimeConfig().public;
 
-    const getVehicle = async () => {
-        state.pending = true;
+    const { data: vehicles, status: vehicleStatus } = useFetch<
+        ApiRes<Vehicle[]>
+    >(`${apiBase}/vehicle`, {
+        transform(input) {
+            return {
+                ...input,
+                fetchedAt: new Date(),
+            };
+        },
+        getCachedData(key) {
+            return loadCache(key);
+        },
+    });
 
-        try {
-            const res = await $fetch<{ data: Vehicle[] }>(`${apiBase}/vehicle`);
-            state.vehicles = res.data;
-        } catch (e) {
-            const err = ensureError(e) as ErrorResponse;
-            console.log('Error loading vehicles: ', err.statusMessage);
-        } finally {
-            state.pending = false;
-        }
-    };
-
-    const getVehicleImage = async () => {
-        state.pending = true;
-
-        try {
-            const res = await $fetch<{ data: Image[] }>(
-                `${apiBase}/vehicle-images`
-            );
-            state.vehicle_images = res.data;
-        } catch (e) {
-            const err = ensureError(e) as ErrorResponse;
-            console.log('Error loading vehicles: ', err.statusMessage);
-        } finally {
-            state.pending = false;
-        }
-    };
-
-    const getSrc = (path: string, name: string, ext: string) => {
-        return `/images/${path}/${name}${ext}`;
-    };
-
-    const selectVehicle = (slug: string) => {
-        useCookie('selectedVehicle').value = slug;
+    const selectVehicle = (id: number) => {
+        useCookie('selectedVehicle').value = id.toString();
     };
 
     return {
-        ...toRefs(state),
-        getVehicle,
-        getVehicleImage,
-        getSrc,
+        vehicles,
+        isVehicleLoading: vehicleStatus.value === 'pending',
+        isVehicleError: vehicleStatus.value === 'error',
         selectVehicle,
     };
 };

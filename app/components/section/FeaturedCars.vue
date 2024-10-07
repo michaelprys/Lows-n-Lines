@@ -31,12 +31,12 @@
                         class="mt-14 *:basis-1/5 lg-max:*:basis-1/3 sm-max:*:basis-1/2">
                         <CarouselItem
                             class="max-w-[23rem] w-full select-none"
-                            v-for="item in vehicles"
+                            v-for="item in vehicles?.data"
                             :key="item.id">
                             <NuxtLink
                                 :to="`/car-details/${item.slug}`"
                                 class="flex justify-center"
-                                @click="selectVehicle(item.slug)">
+                                @click="selectVehicle(item.id)">
                                 <NuxtImg
                                     class="w-[25.6875rem] h-[20rem] object-cover"
                                     :width="item.cover_width"
@@ -66,11 +66,8 @@
 </template>
 
 <script setup>
-const { getSrc, vehicles, getVehicle, selectVehicle } = useStoreVehicle();
-
-onMounted(async () => {
-    await getVehicle();
-});
+import { getSrc } from '~/utils/getSrc';
+const { vehicles, selectVehicle } = useStoreVehicle();
 </script>
 
 <style scoped>

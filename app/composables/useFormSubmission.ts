@@ -1,13 +1,25 @@
+import { ensureError } from '~/utils/ensureError';
+import type { ErrorResponse } from '~/types';
 import { safeParse, flatten, type FlatErrors } from 'valibot';
+
+export interface MessageData {
+    firstname: string;
+    lastname: string;
+    phoneNumber: string;
+    email: string;
+    subject?: string;
+    message: string;
+}
+
+const state = reactive({
+    pending: false,
+    messageSent: false,
+    error: null as string | null,
+    successMessage: null as string | null,
+});
 
 export const useFormSubmission = (includeSubject: boolean = false) => {
     const issues = ref<FlatErrors<typeof MessageSchema>['nested']>();
-    const {
-        messageSent,
-        sendMessage,
-        error: fetchError,
-        pending,
-    } = useStoreAuth();
     const { callToast } = useToast();
 
     const messageData = reactive<MessageData>({
@@ -28,21 +40,54 @@ export const useFormSubmission = (includeSubject: boolean = false) => {
         messageData.message = '';
     };
 
-    const submitForm = async () => {
-        if (pending.value) return;
-        fetchError.value = '';
+    const sendMessage = async () => {
+        if (state.pending) return;
+        state.error = '';
         const result = safeParse(MessageSchema, messageData);
 
         if (result.success) {
             issues.value = {};
-            await sendMessage(messageData);
-            if (messageSent.value) {
-                callToast();
-                resetForm();
+            const { apiBase } = useRuntimeConfig().public;
+            state.pending = true;
+            state.error = null;
+            state.successMessage = null;
+
+            try {
+                const res = await $fetch<ResponseData>(`${apiBase}/inquiries`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: messageData,
+                });
+                state.messageSent = true;
+                state.successMessage =
+                    res.message || 'Message sent successfully';
+
+                if (state.messageSent) {
+                    callToast(state.successMessage, state.error);
+                    resetForm();
+                }
+            } catch (e) {
+                const err = ensureError(e) as ErrorResponse;
+
+                if (err.statusCode === 400) {
+                    state.error = err.statusMessage || 'Validation error';
+                } else if (err.statusCode) {
+                    state.error = err.statusMessage || 'Error sending message';
+                } else {
+                    state.error = `An unexpected error occurred ${err.message}`;
+                }
+            } finally {
+                state.pending = false;
             }
         } else {
             issues.value = flatten<typeof MessageSchema>(result.issues).nested;
         }
     };
-    return { messageData, issues, submitForm, resetForm };
+    return {
+        ...toRefs(state),
+        messageData,
+        issues,
+        sendMessage,
+        resetForm,
+    };
 };

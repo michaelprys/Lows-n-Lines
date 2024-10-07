@@ -4,13 +4,13 @@ import type { ErrorResponse } from '~/types';
 
 export default defineEventHandler(async event => {
     const conn = await pool.connect();
-    const query = getQuery(event);
-    // const limit = query.limit || 3;
-    // const skip = query.skip || 0;
+    const slug = getQuery(event).slug;
 
     try {
-        const res = await conn.query('SELECT * from vehicle_images');
-
+        const res = await conn.query(
+            'SELECT * from vehicle_images WHERE slug = $1 ORDER BY id ASC',
+            [slug]
+        );
         if (res.rows.length > 0) {
             setResponseStatus(event, 200, 'Images loaded successfully');
 
@@ -23,6 +23,7 @@ export default defineEventHandler(async event => {
             });
         }
     } catch (e) {
+        console.error('Error while fetching vehicle images:', e);
         const err = ensureError(e) as ErrorResponse;
         throw createError({
             statusCode: 500,

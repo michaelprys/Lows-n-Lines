@@ -92,7 +92,7 @@
                             pending,
                     }"
                     disabled
-                    @click="submitForm"
+                    @click="sendMessage()"
                     v-if="pending">
                     <span class="flex gap-2 items-center justify-center">
                         <span>Please wait</span>
@@ -101,7 +101,7 @@
                 </button>
                 <button
                     class="mt-10 px-5 w-44 h-14 rounded-[3px] border border-[#e5ddac] bg-[#F1E798] text-center text-sm uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black"
-                    @click="submitForm"
+                    @click="sendMessage()"
                     v-else>
                     <span>Send message</span>
                 </button>
@@ -111,6 +111,5 @@
 </template>
 
 <script setup lang="ts">
-const { messageData, issues, submitForm } = useFormSubmission();
-const { pending } = useStoreAuth();
+const { messageData, issues, pending, sendMessage } = useFormSubmission();
 </script>

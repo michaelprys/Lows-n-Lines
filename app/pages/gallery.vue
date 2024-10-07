@@ -63,31 +63,44 @@
 </template>
 
 <script setup lang="ts">
+import { getSrc } from '~/utils/getSrc';
+import type { ApiRes } from '~/types';
 // import { useImage } from '@vueuse/core';
 
-const { getSrc } = useStoreVehicle();
+interface Gallery {
+    id: number;
+    name: string;
+    width: number;
+    height: number;
+    skeleton_height: number;
+    blurhash: string;
+}
+
 const { apiBase } = useRuntimeConfig().public;
 const visibleRef = ref(false);
 const indexRef = ref(0);
-const imgList = ref<Image[]>([]);
+const imgList = ref<Gallery[]>([]);
 const pending = ref(false);
 const limit = 10;
 const offset = 0;
 
-const getImages = async () => {
-    pending.value = true;
-    try {
-        const res = await $fetch(
-            `${apiBase}/gallery-images?limit=${limit}&offset=${offset}`
-        );
-        imgList.value = res.data;
-    } catch (e) {
-        const err = ensureError(e) as ErrorResponse;
-        console.error('Error fetching gallery images', err.message);
-    } finally {
-        pending.value = false;
+const { data } = await useFetch<ApiRes<Gallery[]>>(
+    `${apiBase}/gallery-images?limit=${limit}&offset=${offset}`,
+    {
+        transform(input) {
+            return {
+                ...input,
+                fetchedAt: new Date(),
+            };
+        },
+        getCachedData(key) {
+            return loadCache(key);
+        },
     }
-};
+);
+if (data.value) {
+    imgList.value = data.value.data;
+}
 
 const getLightboxImg = computed(() => {
     return imgList.value.map(item => getSrc('gallery', item.name, '.jpg'));
@@ -98,10 +111,6 @@ const showImg = (index: number) => {
     visibleRef.value = true;
 };
 const onHide = () => (visibleRef.value = false);
-
-onMounted(async () => {
-    await getImages();
-});
 </script>
 
 <style scoped>

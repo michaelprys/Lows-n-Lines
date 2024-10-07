@@ -6,7 +6,7 @@ export default defineEventHandler(async event => {
     const conn = await pool.connect();
 
     try {
-        const res = await conn.query('SELECT * FROM vehicle');
+        const res = await conn.query('SELECT * FROM vehicle ORDER BY id ASC');
 
         if (res.rows.length > 0) {
             setResponseStatus(event, 200, 'Vehicles loaded successfully');

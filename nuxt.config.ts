@@ -27,6 +27,9 @@ export default defineNuxtConfig({
         'nuxt-easy-lightbox',
         'nuxt-auth-utils',
     ],
+    image: {
+        formats: ['avif', 'webp', 'png', 'jpg'],
+    },
     postcss: {
         plugins: {
             tailwindcss: {},

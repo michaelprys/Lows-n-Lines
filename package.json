@@ -1,6 +1,6 @@
 {
     "name": "nuxt-app",
-    "private": true,
+    "private": false,
     "type": "module",
     "scripts": {
         "dev": "nuxt dev --open",
@@ -21,7 +21,6 @@
         "clsx": "^2.1.1",
         "embla-carousel-vue": "^8.3.0",
         "leaflet": "^1.9.4",
-        "lucia": "^3.2.0",
         "lucide-vue-next": "^0.445.0",
         "nodemailer": "^6.9.15",
         "nuxt": "^3.13.2",

@@ -1,14 +1,13 @@
 import { useToast as useUiToast } from '@/components/ui/toast/use-toast';
 
 export const useToast = () => {
-    const { successMessage, error: fetchError } = useStoreAuth();
     const { toast } = useUiToast();
 
-    const callToast = () => {
+    const callToast = (successMessage: string, fetchError: string | null) => {
         toast({
-            title: `${successMessage.value || fetchError.value}`,
+            title: `${successMessage || fetchError}`,
             duration: 2000,
-            variant: successMessage.value ? 'default' : 'destructive',
+            variant: successMessage ? 'default' : 'destructive',
         });
     };
 

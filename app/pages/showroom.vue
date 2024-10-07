@@ -60,12 +60,12 @@
                     class="mt-10 grid grid-cols-3 place-items-center gap-x-5 gap-y-10 xl-max:grid-cols-2 sm-max:grid-cols-1"
                     :class="isVisible ? 'fade-in' : 'invisible'">
                     <li
-                        v-for="item in vehicles"
+                        v-for="item in vehicles?.data"
                         :key="item.id"
                         class="w-full h-full shadow-lg transition-shadow hover:shadow-xl dark:bg-[#1b1b1c]">
                         <NuxtLink
                             :to="`/car-details/${item.slug}`"
-                            @click="selectVehicle(item.slug)">
+                            @click="selectVehicle(item.id)">
                             <NuxtImg
                                 class="h-[289px] w-full object-cover"
                                 :src="
@@ -167,12 +167,10 @@
 </template>
 
 <script setup lang="ts">
+import { getSrc } from '~/utils/getSrc';
+
 const types = ['Classic', 'Hydraulic', 'Retro', 'Cruiser', 'Convertible'];
 const eras = ['2010s+', '2000s', '1990s', '1980s', '1970s', '1960s'];
 
-const { getSrc, vehicles, getVehicle, selectVehicle } = useStoreVehicle();
-
-onMounted(async () => {
-    await getVehicle();
-});
+const { vehicles, selectVehicle } = useStoreVehicle();
 </script>

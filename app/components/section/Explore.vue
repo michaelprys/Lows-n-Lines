@@ -4,7 +4,7 @@
             class="flex max-w-[92.5rem] flex-col items-center gap-8 dark:text-black lg-max:max-w-[640px]">
             <ul class="flex gap-8 lg-max:flex-col">
                 <li
-                    class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full sm-max:h-[24.75rem]">
+                    class="relative max-w-[50.4169rem] max-h-[28.75rem] w-full h-full lg-max:max-w-full sm-max:max-h-[24.75rem]">
                     <ItemObserver
                         class="h-full"
                         v-slot="{ isVisible }"
@@ -29,7 +29,7 @@
                     </ItemObserver>
                 </li>
                 <li
-                    class="relative h-[28.75rem] w-full max-w-[35.2081rem] lg-max:max-w-full sm-max:h-[24.75rem]">
+                    class="relative max-w-[35.2081rem] max-h-[28.75rem] w-full h-full lg-max:max-w-full sm-max:max-h-[24.75rem]">
                     <ItemObserver
                         class="h-full"
                         v-slot="{ isVisible }"
@@ -56,7 +56,7 @@
 
             <ul class="flex gap-8 lg-max:flex-col">
                 <li
-                    class="relative h-[28.75rem] w-full max-w-[50.4375rem] lg-max:max-w-full sm-max:h-[24.75rem]">
+                    class="relative max-h-[28.75rem] h-full w-full max-w-[50.4375rem] lg-max:max-w-full sm-max:max-h-[24.75rem]">
                     <ItemObserver
                         class="h-full"
                         v-slot="{ isVisible }"
@@ -80,7 +80,7 @@
                     </ItemObserver>
                 </li>
                 <li
-                    class="relative h-[28.75rem] w-full max-w-[50.4169rem] lg-max:max-w-full sm-max:h-[24.75rem]">
+                    class="relative max-h-[28.75rem] h-full w-full max-w-[50.4169rem] lg-max:max-w-full sm-max:max-h-[24.75rem]">
                     <ItemObserver
                         class="h-full"
                         v-slot="{ isVisible }"

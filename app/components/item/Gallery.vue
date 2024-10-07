@@ -2,15 +2,11 @@
     <div class="mx-auto mt-7">
         <Carousel @init-api="val => (emblaMainApi = val)">
             <CarouselContent>
-                <CarouselItem v-for="item in vehicle_images" :key="item.id">
+                <CarouselItem v-for="item in imgList" :key="item.id">
                     <NuxtImg
                         class="embla__image h-[525px] object-cover"
                         :src="
-                            getSrc(
-                                `/vehicles/${selectedVehicle}`,
-                                item.name,
-                                '.jpg'
-                            )
+                            getSrc(`/vehicles/${item.slug}`, item.name, '.jpg')
                         "
                         :width="item.width"
                         :height="item.height"
@@ -35,7 +31,7 @@
             <CarouselContent class="m-0 flex gap-1">
                 <CarouselItem
                     class="embla-thumbs__slide"
-                    v-for="(item, idx) in vehicle_images"
+                    v-for="(item, idx) in imgList"
                     :key="item.id"
                     @click="onThumbClick(idx)">
                     <NuxtImg
@@ -48,11 +44,7 @@
                             },
                         ]"
                         :src="
-                            getSrc(
-                                `/vehicles/${selectedVehicle}`,
-                                item.name,
-                                '.jpg'
-                            )
+                            getSrc(`/vehicles/${item.slug}`, item.name, '.jpg')
                         "
                         :width="item.width"
                         :height="item.height"
@@ -65,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import { getSrc } from '~/utils/getSrc';
 import { watchOnce } from '@vueuse/core';
 import {
     Carousel,
@@ -73,7 +66,9 @@ import {
     CarouselItem,
 } from '@/components/ui/carousel';
 
-const { getSrc, vehicle_images, getVehicleImage } = useStoreVehicle();
+const route = useRoute();
+
+const { vehicleImages } = useStoreVehicleImgs(route);
 
 const emblaMainApi = ref<CarouselApi>();
 const emblaThumbnailApi = ref<CarouselApi>();
@@ -98,12 +93,14 @@ watchOnce(emblaMainApi, emblaMainApi => {
     emblaMainApi.on('reInit', onSelect);
 });
 
-const selectedVehicle = useCookie('selectedVehicle');
+const id = useCookie('selectedVehicle');
 
-watchEffect(() => console.log('cookie: ', selectedVehicle.value));
-
-onMounted(async () => {
-    await getVehicleImage();
+const imgList = computed(() => {
+    return (
+        vehicleImages.value?.data.filter(
+            item => item.vehicle_id === Number(id.value)
+        ) || []
+    );
 });
 </script>
 
