@@ -14,9 +14,7 @@ import {
 } from 'valibot';
 
 const lettersOnly = new RegExp(/^\p{L}+$/u);
-const phoneFormat = new RegExp(
-    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/u
-);
+const phoneFormat = new RegExp(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/u);
 
 export const RegistrationSchema = pipe(
     config(
@@ -41,10 +39,7 @@ export const RegistrationSchema = pipe(
                 nonEmpty('Password is required'),
                 minLength(6, 'Password must be at least 6 characters long')
             ),
-            confirmPassword: pipe(
-                string('Confirm password'),
-                nonEmpty('Confirm password')
-            ),
+            confirmPassword: pipe(string('Confirm password'), nonEmpty('Confirm password')),
         }),
         {
             abortPipeEarly: true,
@@ -102,12 +97,39 @@ export const MessageSchema = config(
             regex(phoneFormat, 'Invalid format')
         ),
         subject: optional(string()),
-        message: pipe(
-            string('Enter the message'),
-            nonEmpty('Enter the message')
-        ),
+        message: pipe(string('Enter the message'), nonEmpty('Enter the message')),
     }),
     {
         abortPipeEarly: true,
     }
+);
+
+export const ResetPasswordSchema = pipe(
+    config(
+        object({
+            password: pipe(
+                string('Password is required'),
+                nonEmpty('Password is required'),
+                minLength(6, 'Password must be at least 6 characters long')
+            ),
+            confirmPassword: pipe(string('Confirm password'), nonEmpty('Confirm password')),
+        }),
+        {
+            abortPipeEarly: true,
+        }
+    ),
+    forward(
+        partialCheck(
+            [['password'], ['confirmPassword']],
+            input => input.password === input.confirmPassword,
+            'Passwords do not match'
+        ),
+        ['confirmPassword']
+    )
+);
+
+export const EmailSchema = config(
+    object({
+        email: pipe(string('Email is required'), email('Required a format example@gmail.com')),
+    })
 );

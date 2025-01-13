@@ -1,3 +1,80 @@
+<script setup lang="ts">
+import { getSrc } from '~/utils/getSrc';
+import { watchOnce } from '@vueuse/core';
+import {
+    Carousel,
+    type CarouselApi,
+    CarouselContent,
+    CarouselItem,
+} from '@/components/ui/carousel';
+import type { ApiRes } from '~/types';
+
+const route = useRoute();
+
+const emblaMainApi = ref<CarouselApi>();
+const emblaThumbnailApi = ref<CarouselApi>();
+const selectedIdx = ref(0);
+
+function onSelect() {
+    if (!emblaMainApi.value || !emblaThumbnailApi.value) return;
+    selectedIdx.value = emblaMainApi.value.selectedScrollSnap();
+    emblaThumbnailApi.value.scrollTo(emblaMainApi.value.selectedScrollSnap());
+}
+
+function onThumbClick(index: number) {
+    if (!emblaMainApi.value || !emblaThumbnailApi.value) return;
+    emblaMainApi.value.scrollTo(index);
+}
+
+watchOnce(emblaMainApi, emblaMainApi => {
+    if (!emblaMainApi) return;
+
+    onSelect();
+    emblaMainApi.on('select', onSelect);
+    emblaMainApi.on('reInit', onSelect);
+});
+
+// image loading
+interface VehicleImage {
+    id: number;
+    vehicle_id: number;
+    name: string;
+    slug: string;
+    width: number;
+    height: number;
+    skeleton_height?: number;
+    blurhash?: string;
+}
+
+const { apiBase } = useRuntimeConfig().public;
+
+const slug = route.params.slug;
+
+const { data } = useFetch<ApiRes<VehicleImage[]>>(
+    `${apiBase}/vehicle-images?slug=${slug}`,
+    {
+        transform(input) {
+            return {
+                ...input,
+                fetchedAt: new Date(),
+            };
+        },
+        getCachedData(key) {
+            return loadCache(key);
+        },
+    }
+);
+
+const id = useCookie('selectedVehicle');
+
+const imgList = computed(() => {
+    return (
+        data.value?.data.filter(item => item.vehicle_id === Number(id.value)) ||
+        []
+    );
+});
+</script>
+
 <template>
     <div class="mx-auto mt-7">
         <Carousel @init-api="val => (emblaMainApi = val)">
@@ -55,54 +132,6 @@
         </Carousel>
     </div>
 </template>
-
-<script setup lang="ts">
-import { getSrc } from '~/utils/getSrc';
-import { watchOnce } from '@vueuse/core';
-import {
-    Carousel,
-    type CarouselApi,
-    CarouselContent,
-    CarouselItem,
-} from '@/components/ui/carousel';
-
-const route = useRoute();
-
-const { vehicleImages } = useStoreVehicleImgs(route);
-
-const emblaMainApi = ref<CarouselApi>();
-const emblaThumbnailApi = ref<CarouselApi>();
-const selectedIdx = ref(0);
-
-function onSelect() {
-    if (!emblaMainApi.value || !emblaThumbnailApi.value) return;
-    selectedIdx.value = emblaMainApi.value.selectedScrollSnap();
-    emblaThumbnailApi.value.scrollTo(emblaMainApi.value.selectedScrollSnap());
-}
-
-function onThumbClick(index: number) {
-    if (!emblaMainApi.value || !emblaThumbnailApi.value) return;
-    emblaMainApi.value.scrollTo(index);
-}
-
-watchOnce(emblaMainApi, emblaMainApi => {
-    if (!emblaMainApi) return;
-
-    onSelect();
-    emblaMainApi.on('select', onSelect);
-    emblaMainApi.on('reInit', onSelect);
-});
-
-const id = useCookie('selectedVehicle');
-
-const imgList = computed(() => {
-    return (
-        vehicleImages.value?.data.filter(
-            item => item.vehicle_id === Number(id.value)
-        ) || []
-    );
-});
-</script>
 
 <style scoped>
 .embla__image {

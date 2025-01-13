@@ -1,3 +1,11 @@
+<script setup>
+const img = useImage();
+const bg = computed(() => {
+    const imgUrl = img('/images/sign-in/bg.jpg');
+    return { backgroundImage: `url('${imgUrl}')` };
+});
+</script>
+
 <template>
     <div class="relative bg-no-repeat" :style="bg">
         <ItemObserver v-slot="{ isVisible }">
@@ -56,14 +64,6 @@
         </ItemObserver>
     </div>
 </template>
-
-<script setup>
-const img = useImage();
-const bg = computed(() => {
-    const imgUrl = img('/images/sign-in/bg.jpg');
-    return { backgroundImage: `url('${imgUrl}')` };
-});
-</script>
 
 <style scoped>
 .highlight-link {

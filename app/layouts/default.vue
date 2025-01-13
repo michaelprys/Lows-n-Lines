@@ -1,19 +1,7 @@
-<template>
-    <div>
-        <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
-        <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
-        <div class="content">
-            <slot />
-        </div>
-        <AppFooter class="footer" />
-    </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
 
 const router = useRouter();
-const route = useRoute();
 
 const linksPrimary = ref([
     { name: 'Home', route: '/' },
@@ -35,6 +23,17 @@ router.afterEach(() => {
     }
 });
 </script>
+
+<template>
+    <div>
+        <AppHeader :toggleDrawer="toggleDrawer" :linksPrimary="linksPrimary" />
+        <ItemDrawer v-model:open="isOpen" :linksPrimary="linksPrimary" />
+        <div class="content">
+            <slot />
+        </div>
+        <AppFooter class="footer" />
+    </div>
+</template>
 
 <style scoped>
 .content:has(.page-enter-active) + .footer {

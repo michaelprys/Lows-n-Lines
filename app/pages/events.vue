@@ -1,3 +1,28 @@
+<script setup lang="ts">
+import type { Map as LeafletMap } from 'leaflet';
+
+let map: LeafletMap;
+
+onMounted(async () => {
+    const L = await import('leaflet');
+    map = L.map('map').setView([34.299074, -118.45949], 15);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+    L.marker([34.299074, -118.45949]).addTo(map);
+});
+onBeforeUnmount(() => {
+    if (map) {
+        setTimeout(() => {
+            map.off();
+            map.remove();
+        }, 300);
+    }
+});
+</script>
+
 <template>
     <div class="relative pb-24">
         <ItemObserver v-slot="{ isVisible }">
@@ -99,28 +124,3 @@
         </section>
     </div>
 </template>
-
-<script setup lang="ts">
-import type { Map as LeafletMap } from 'leaflet';
-
-let map: LeafletMap;
-
-onMounted(async () => {
-    const L = await import('leaflet');
-    map = L.map('map').setView([34.299074, -118.45949], 15);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
-    L.marker([34.299074, -118.45949]).addTo(map);
-});
-onBeforeUnmount(() => {
-    if (map) {
-        setTimeout(() => {
-            map.off();
-            map.remove();
-        }, 300);
-    }
-});
-</script>

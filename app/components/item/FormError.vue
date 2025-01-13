@@ -1,3 +1,15 @@
+<script setup lang="ts">
+const { error: fetchError } = useStoreAuth();
+
+const router = useRouter();
+
+router.afterEach(() => {
+    setTimeout(() => {
+        fetchError.value = null;
+    }, 300);
+});
+</script>
+
 <template>
     <div>
         <Transition name="error">
@@ -9,7 +21,3 @@
         </Transition>
     </div>
 </template>
-
-<script setup lang="ts">
-const { error: fetchError } = useStoreAuth();
-</script>

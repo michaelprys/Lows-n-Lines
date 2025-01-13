@@ -1,9 +1,3 @@
-<template>
-    <div ref="observerRef">
-        <slot :isVisible="isVisible" />
-    </div>
-</template>
-
 <script setup>
 import { useIntersectionObserver } from '@vueuse/core';
 
@@ -36,3 +30,9 @@ onMounted(() => {
     }, 0);
 });
 </script>
+
+<template>
+    <div ref="observerRef">
+        <slot :isVisible="isVisible" />
+    </div>
+</template>

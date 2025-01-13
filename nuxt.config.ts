@@ -6,19 +6,15 @@ export default defineNuxtConfig({
         compatibilityVersion: 4,
     },
     devtools: { enabled: false },
-    vite: {
-        optimizeDeps: {
-            include: ['tailwindcss'],
-        },
-    },
     runtimeConfig: {
+        public: {
+            apiBase: '/api',
+        },
         databaseUrl: '',
         user: '',
         appPassword: '',
         emailPort: '',
-        public: {
-            apiBase: '/api',
-        },
+        appUrl: '',
     },
     modules: [
         '@nuxtjs/color-mode',
@@ -26,16 +22,9 @@ export default defineNuxtConfig({
         'shadcn-nuxt',
         'nuxt-easy-lightbox',
         'nuxt-auth-utils',
+        '@nuxt/eslint',
+        '@nuxtjs/tailwindcss',
     ],
-    image: {
-        formats: ['avif', 'webp', 'png', 'jpg'],
-    },
-    postcss: {
-        plugins: {
-            tailwindcss: {},
-            autoprefixer: {},
-        },
-    },
     css: [
         '~/assets/styles/main.css',
         '~/assets/styles/animations.css',

@@ -16,6 +16,12 @@ export interface SignInData {
     rememberMe: boolean;
 }
 
+export interface ResetPasswordData {
+    resetToken?: string;
+    password: string;
+    confirmPassword: string;
+}
+
 export type ResponseData = {
     message: string;
     signedIn: boolean;
@@ -57,6 +63,7 @@ export const useStoreAuth = () => {
             } else {
                 state.error = `An unexpected error occurred: ${err.message}`;
             }
+            callToast(state.successMessage, state.error);
         } finally {
             state.pending = false;
         }
@@ -69,6 +76,7 @@ export const useStoreAuth = () => {
         state.successMessage = null;
         const { loggedIn, fetch } = useUserSession();
         const { callToast } = useToast();
+        const { $auth } = useNuxtApp();
 
         try {
             const res = await $fetch<ResponseData>(`${apiBase}/auth/sign-in`, {
@@ -77,6 +85,9 @@ export const useStoreAuth = () => {
                 body: signInData,
             });
             await fetch();
+            if (signInData.rememberMe && loggedIn.value) {
+                $auth.$storage.setCookie('authToken', res.token, { expires: 30 });
+            }
             if (loggedIn.value) {
                 state.successMessage = res.message ?? 'Signed in successfully';
                 callToast(state.successMessage, state.error);
@@ -91,6 +102,7 @@ export const useStoreAuth = () => {
             } else {
                 state.error = err.statusMessage || "User doesn't exist";
             }
+            callToast(state.successMessage, state.error);
         } finally {
             state.pending = false;
         }
@@ -124,6 +136,55 @@ export const useStoreAuth = () => {
             } else {
                 state.error = `An unexpected error occurred ${err.message}`;
             }
+            callToast(state.successMessage, state.error);
+        } finally {
+            state.pending = false;
+        }
+    };
+
+    const sendMagicLink = async (email: string) => {
+        const { apiBase } = useRuntimeConfig().public;
+        state.pending = true;
+        state.error = null;
+        state.successMessage = null;
+        const { callToast } = useToast();
+
+        try {
+            const res = await $fetch<ResponseData>(`${apiBase}/auth/send-magic-link`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: { email },
+            });
+            state.successMessage = res.message ?? 'Link sent to your email';
+            callToast(state.successMessage, state.error);
+        } catch (e) {
+            const err = ensureError(e) as ErrorResponse;
+            state.error = err.statusMessage;
+            callToast(state.successMessage, state.error);
+        } finally {
+            state.pending = false;
+        }
+    };
+
+    const resetPassword = async ({ resetToken, password, confirmPassword }: ResetPasswordData) => {
+        const { apiBase } = useRuntimeConfig().public;
+        state.pending = true;
+        state.error = null;
+        state.successMessage = null;
+        const { callToast } = useToast();
+
+        try {
+            const res = await $fetch<ResponseData>(`${apiBase}/auth/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: { resetToken, password, confirmPassword },
+            });
+            state.successMessage = res.message ?? 'Password has been changed';
+            callToast(state.successMessage, state.error);
+        } catch (e) {
+            const err = ensureError(e) as ErrorResponse;
+            state.error = err.statusMessage;
+            callToast(state.successMessage, state.error);
         } finally {
             state.pending = false;
         }
@@ -134,5 +195,7 @@ export const useStoreAuth = () => {
         registerUser,
         signIn,
         signOut,
+        sendMagicLink,
+        resetPassword,
     };
 };

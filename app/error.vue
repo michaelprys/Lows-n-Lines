@@ -1,3 +1,7 @@
+<script setup lang="ts">
+defineProps(['error']);
+</script>
+
 <template>
     <div class="relative">
         <NuxtLayout>
@@ -15,7 +19,3 @@
         </NuxtLayout>
     </div>
 </template>
-
-<script setup lang="ts">
-defineProps(['error']);
-</script>

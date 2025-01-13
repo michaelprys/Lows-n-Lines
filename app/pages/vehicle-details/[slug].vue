@@ -1,3 +1,16 @@
+<script setup lang="ts">
+const route = useRoute();
+const { messageData, issues } = useFormSubmission();
+const { vehicles, vehicleRefresh } = useStoreVehicle();
+
+const id = useCookie('selectedVehicle');
+const selectedVehicle = vehicles.value?.find(
+    (item: Vehicle) => item.id === Number(id.value)
+);
+
+await vehicleRefresh();
+</script>
+
 <template>
     <div class="relative">
         <div class="container pt-10">
@@ -15,15 +28,18 @@
                                 class="text-xl uppercase text-[#808080] dark:text-[#9f9f9f]"
                                 >${{ selectedVehicle?.price }}</span
                             >
-                            <button
-                                class="rounded-sm border border-[#e5ddac] bg-[#F1E798] p-4 uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black md-max:p-2 md-max:text-xs"
-                                @click="printInventory">
-                                Print inverntory
-                            </button>
+                            <NuxtLink
+                                :to="{
+                                    path: route.path,
+                                    hash: '#contact',
+                                }"
+                                class="rounded-sm border border-[#e5ddac] bg-[#F1E798] p-4 uppercase transition-colors hover:border-[#e9e3b5] hover:bg-[#fff8c7] dark:text-black md-max:p-2 md-max:text-xs">
+                                Negotiate
+                            </NuxtLink>
                         </div>
                     </div>
 
-                    <ItemGallery />
+                    <ItemThumbGallery />
                 </div>
             </ItemObserver>
 
@@ -41,7 +57,7 @@
                         <ItemObserver v-slot="{ isVisible }">
                             <div :class="isVisible ? 'fade-in' : 'invisible'">
                                 <p class="mt-8 text-lg uppercase">
-                                    Welcome to Lows 'n' Lines Service Center
+                                    Welcome to Lows 'n' Lines
                                 </p>
 
                                 <p class="mt-2">
@@ -96,9 +112,17 @@
                                     Upholstery:
                                     {{ selectedVehicle?.upholstery }}
                                 </li>
-                                <li>Door Panels:</li>
-                                <li>Headliner: White</li>
-                                <li>Steering System: Hydraulic Steering</li>
+                                <li>
+                                    Door Panels:
+                                    {{ selectedVehicle?.door_panels }}
+                                </li>
+                                <li>
+                                    Headliner: {{ selectedVehicle?.headliner }}
+                                </li>
+                                <li>
+                                    Steering System:
+                                    {{ selectedVehicle?.steering_system }}
+                                </li>
                                 <li>
                                     Engine: {{ selectedVehicle?.engine_type }}
                                     {{ selectedVehicle?.engine_size }}
@@ -222,7 +246,7 @@
                     </ItemObserver>
                 </div>
 
-                <ItemMessageForm>
+                <ItemMessageForm id="contact">
                     <div class="mt-4">
                         <label class="font-semibold" for="">Subject</label>
                         <Select v-model="messageData.subject">
@@ -268,20 +292,6 @@
         </div>
     </div>
 </template>
-
-<script setup lang="ts">
-const { messageData, issues } = useFormSubmission();
-const { vehicles } = useStoreVehicle();
-
-const printInventory = () => {
-    window.print();
-};
-
-const id = useCookie('selectedVehicle');
-const selectedVehicle = vehicles.value?.data.find(
-    (item: Vehicle) => item.id === Number(id.value)
-);
-</script>
 
 <style scoped>
 .dark .select :deep(svg) {

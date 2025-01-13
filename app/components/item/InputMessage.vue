@@ -1,15 +1,3 @@
-<template>
-    <template v-if="issues?.[fieldName]">
-        <div
-            class="text-[#ff3434]"
-            v-for="(issue, idx) in issues[fieldName]"
-            :key="idx"
-        >
-            {{ issue }}
-        </div>
-    </template>
-</template>
-
 <script setup lang="ts">
 defineProps({
     fieldName: {
@@ -23,3 +11,14 @@ defineProps({
     },
 });
 </script>
+
+<template>
+    <template v-if="issues?.[fieldName]">
+        <div
+            class="text-[#ff3434]"
+            v-for="(issue, idx) in issues[fieldName]"
+            :key="idx">
+            {{ issue }}
+        </div>
+    </template>
+</template>

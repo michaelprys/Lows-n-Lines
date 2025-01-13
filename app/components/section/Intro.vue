@@ -1,3 +1,11 @@
+<script setup>
+const img = useImage();
+const bg = computed(() => {
+    const imgUrl = img('/images/home/intro/intro.jpg');
+    return { backgroundImage: `url('${imgUrl}')` };
+});
+</script>
+
 <template>
     <section>
         <ItemObserver v-slot="{ isVisible }">
@@ -6,7 +14,7 @@
                     <div
                         class="absolute h-full w-full bg-black opacity-10"></div>
                     <div
-                        class="intro min-h-[43rem] bg-cover bg-center"
+                        class="intro min-h-[688px] bg-cover bg-center"
                         style="background-position: 25% 85%"
                         :style="bg"></div>
                 </div>
@@ -19,11 +27,3 @@
         </ItemObserver>
     </section>
 </template>
-
-<script setup>
-const img = useImage();
-const bg = computed(() => {
-    const imgUrl = img('/images/home/intro/intro.jpg');
-    return { backgroundImage: `url('${imgUrl}')` };
-});
-</script>

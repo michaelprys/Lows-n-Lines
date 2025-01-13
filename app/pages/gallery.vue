@@ -1,3 +1,52 @@
+<script setup lang="ts">
+import { getSrc } from '~/utils/getSrc';
+import type { ApiRes } from '~/types';
+import IconSpinner from '~/components/icon/Spinner.vue';
+// import { useImage } from '@vueuse/core';
+
+interface Gallery {
+    id: number;
+    name: string;
+    width: number;
+    height: number;
+    skeleton_height: number;
+    blurhash: string;
+}
+
+const { apiBase } = useRuntimeConfig().public;
+const visibleRef = ref(false);
+const indexRef = ref(0);
+const imgList = ref<Gallery[]>([]);
+const pending = ref(false);
+const limit = 10;
+const offset = 0;
+
+const { data } = await useFetch<ApiRes<Gallery[]>>(`${apiBase}/gallery-images?limit=${limit}&offset=${offset}`, {
+    transform(input) {
+        return {
+            ...input,
+            fetchedAt: new Date(),
+        };
+    },
+    getCachedData(key) {
+        return loadCache(key);
+    },
+});
+if (data.value) {
+    imgList.value = data.value.data;
+}
+
+const getLightboxImg = computed(() => {
+    return imgList.value.map(item => getSrc('gallery', item.name, '.jpg'));
+});
+
+const showImg = (index: number) => {
+    indexRef.value = index;
+    visibleRef.value = true;
+};
+const onHide = () => (visibleRef.value = false);
+</script>
+
 <template>
     <div class="relative">
         <section class="container pb-24 pt-11">
@@ -9,9 +58,7 @@
                 </h1>
             </ItemObserver>
             <div>
-                <ul
-                    class="mx-auto mt-11 columns-3 gap-3 md-max:columns-2 xs-max:columns-1"
-                    ref="listEl">
+                <ul class="mx-auto mt-11 columns-3 gap-3 md-max:columns-2 xs-max:columns-1" ref="listEl">
                     <ItemObserver v-slot="{ isVisible }">
                         <li
                             class="break-inside-avoid mb-3 relative"
@@ -43,10 +90,7 @@
                         type="button"
                         v-show="pending"
                         :class="isVisible ? 'fade-in' : 'invisible'">
-                        <IconSpinner
-                            class="animate-spin"
-                            width="1.8em"
-                            height="1.8em" />
+                        <IconSpinner class="animate-spin" width="1.8em" height="1.8em" />
                     </button>
                 </ItemObserver>
             </div>
@@ -61,57 +105,6 @@
         </section>
     </div>
 </template>
-
-<script setup lang="ts">
-import { getSrc } from '~/utils/getSrc';
-import type { ApiRes } from '~/types';
-// import { useImage } from '@vueuse/core';
-
-interface Gallery {
-    id: number;
-    name: string;
-    width: number;
-    height: number;
-    skeleton_height: number;
-    blurhash: string;
-}
-
-const { apiBase } = useRuntimeConfig().public;
-const visibleRef = ref(false);
-const indexRef = ref(0);
-const imgList = ref<Gallery[]>([]);
-const pending = ref(false);
-const limit = 10;
-const offset = 0;
-
-const { data } = await useFetch<ApiRes<Gallery[]>>(
-    `${apiBase}/gallery-images?limit=${limit}&offset=${offset}`,
-    {
-        transform(input) {
-            return {
-                ...input,
-                fetchedAt: new Date(),
-            };
-        },
-        getCachedData(key) {
-            return loadCache(key);
-        },
-    }
-);
-if (data.value) {
-    imgList.value = data.value.data;
-}
-
-const getLightboxImg = computed(() => {
-    return imgList.value.map(item => getSrc('gallery', item.name, '.jpg'));
-});
-
-const showImg = (index: number) => {
-    indexRef.value = index;
-    visibleRef.value = true;
-};
-const onHide = () => (visibleRef.value = false);
-</script>
 
 <style scoped>
 .lightbox :deep(img) {

@@ -1,3 +1,11 @@
+<script setup>
+const img = useImage();
+const bg = computed(() => {
+    const imgUrl = img('/images/profile/head.jpg');
+    return { backgroundImage: `url('${imgUrl}')` };
+});
+</script>
+
 <template>
     <div class="relative">
         <nav>
@@ -42,14 +50,6 @@
         </div>
     </div>
 </template>
-
-<script setup>
-const img = useImage();
-const bg = computed(() => {
-    const imgUrl = img('/images/profile/head.jpg');
-    return { backgroundImage: `url('${imgUrl}')` };
-});
-</script>
 
 <style scoped>
 .link {

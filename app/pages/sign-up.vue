@@ -1,3 +1,62 @@
+<script setup lang="ts">
+import { safeParse, flatten, type FlatErrors } from 'valibot';
+import { useToggle } from '@vueuse/core';
+
+const [showPassword, togglePassword] = useToggle();
+const [showConfirmPassword, toggleConfirmPassword] = useToggle();
+
+const {
+    successMessage,
+    error: fetchError,
+    registerUser,
+    registered,
+    pending,
+} = useStoreAuth();
+
+definePageMeta({
+    layout: 'auth',
+});
+
+const registerData = reactive<RegisterData>({
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    member_since: new Date(),
+});
+
+const issues = ref<FlatErrors<typeof RegistrationSchema>['nested']>();
+
+const resetForm = () => {
+    registerData.firstname = '';
+    registerData.lastname = '';
+    registerData.email = '';
+    registerData.password = '';
+    registerData.confirmPassword = '';
+};
+
+const submitForm = async () => {
+    if (pending.value) return;
+
+    fetchError.value = '';
+    const result = safeParse(RegistrationSchema, registerData);
+
+    if (result.success) {
+        issues.value = {};
+        await registerUser(registerData);
+        if (successMessage.value) {
+            resetForm();
+        }
+        if (registered.value) {
+            await navigateTo('/sign-in');
+        }
+    } else {
+        issues.value = flatten<typeof RegistrationSchema>(result.issues).nested;
+    }
+};
+</script>
+
 <template>
     <div>
         <form
@@ -71,65 +130,6 @@
         </form>
     </div>
 </template>
-
-<script setup lang="ts">
-import { safeParse, flatten, type FlatErrors } from 'valibot';
-import { useToggle } from '@vueuse/core';
-
-const [showPassword, togglePassword] = useToggle();
-const [showConfirmPassword, toggleConfirmPassword] = useToggle();
-
-const {
-    successMessage,
-    error: fetchError,
-    registerUser,
-    registered,
-    pending,
-} = useStoreAuth();
-
-definePageMeta({
-    layout: 'auth',
-});
-
-const registerData = reactive<RegisterData>({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    member_since: new Date(),
-});
-
-const issues = ref<FlatErrors<typeof RegistrationSchema>['nested']>();
-
-const resetForm = () => {
-    registerData.firstname = '';
-    registerData.lastname = '';
-    registerData.email = '';
-    registerData.password = '';
-    registerData.confirmPassword = '';
-};
-
-const submitForm = async () => {
-    if (pending.value) return;
-
-    fetchError.value = '';
-    const result = safeParse(RegistrationSchema, registerData);
-
-    if (result.success) {
-        issues.value = {};
-        await registerUser(registerData);
-        if (successMessage.value) {
-            resetForm();
-        }
-        if (registered.value) {
-            await navigateTo('/sign-in');
-        }
-    } else {
-        issues.value = flatten<typeof RegistrationSchema>(result.issues).nested;
-    }
-};
-</script>
 
 <style scoped>
 .sign-up {

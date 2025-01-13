@@ -23,8 +23,8 @@ export default defineEventHandler(async event => {
             });
         }
     } catch (e) {
-        console.error('Error while fetching vehicle images:', e);
         const err = ensureError(e) as ErrorResponse;
+        console.error('Error while fetching vehicle images:', err);
         throw createError({
             statusCode: 500,
             statusMessage: 'Server error',

@@ -1,14 +1,27 @@
 {
-  "files.exclude": {
-    "README.md": true,
-    ".vscode": true,
-    "pnpm-lock.yaml": true,
-    ".gitignore": true,
-    "components.json": true,
-    "eslint.config.js": true,
-    ".nuxt": true,
-    "tsconfig.json": true,
-    "app\\lib": true,
-    "node_modules": true
-  }
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.gitattributes": true,
+        ".idea": true,
+        ".vscode": true,
+        "LICENSE": true,
+        "README.md": true,
+        "pnpm-lock.yaml": false,
+        "tsconfig.json": true,
+        "app\\lib": true,
+        "node_modules": false,
+        ".gitignore": true,
+        ".nuxt": true,
+        "components.json": true,
+        "**/.netlify": true,
+        "**/pnpm-lock.yaml": true,
+        "**/node_modules": true,
+        "**/.output": true
+    },
+    "explorerExclude.backup": {}
 }

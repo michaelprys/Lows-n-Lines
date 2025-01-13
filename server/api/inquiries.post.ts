@@ -21,9 +21,7 @@ export default defineEventHandler(async event => {
 
     const { firstname, lastname, phoneNumber, email, message, subject } = body;
 
-    const subjectHtml = subject
-        ? `<p><strong>Subject:</strong> ${subject}</p>`
-        : '';
+    const subjectHtml = subject ? `<p><strong>Subject:</strong> ${subject}</p>` : '';
 
     const conn = await pool.connect();
 
@@ -34,7 +32,7 @@ export default defineEventHandler(async event => {
             port: parseInt(emailPort),
             secure: false,
             auth: {
-                user: user,
+                user,
                 pass: appPassword,
             },
         });
@@ -44,7 +42,7 @@ export default defineEventHandler(async event => {
                 name: `${firstname} ${lastname}`,
                 address: email,
             },
-            to: 'flowersjustin09123@gmail.com',
+            to: user,
             subject: 'Service Inquiry',
             text: message,
             html: `
@@ -55,8 +53,6 @@ export default defineEventHandler(async event => {
                 <p>${message}</p>
             `,
         });
-
-        console.log('Message sent: %s', info.messageId);
 
         setResponseStatus(event, 200, 'Message was sent');
 

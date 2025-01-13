@@ -1,3 +1,16 @@
+<script setup>
+const cars = [
+    'car-1',
+    'car-2',
+    'car-3',
+    'car-4',
+    'car-5',
+    'car-6',
+    'car-7',
+    'car-8',
+];
+</script>
+
 <template>
     <div>
         <section class="container pb-20 pt-12">
@@ -41,16 +54,3 @@
         </section>
     </div>
 </template>
-
-<script setup>
-const cars = [
-    'car-1',
-    'car-2',
-    'car-3',
-    'car-4',
-    'car-5',
-    'car-6',
-    'car-7',
-    'car-8',
-];
-</script>
