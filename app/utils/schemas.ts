@@ -133,3 +133,47 @@ export const EmailSchema = config(
         email: pipe(string('Email is required'), email('Required a format example@gmail.com')),
     })
 );
+
+export const UserFirstnameSchema = config(
+    object({
+        firstname: pipe(
+            string('First name is required'),
+            nonEmpty('First name is required'),
+            regex(lettersOnly, 'First name must consist of letters')
+        ),
+    })
+);
+
+export const UserLastnameSchema = config(
+    object({
+        lastname: pipe(
+            string('Last name is required'),
+            nonEmpty('Last name is required'),
+            regex(lettersOnly, 'Last name must consist of letters')
+        ),
+    })
+);
+
+export const UserPasswordSchema = pipe(
+    config(
+        object({
+            password: pipe(
+                string('Password is required'),
+                nonEmpty('Password is required'),
+                minLength(6, 'Password must be at least 6 characters long')
+            ),
+            confirmPassword: pipe(string('Confirm password'), nonEmpty('Confirm password')),
+        }),
+        {
+            abortPipeEarly: true,
+        }
+    ),
+    forward(
+        partialCheck(
+            [['password'], ['confirmPassword']],
+            input => input.password === input.confirmPassword,
+            'Passwords do not match'
+        ),
+        ['confirmPassword']
+    )
+);

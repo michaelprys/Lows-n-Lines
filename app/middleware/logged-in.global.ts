@@ -7,4 +7,7 @@ export default defineNuxtRouteMiddleware(to => {
     if (loggedIn.value && to.path === '/sign-in') {
         return navigateTo('/');
     }
+    if (loggedIn.value && to.path.startsWith('/reset-password')) {
+        return navigateTo('/');
+    }
 });

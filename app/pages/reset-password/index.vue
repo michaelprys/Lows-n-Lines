@@ -18,6 +18,7 @@ const handleSendMagicLink = async () => {
         await sendMagicLink(email.value);
         if (successMessage.value) {
             email.value = '';
+            await navigateTo('/');
         }
     } else {
         issues.value = flatten<typeof EmailSchema>(res.issues).nested;

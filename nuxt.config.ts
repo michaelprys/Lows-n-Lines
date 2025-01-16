@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     future: {
         compatibilityVersion: 4,
     },
-    devtools: { enabled: false },
+    devtools: { enabled: true },
     runtimeConfig: {
         public: {
             apiBase: '/api',
@@ -15,6 +15,9 @@ export default defineNuxtConfig({
         appPassword: '',
         emailPort: '',
         appUrl: '',
+        // session: {import { ensureError } from '~/utils/ensureError';
+        //     maxAge: 60 * 60 * 24 * 7,
+        // },
     },
     modules: [
         '@nuxtjs/color-mode',

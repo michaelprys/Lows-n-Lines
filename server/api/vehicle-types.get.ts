@@ -31,7 +31,6 @@ export default defineEventHandler(async event => {
         }
     } catch (e) {
         const err = ensureError(e) as ErrorResponse;
-        console.error(err);
         throw createError({
             statusCode: 500,
             statusMessage: err.statusMessage || 'Server error',

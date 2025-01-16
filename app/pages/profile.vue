@@ -1,4 +1,6 @@
 <script setup>
+const { userData } = useStoreAuth();
+
 const img = useImage();
 const bg = computed(() => {
     const imgUrl = img('/images/profile/head.jpg');
@@ -22,9 +24,8 @@ const bg = computed(() => {
                             height="134"
                             alt="avatar image"
                             fit="cover" />
-                        <span
-                            class="mt-3 block text-center uppercase text-white"
-                            >Lance Wilson</span
+                        <span class="mt-3 block text-center uppercase text-white"
+                            >{{ userData?.firstname }} {{ userData?.lastname }}</span
                         >
                     </div>
 
@@ -34,9 +35,7 @@ const bg = computed(() => {
                             <IconUser />
                             Profile
                         </NuxtLink>
-                        <NuxtLink
-                            class="link transition-colors"
-                            to="/profile/saved-cars">
+                        <NuxtLink class="link transition-colors" to="/profile/saved-cars">
                             <IconFavorite />
                             Saved cars
                         </NuxtLink>

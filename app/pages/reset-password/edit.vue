@@ -42,6 +42,7 @@ const handleResetPassword = async () => {
         });
         if (successMessage.value) {
             resetForm();
+            await navigateTo('/sign-in');
         }
     } else {
         issues.value = flatten<typeof ResetPasswordSchema>(res.issues).nested;

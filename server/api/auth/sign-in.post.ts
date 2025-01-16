@@ -14,9 +14,7 @@ export default defineEventHandler(async event => {
         throw createError({
             statusCode: 400,
             statusMessage: 'Validation error',
-            message: `Validation error: ${validation.issues.map(
-                (issue, idx) => `${idx + 1} ${issue.message}`
-            )}`,
+            message: `Validation error: ${validation.issues.map((issue, idx) => `${idx + 1} ${issue.message}`)}`,
         });
     }
 
@@ -24,10 +22,7 @@ export default defineEventHandler(async event => {
     const conn = await pool.connect();
 
     try {
-        const res = await conn.query(
-            'SELECT id, email, password FROM users WHERE email = $1',
-            [email]
-        );
+        const res = await conn.query('SELECT id, email, password FROM users WHERE email = $1', [email]);
 
         if (res.rows.length > 0) {
             const user = res.rows[0];

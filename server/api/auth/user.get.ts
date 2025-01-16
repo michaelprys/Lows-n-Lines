@@ -3,20 +3,32 @@ import { ensureError } from '~/utils/ensureError';
 import type { ErrorResponse } from '~/types';
 
 export default defineEventHandler(async event => {
+    const session = await getUserSession(event);
+
+    if (!session || !session.user) {
+        throw createError({
+            statusCode: 401,
+            statusMessage: 'Unauthorized',
+            message: 'User is not authenticated',
+        });
+    }
+
+    const userId = session.user.id;
+
     const conn = await pool.connect();
-    const slug = getQuery(event).slug;
 
     try {
-        const res = await conn.query('SELECT * from vehicle_images WHERE slug = $1 ORDER BY id ASC', [slug]);
-        if (res.rows.length > 0) {
-            setResponseStatus(event, 200, 'Images loaded successfully');
+        const res = await conn.query('SELECT id, firstname, lastname, email, member_since FROM users WHERE id = $1', [
+            userId,
+        ]);
 
-            return { data: res.rows, message: 'Images loaded successfully' };
+        if (res.rows.length > 0) {
+            return res.rows[0];
         } else {
             throw createError({
                 statusCode: 404,
-                statusMessage: 'Loading failed',
-                message: 'Error loading images',
+                statusMessage: 'Not found',
+                message: 'User not found',
             });
         }
     } catch (e) {
