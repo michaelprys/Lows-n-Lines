@@ -141,7 +141,10 @@ export const UserFirstnameSchema = config(
             nonEmpty('First name is required'),
             regex(lettersOnly, 'First name must consist of letters')
         ),
-    })
+    }),
+    {
+        abortPipeEarly: true,
+    }
 );
 
 export const UserLastnameSchema = config(
@@ -151,7 +154,10 @@ export const UserLastnameSchema = config(
             nonEmpty('Last name is required'),
             regex(lettersOnly, 'Last name must consist of letters')
         ),
-    })
+    }),
+    {
+        abortPipeEarly: true,
+    }
 );
 
 export const UserPasswordSchema = pipe(

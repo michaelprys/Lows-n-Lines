@@ -127,6 +127,50 @@ export const useStoreAuth = () => {
         }
     };
 
+    const deleteAccount = async () => {
+        const { apiBase } = useRuntimeConfig().public;
+        const { clear } = useUserSession();
+
+        state.pending = true;
+        state.error = null;
+        state.successMessage = null;
+        const userId = state.userData?.id;
+
+        if (!userId) {
+            state.error = 'User ID not found';
+            callToast(state.successMessage, state.error);
+            state.pending = false;
+            return { accountDeleted: false };
+        }
+
+        try {
+            const res = await $fetch<UserData>(`${apiBase}/auth/delete-account`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: { userId },
+            });
+
+            if (res?.status === 'success') {
+                state.successMessage = res?.message || 'Account deleted successfully';
+                callToast(state.successMessage, state.error);
+
+                state.userData = null;
+
+                await clear();
+
+                return { accountDeleted: true };
+            }
+        } catch (e) {
+            const err = ensureError(e) as ErrorResponse;
+            state.error = err.statusMessage;
+            callToast(state.successMessage, state.error);
+        } finally {
+            state.pending = false;
+        }
+
+        return { accountDeleted: false };
+    };
+
     const signIn = async (signInData: SignInData) => {
         const { apiBase } = useRuntimeConfig().public;
         state.pending = true;
@@ -254,5 +298,6 @@ export const useStoreAuth = () => {
         resetPassword,
         getUser,
         updateUserInfo,
+        deleteAccount,
     };
 };

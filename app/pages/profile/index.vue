@@ -2,7 +2,7 @@
 import { safeParse, flatten } from 'valibot';
 import { useToggle } from '@vueuse/core';
 
-const { getUser, error: fetchError, pending, userData, updateUserInfo, successMessage } = useStoreAuth();
+const { getUser, error: fetchError, pending, userData, updateUserInfo, successMessage, deleteAccount } = useStoreAuth();
 
 export type UserErrors = {
     firstname?: string[];
@@ -92,7 +92,7 @@ const saveChanges = async (field: string) => {
 
         const changes: Record<string, string> = {};
         if (newValue === oldValue) {
-            issues.value[field] = ['Nothing has changed'];
+            issues.value[field] = ['Field has not been modified'];
             return;
         }
 
@@ -122,7 +122,7 @@ const saveChanges = async (field: string) => {
                 isOpen[field] = false;
             }
         } catch (e) {
-            console.error('Error saving', e);
+            console.error('Error saving user data', e);
         }
     } else {
         issues.value = flatten<typeof schema>(result.issues).nested;
@@ -134,6 +134,14 @@ const saveChanges = async (field: string) => {
     }
 };
 
+const handleDeleteAccount = async () => {
+    const res = await deleteAccount();
+
+    if (res.accountDeleted) {
+        await navigateTo('/');
+    }
+};
+
 const formattedDate = computed(() => {
     if (!userData.value?.member_since) return '';
     return new Date(userData.value?.member_since).toLocaleDateString('en-EU');
@@ -141,9 +149,8 @@ const formattedDate = computed(() => {
 
 const [showPassword, togglePassword] = useToggle();
 const [showConfirmPassword, toggleConfirmPassword] = useToggle();
-
-onMounted(() => {
-    loadUserData();
+onMounted(async () => {
+    await loadUserData();
 });
 </script>
 
@@ -174,7 +181,7 @@ onMounted(() => {
                                     v-if="isOpen.firstname"
                                     v-model="displayedData.firstname"
                                     @keyup.enter="saveChanges('firstname')" />
-                                <ItemUserField v-else>
+                                <ItemUserField :pending="pending" v-else>
                                     {{ displayedData.firstname }}
                                 </ItemUserField>
                                 <button
@@ -199,7 +206,7 @@ onMounted(() => {
                                     v-if="isOpen.lastname"
                                     v-model="displayedData.lastname"
                                     @keyup.enter="saveChanges('lastname')" />
-                                <ItemUserField v-else>
+                                <ItemUserField :pending="pending" v-else>
                                     {{ displayedData.lastname }}
                                 </ItemUserField>
                                 <button
@@ -229,7 +236,7 @@ onMounted(() => {
                                         :show="showPassword"
                                         @click="togglePassword()" />
                                 </div>
-                                <span class="pl-3 w-full" v-else>******</span>
+                                <ItemUserField :pending="pending" v-else>******</ItemUserField>
                                 <button
                                     class="bg-[#F1E798] text-black px-3.5 rounded-sm ml-8"
                                     type="button"
@@ -244,6 +251,7 @@ onMounted(() => {
                                     {{ isOpen.password ? '✕' : 'Edit' }}
                                 </button>
                             </li>
+
                             <div v-if="isOpen.password">
                                 <span class="min-w-36">Confirm</span>
                                 <div class="relative w-full mr-[9.125rem]">
@@ -260,13 +268,13 @@ onMounted(() => {
 
                             <li class="border-t border-[#E0E0E0] dark:border-dark-border">
                                 <span class="min-w-36">Email</span>
-                                <ItemUserField>
+                                <ItemUserField :pending="pending">
                                     {{ displayedData.email }}
                                 </ItemUserField>
                             </li>
                             <li class="border-t border-[#E0E0E0] dark:border-dark-border">
                                 <span class="min-w-36">Member since</span>
-                                <ItemUserField>
+                                <ItemUserField :pending="pending">
                                     {{ formattedDate }}
                                 </ItemUserField>
                             </li>
@@ -293,6 +301,7 @@ onMounted(() => {
                                     >
                                     <AlertDialogAction
                                         class="transition-colors dark:hover:bg-zinc-800 border-none dark:bg-zinc-900 bg-zinc-200 hover:bg-zinc-300"
+                                        @click="handleDeleteAccount"
                                         >Continue</AlertDialogAction
                                     >
                                 </AlertDialogFooter>
